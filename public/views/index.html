@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Date Picker</title>
+	<script src="javascripts/main.js"></script>
+	<link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+	<h1>CoastLine <span>Booking </span></h1>
+	<label id="current-bookings">Current bookings:</label>
+	<div id="date-picker" class="date-picker" >
+		<div id="selected-date" class="selected-date" ></div>
+		<div id="dates" class="dates">
+			<div id="month" class="month">
+				<div id="arrows prev-mth" class="arrows prev-mth">&lt;</div>
+				<div id="mth" class="mth"></div>
+				<div id="arrows next-mth" class="arrows next-mth">&gt;</div >
+			</div>
+			<div id="days" class="days"></div>
+		</div>
+	</div>
+	<div>
+		<ul class="form-style-1">
+			<li>			
+				<p>Selecione a tour:</p>
+				<input type="radio" name="tour" value="1" onclick="radioClick('1');"checked> Benagil Normal<br>
+				<input type="radio" name="tour" value="2" onclick="radioClick('2');"> Benagil Private (Compra todos lugares)<br>
+				<input type="radio" name="tour" value="3" onclick="radioClick('3');"> Benagil Express<br>  
+			</li>
+			<li>
+				<label><span id="required1" class="required"></span></label>
+				<div id="normaltour">
+					<p>Selecione a hora:</p>
+					<input id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');" checked> 9h-11h<span id="cb1Text"></span><br>
+					<input id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');"> 11h-13h<span id="cb2Text"></span><br>
+					<input id="cb3" type="radio" name="hora" value="3" onclick="cbClick('3');"> 14h-16h<span id="cb3Text"></span><br>
+					<input id="cb4" type="radio" name="hora" value="2" onclick="cbClick('4');"> 16h-18h<span id="cb4Text"></span><br>
+					<input id="cb5" type="radio" name="hora" value="3" onclick="cbClick('5');"> 18h-20h<span id="cb5Text"></span><br>  
+				</div>
+				<div id="privatetour" style="display:none;">
+					<input id="cbprivate" type="radio" name="h1" value="18" checked> 18h-20h<br><br>
+				</div>
+				<div id="expresstour" style="display:none;">
+					<input id="cbexpress" type="radio" name="h1" value="13" checked>13h-14h<span id="rExpressText"></span><br><br>
+				</div>
+			</li>
+			<li><div id="lugares" class="lugares">
+				<label>Número de lugares:<span id="required5" class="required">*</span></label><div id="privatetourdiv" style="display:none"> 10 (300EUR) </div>
+				<div id="lugares_adulto">
+					<div id="la-normal"><h3>adulto</h3><b>30,00 €</b></div><div id="la-express" style="display:none;"><h3>adulto</h3><b>20,00 €</b></div>
+					<input id="adultomenos" type="button" value="-" class="button-minus" onclick="adultoMenos()">
+					<input id="adultonum" type="number" step="1" max="" value=0 name="category_1738" class="quantity-field" readonly="">
+					<input id="adultomais" type="button" value="+" class="button-plus" onclick="adultoMais()">
+				</div>
+				<div id="lugares_crianca">
+					<div id="lc-normal"><h3>Criança (dos 3 aos 10 anos)</h3><b>15,00 €</b></div><div id="lc-express" style="display:none;"><h3>Criança (dos 3 aos 10 anos)</h3><b>12,5 €</b></div>
+					<input id="ciancamenos" type="button" value="-" class="button-minus" onclick="criancaMenos()">
+					<input id="ciancanum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
+					<input id="ciancamais"type="button" value="+" class="button-plus" onclick="criancaMais()">
+				</div>
+			</li>			
+			<li><label>Nome <span id="required2" class="required">*</span></label>
+				<input id="field1" type="text" name="field1" class="field-divided" placeholder="Primeiro"/> 
+				<input id="field2" type="text" name="field2" class="field-divided" placeholder="Último"/></li>
+			<li>
+				<label>Email <span id="required3" class="required">*</span></label>
+				<input id="field3" type="email" name="field3" class="field-long" />
+			</li>
+			<li>
+				<label>Telefone <span id="required4" class="required">*</span></label>
+				<input id="field4" type="tel" name="field4" class="field-long" />
+			</li>
+			<li>
+				<label>Observações (Não obrigátório) </label>
+				<textarea id="field5" name="field5" class="field-long field-textarea"></textarea id="field5">
+			</li>
+			<li>
+				<button onclick="reserva()"> Reservar </button>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
