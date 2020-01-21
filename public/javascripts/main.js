@@ -1,10 +1,12 @@
-var allBookings;
 var currDay, currMonth, currYear, selectedDay, selectedMonth, selectedYear;
 var lugaresMax = [10,10,10,10,10];
+var bebeLugaresMax = [3,3,3,3,3];
 var adultCount = 0;
 var criancaCount = 0;
+var bebeCount = 0;
 var price = 0;
 var maxSeats = 10;
+var bebeMaxSeats = 3;
 var tour="normal";
 var conditions = ["9h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
 
@@ -102,7 +104,6 @@ window.onload = function() {
 				selected_date_element.textContent = formatDate(selectedDate);
 				selected_date_element.dataset.value = selectedDate;
 				populateDates();
-				checkBookings(formatDate(selectedDate));
 				getSeatsFromDate(selectedDay, selectedMonth, selectedYear);
 			});
 			days_element.appendChild(day_element);
@@ -167,15 +168,17 @@ function reserva(){
 	}else{
 		document.getElementById('required4').innerHTML = "*";
 	}
-	if(adultCount==0 && criancaCount==0){
+	if(adultCount==0 && criancaCount==0 && tour!="private"){
 		document.getElementById('required5').innerHTML = "Selecione o número de bilhetes";
+		flag=1;
+	}else if(tour=="private" && maxSeats==0){
+		document.getElementById('required5').innerHTML = "Esta 'tour' já está reservada";
 		flag=1;
 	}else{
 		document.getElementById('required5').innerHTML = "*";
 	}
 	if (flag==0){
 		var time = ""
-		console.log(selectedDate);
 		if (cb1.checked)time = "9h-11h;";
 		else if (cb2.checked)time = " 11h-13h;";
 		else if (cb3.checked)time = " 14h-16h;";
@@ -198,9 +201,6 @@ function cleanDate(date){
 	index = date.indexOf("/");
 	var mes =date.substring(0,index);
 	var ano = date.substring(index+1);
-	console.log("dia: ",dia);
-	console.log("mes: ",mes);
-	console.log("ano: ",ano);
 	return {d: dia, m: mes, a: ano};
 }
 async function sendReservation(dia, mes, ano, horas, fname, lname, mail, tel, text, type){
@@ -223,57 +223,11 @@ async function sendReservation(dia, mes, ano, horas, fname, lname, mail, tel, te
 	const options = {
 	  method: 'POST',
 	  headers:{'Content-Type':'application/json'},
-	  body: JSON.stringify({y:ano, m:mes, d:dia, time:horas, fname:fname, lname:lname, mail:mail, tel:tel, text:text, seats:lugares,price:preco, type:type, boat:barco})
+	  body: JSON.stringify({y:ano, m:mes, d:dia, time:horas, fname:fname, lname:lname, mail:mail, tel:tel, text:text, seats:lugares,price:preco, type:type, boat:barco, baby:bebeCount})
 	};
 	const res = await fetch('/Reservation', options);
 	const data = await res.json();
 	location.reload();
-}
-async function getBookings(date, time, fname, lname, mail, tel, text){
-	const options = {
-	  method: 'POST',
-	  headers:{'Content-Type':'application/json'},
-	  body: JSON.stringify({date:date, time:time, fname:fname, lname:lname, mail:mail, tel:tel, text:text})
-	};
-	const res = await fetch('/getBookings', options);
-	const data = await res.json();
-	var str = "<br>";
-	console.log(data.bookings);
-	allBookings = data.bookings;
-	for (var i = 0; i < data.bookings.length; i++){
-		str += JSON.stringify(data.bookings[i])+"<br>";
-	}
-	document.getElementById('current-bookings').innerHTML += str;
-}
-
-function checkBookings(data){
-	const cb1 = document.getElementById('cb1');
-	const cb2 = document.getElementById('cb2');
-	const cb3 = document.getElementById('cb3');
-	const cb4 = document.getElementById('cb4');
-	const cb5 = document.getElementById('cb5');
-	cb1.disabled = false;
-	cb2.disabled = false;
-	cb3.disabled = false;
-	cb4.disabled = false;
-	cb5.disabled = false;
-	cb1.checked = false;
-	cb2.checked = false;
-	cb3.checked = false;
-	cb4.checked = false;
-	cb5.checked = false;
-	var str = document.getElementById('current-bookings').innerHTML;
-	var index1 = str.indexOf(data);
-	var temp = str.substring(index1);
-	var index2 = temp.indexOf("<br>");
-	temp = temp.substring(0,index2);
-	if (index1!=-1){
-		if(temp.includes("9h-11h")) cb1.disabled = true;
-		if(temp.includes("11h-13h")) cb2.disabled = true;
-		if(temp.includes("14h-16h")) cb3.disabled = true;
-		if(temp.includes("16h-18h")) cb4.disabled = true;
-		if(temp.includes("18h-20h")) cb5.disabled = true;
-	}
 }
 
 async function getPrivateBookings(){
@@ -295,7 +249,7 @@ async function getPrivateBookings(){
 		var dia = str.substring(index+1);
 		finaldate = dia+" / "+mes+" / "+ano;
 		var dayDiv = document.getElementById(finaldate);
-		if(dayDiv!=null) dayDiv.style.backgroundColor = "red"
+		if(dayDiv!=null) dayDiv.style.backgroundColor = "red";
 	}
 }
 
@@ -369,24 +323,20 @@ async function getExpressBookings(){
 }
 
 async function getSeatsFromDate(){
-	lugaresMax[0] = 10;
-	lugaresMax[1] = 10;
-	lugaresMax[2] = 10;
-	lugaresMax[3] = 10;
-	lugaresMax[4] = 10;
-	var barco = 1;
+	resetValues();
+	lugaresMax = [10,10,10,10,10];
+	bebeLugaresMax = [3,3,3,3,3];
 	if(tour=="normal"){
 		document.getElementById("cb1").checked = true;
-		barco = 1;
+		var barco = 1;
 	}else if(tour=="private"){
 		document.getElementById("cbprivate").checked = true;
-		barco = 2;
+		var barco = 2;
 	}else if(tour=="express"){
 		document.getElementById("cbexpress").checked = true;
-		barco = 3;
+		var barco = 3;
 	}
 	var finaldate = selectedYear+'-'+(selectedMonth+1)+'-'+selectedDay;
-	console.log(barco, finaldate);
 	const options = {
 		method: 'POST',
 		headers:{'Content-Type':'application/json'},
@@ -395,39 +345,76 @@ async function getSeatsFromDate(){
 	const res = await fetch('/getDateBooking', options);
 	const data = await res.json();
 	if(tour=="normal"){
-		console.log(data.bookings);
 		if(data.bookings[0]==null){
-			document.getElementById("cb1Text").innerHTML = " ("+ lugaresMax[0] + " lugares livres)";
-			document.getElementById("cb2Text").innerHTML = " ("+ lugaresMax[1] + " lugares livres)";
-			document.getElementById("cb3Text").innerHTML = " ("+ lugaresMax[2] + " lugares livres)";
-			document.getElementById("cb4Text").innerHTML = " ("+ lugaresMax[3] + " lugares livres)";
-			document.getElementById("cb5Text").innerHTML = " ("+ lugaresMax[4] + " lugares livres)";
+			document.getElementById("cb1Text").innerHTML = " (10 lugares livres)";
+			document.getElementById("cb2Text").innerHTML = " (10 lugares livres)";
+			document.getElementById("cb3Text").innerHTML = " (10 lugares livres)";
+			document.getElementById("cb4Text").innerHTML = " (10 lugares livres)";
+			document.getElementById("cb5Text").innerHTML = " (10 lugares livres)";
+			document.getElementById("bebeSeatsNum").innerHTML = " (3 lugares livres)";
 		}
 		for(var i = 0; i < data.bookings.length; i++){
-			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("9h-11h"))lugaresMax[0] = (10-data.bookings[i]["SUM(lugares)"]); 
-			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("11h-13h"))lugaresMax[1] = (10-data.bookings[i]["SUM(lugares)"]);
-			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("14h-16h"))lugaresMax[2] = (10-data.bookings[i]["SUM(lugares)"]);
-			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("16h-18h"))lugaresMax[3] = (10-data.bookings[i]["SUM(lugares)"]);
-			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("18h-20h"))lugaresMax[4] = (10-data.bookings[i]["SUM(lugares)"]);
+			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("9h-11h")){
+				lugaresMax[0] = (10-data.bookings[i]["SUM(lugares)"]); 
+				bebeLugaresMax[0] = (3-data.bookings[i]["SUM(bebes)"]); 
+			}
+			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("11h-13h")){
+				lugaresMax[1] = (10-data.bookings[i]["SUM(lugares)"]);
+				bebeLugaresMax[1] = (3-data.bookings[i]["SUM(bebes)"]); 
+			}
+			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("14h-16h")){
+				lugaresMax[2] = (10-data.bookings[i]["SUM(lugares)"]);
+				bebeLugaresMax[2] = (3-data.bookings[i]["SUM(bebes)"]); 
+			}
+			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("16h-18h")){
+				lugaresMax[3] = (10-data.bookings[i]["SUM(lugares)"]);
+				bebeLugaresMax[3] = (3-data.bookings[i]["SUM(bebes)"]); 
+			}
+			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("18h-20h")){
+				lugaresMax[4] = (10-data.bookings[i]["SUM(lugares)"]);
+				bebeLugaresMax[4] = (3-data.bookings[i]["SUM(bebes)"]); 
+			}			
 			document.getElementById("cb1Text").innerHTML = " ("+ lugaresMax[0] + " lugares livres)";
 			document.getElementById("cb2Text").innerHTML = " ("+ lugaresMax[1] + " lugares livres)";
 			document.getElementById("cb3Text").innerHTML = " ("+ lugaresMax[2] + " lugares livres)";
 			document.getElementById("cb4Text").innerHTML = " ("+ lugaresMax[3] + " lugares livres)";
 			document.getElementById("cb5Text").innerHTML = " ("+ lugaresMax[4] + " lugares livres)";
+			document.getElementById("bebeSeatsNum").innerHTML = " ("+ bebeLugaresMax[0] + " lugares livres)";
 		}
 		maxSeats = lugaresMax[0];
+		bebeMaxSeats = bebeLugaresMax[0];
 	}else if(tour=="private"){
 		barco = 2;
+		if(data.bookings[0]==null) {
+			maxSeats=10;
+			bebeMaxSeats=3;
+		}else {
+			maxSeats = 0;
+			bebeMaxSeats=0;
+		}
 	}else if(tour=="express"){
 		maxSeats=10;
-		if (data.bookings[0]!=null) maxSeats = (10-data.bookings[0]["SUM(lugares)"]);
+		if (data.bookings[0]!=null) {
+			maxSeats = (10-data.bookings[0]["SUM(lugares)"]);
+			bebeLugaresMax[0] = (3-data.bookings[0]["SUM(bebes)"]);
+		}
 		document.getElementById("rExpressText").innerHTML = " ("+ maxSeats + " lugares livres)";
 	}
-	document.getElementById("adultonum").value=0;
-	document.getElementById("ciancanum").value=0;
 }
 
-
+function resetValues(){
+	document.getElementById('required1').innerHTML = "*";
+	document.getElementById('required2').innerHTML = "*";
+	document.getElementById('required3').innerHTML = "*";
+	document.getElementById('required4').innerHTML = "*";
+	document.getElementById('required5').innerHTML = "*";
+	document.getElementById("adultonum").value=0;
+	document.getElementById("ciancanum").value=0;
+	document.getElementById("bebenum").value=0;
+	adultCount = 0;
+	criancaCount = 0;
+	bebeCount = 0;
+}
 
 function paintCallendar(){
 	if(tour=="normal"){
@@ -440,32 +427,34 @@ function paintCallendar(){
 }
 
 function adultoMenos(){
-	console.log(adultCount, criancaCount, maxSeats);
 	if(adultCount == 0) return
 	adultCount--;
 	document.getElementById("adultonum").value=adultCount;	
-	console.log(adultCount, criancaCount, maxSeats);
 }
 function adultoMais(){
-	console.log(adultCount, criancaCount, maxSeats);
 	if((adultCount + criancaCount) > (maxSeats-1)) return
 	adultCount++;
 	document.getElementById("adultonum").value=adultCount;	
-	console.log(adultCount, criancaCount, maxSeats);
 }
 function criancaMenos(){
-	console.log(adultCount, criancaCount, maxSeats);
 	if(criancaCount == 0) return
 	criancaCount--;
 	document.getElementById("ciancanum").value=criancaCount;	
-	console.log(adultCount, criancaCount, maxSeats);
 }
 function criancaMais(){
-	console.log(adultCount, criancaCount, maxSeats);
 	if((adultCount + criancaCount) > (maxSeats-1)) return
 	criancaCount++;
-	document.getElementById("ciancanum").value=criancaCount;	
-	console.log(adultCount, criancaCount, maxSeats);
+	document.getElementById("ciancanum").value=criancaCount;
+}
+function bebeMenos(){
+	if(bebeCount == 0) return
+	bebeCount--;
+	document.getElementById("bebenum").value=bebeCount;	
+}
+function bebeMais(){
+	if(bebeCount > (bebeMaxSeats-1)) return
+	bebeCount++;
+	document.getElementById("bebenum").value=bebeCount;
 }
 
 function radioClick(radio){
@@ -475,18 +464,9 @@ function radioClick(radio){
 		document.getElementById("normaltour").style.display = "block";
 		document.getElementById("privatetour").style.display = "none";
 		document.getElementById("expresstour").style.display = "none";
-		document.getElementById("cb1").checked = false;
-		document.getElementById("cb2").checked = false;
-		document.getElementById("cb3").checked = false;
-		document.getElementById("cb4").checked = false;
-		document.getElementById("cb5").checked = false;
-		document.getElementById("cb1").disabled = false;
-		document.getElementById("cb2").disabled = false;
-		document.getElementById("cb3").disabled = false;
-		document.getElementById("cb4").disabled = false;
-		document.getElementById("cb5").disabled = false;
 		document.getElementById("lugares_adulto").style.display = "block";
 		document.getElementById("lugares_crianca").style.display = "block";
+		document.getElementById("lugares_bebes").style.display = "block";
 		document.getElementById("privatetourdiv").style.display = "none";
 		document.getElementById("la-normal").style.display = "block";
 		document.getElementById("la-express").style.display = "none";
@@ -497,20 +477,18 @@ function radioClick(radio){
 		document.getElementById("normaltour").style.display = "none";
 		document.getElementById("privatetour").style.display = "block";
 		document.getElementById("expresstour").style.display = "none";
-		document.getElementById("cbprivate").checked = true;
-		document.getElementById("cbprivate").disabled = true;
 		document.getElementById("lugares_adulto").style.display = "none";
 		document.getElementById("lugares_crianca").style.display = "none";
+		document.getElementById("lugares_bebes").style.display = "none";
 		document.getElementById("privatetourdiv").style.display = "block";
 	}else{
 		tour="express";
 		document.getElementById("normaltour").style.display = "none";
 		document.getElementById("privatetour").style.display = "none";
 		document.getElementById("expresstour").style.display = "block";
-		document.getElementById("cbexpress").checked = true;
-		document.getElementById("cbexpress").disabled = true;
 		document.getElementById("lugares_adulto").style.display = "block";
 		document.getElementById("lugares_crianca").style.display = "block";
+		document.getElementById("lugares_bebes").style.display = "block";
 		document.getElementById("privatetourdiv").style.display = "none";
 		document.getElementById("la-normal").style.display = "none";
 		document.getElementById("la-express").style.display = "block";
@@ -534,8 +512,12 @@ function clearColors(){
 
 function cbClick(cb){
 	maxSeats = (lugaresMax[cb-1]);
+	bebeMaxSeats = (bebeLugaresMax[cb-1]);
 	adultCount=0;
 	criancaCount=0;
+	bebeCount=0;
+	document.getElementById("bebeSeatsNum").innerHTML = "(" + bebeMaxSeats +" lugares livres)"
 	document.getElementById("adultonum").value=0;
 	document.getElementById("ciancanum").value=0;
+	document.getElementById("bebenum").value=0;
 }

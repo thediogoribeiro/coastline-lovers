@@ -44,9 +44,9 @@ app.post('/Reservation',(req, res) => {
     var time = req.body.time;
     var price = req.body.price;
     var boat = req.body.boat;
-    var booking = "INSERT INTO bookings (email, barcoID, lugares, observacoes, data, hora, preco) ";
-    booking +="VALUES ('"+mail+"', "+boat+","+seats+", '"+text+"', '"+year+"-"+month+"-"+day+"','"+time+"', "+price+")";
-    console.log(year, " - ", month," - ", day, time, req.body.fname, req.body.lname, mail, req.body.tel, text, seats);
+    var babys = req.body.baby;
+    var booking = "INSERT INTO bookings (email, barcoID, lugares, bebes, observacoes, data, hora, preco) ";
+    booking +="VALUES ('"+mail+"', "+boat+","+seats+","+babys+", '"+text+"', '"+year+"-"+month+"-"+day+"','"+time+"', "+price+")";
     var query = BD.query('SELECT * FROM clientes WHERE Email = ?',[mail], function(err,res) {
 		if (err) console.log(err);
 		if (res.length > 0) {//user existe
@@ -65,37 +65,32 @@ app.post('/Reservation',(req, res) => {
 	res.send({ status: "ok" });
 });
 
-app.post('/getBookings',(req, res) => {
-    var query = BD.query("SELECT SUM(lugares), data, GROUP_CONCAT(hora SEPARATOR '; ')AS hora FROM bookings GROUP BY data, hora;", function(err,sqlRes) {
-        if (err) console.log(err);
-        res.send({ bookings: sqlRes });
-    });
-});
-
-app.post('/getNormalBookings',(req, res) => {
-    var query = BD.query("SELECT SUM(lugares), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM bookings WHERE barcoID!=3 GROUP BY data;", function(err,sqlRes) {
+app.post('/getNormalBookings',(req, res) => {// eliminei SUM(lugares), SUM(bebes),
+    var query = BD.query("SELECT data, GROUP_CONCAT(hora SEPARATOR '; ') FROM bookings WHERE data>=current_date AND barcoID!=3 GROUP BY data;", function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });
 });
 
 app.post('/getPrivateBookings',(req, res) => {
-    var query = BD.query("SELECT * FROM `bookings` WHERE barcoID=2", function(err,sqlRes) {
+    var query = BD.query("SELECT * FROM `bookings` WHERE data>=current_date AND barcoID=2", function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });
 });
 
 app.post('/getExpressBookings',(req, res) => {
-    var query = BD.query("SELECT * FROM `bookings` WHERE barcoID=3", function(err,sqlRes) {
+    var query = BD.query("SELECT * FROM `bookings` WHERE data>=current_date AND barcoID=3", function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });
 });
 
 app.post('/getDateBooking',(req, res) => {
-    //barco 1 e 2 partilham horario
-    var query = BD.query("SELECT SUM(lugares), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE barcoID="+req.body.type+" AND data='"+req.body.date+"' GROUP BY hora;", function(err,sqlRes) {
+    if (req.body.type==3)  var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE barcoID=3 AND data='"+req.body.date+"' GROUP BY hora;";
+    else if(req.body.type==2) var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE barcoID=2 AND data='"+req.body.date+"' GROUP BY hora;";
+    else var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (barcoID=1 OR barcoID=2) AND data='"+req.body.date+"' GROUP BY hora;";
+    var query = BD.query(sqlStr, function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });
