@@ -1,4 +1,4 @@
-var currDay, currMonth, currYear, selectedDay, selectedMonth, selectedYear;
+var currDay, currMonth, currYear, selectedDay, selectedMonth, selectedYear, date;
 var lugaresMax = [10,10,10,10,10];
 var bebeLugaresMax = [3,3,3,3,3];
 var adultCount = 0;
@@ -12,128 +12,43 @@ var conditions = ["9h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
 
 
 window.onload = function() {
- 	const date_picker_element = document.getElementById('date-picker');
-	const selected_date_element = document.getElementById('selected-date');
-	const dates_element = document.getElementById('dates');
-	const mth_element = document.getElementById('mth');
-	const next_mth_element = document.getElementById('arrows next-mth');
-	const prev_mth_element = document.getElementById('arrows prev-mth');
-	const days_element = document.getElementById('days'); 
-	
-	
-	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	
-	let date = new Date();
+	date = new Date();
 	let day = date.getDate();
 	let month = date.getMonth();
 	let year = date.getFullYear();
 	currDay = day;
 	currMonth = month;
-	currYear = year;
-	
+	currYear = year;	
 	let selectedDate = date;
 	selectedDay = day;
-	selectedMonth = month;
+	selectedMonth = month+1;
 	selectedYear = year;
-	
-	mth_element.textContent = months[month] + ' ' + year;
-	
-	selected_date_element.textContent = formatDate(date);
-	selected_date_element.dataset.value = selectedDate;
-	
-	populateDates();
-	getSeatsFromDate(selectedDay, selectedMonth, selectedYear);
-	
-	// EVENT LISTENERS
-	date_picker_element.addEventListener('click', toggleDatePicker);
-	next_mth_element.addEventListener('click', goToNextMonth);
-	prev_mth_element.addEventListener('click', goToPrevMonth);
-	
-	// FUNCTIONS
-	function toggleDatePicker (e) {
-		paintCallendar();
-		if (!checkEventPathForClass(e.path, 'dates')) dates_element.classList.toggle('active');
-	}
-	
-	function goToNextMonth (e) {
-		month++;
-		if (month > 11) {
-			month = 0;
-			year++;
-		}
-		mth_element.textContent = months[month] + ' ' + year;
-		populateDates();
-		paintCallendar();
-	}
-	
-	function goToPrevMonth (e) {
-		if(month==currMonth) return;
-		month--;
-		if (month < 0) {
-			month = 11;
-			year--;
-		}
-		mth_element.textContent = months[month] + ' ' + year;
-		populateDates();
-		paintCallendar();
-	}
-	
-	function populateDates (e) {
-		var a= {path:"siga"};
-		days_element.innerHTML = '';
-		let amount_days = 31;
-		if (month == 1) amount_days = 28;
-		for (let i = 0; i < amount_days; i++) {
-			var tempdDay, tempMonth;
-			const day_element = document.createElement('div');
-			if(i<9) tempdDay = "0"+(i+1);
-			else tempdDay = (i+1);
-			if(month<9) tempMonth = "0"+(month+1);
-			else tempMonth = (month+1);
-			day_element.id = tempdDay +" / "+tempMonth+" / "+year;
-			day_element.onclick = function(){toggleDatePicker(a)};
-			day_element.classList.add('day');
-			day_element.textContent = i + 1;
-			if (selectedDay == (i + 1) && selectedYear == year && selectedMonth == month) day_element.classList.add('selected');
-			day_element.addEventListener('click', function () {
-				if((i+1)<currDay) return;
-				selectedDate = new Date(year + '-' + (month + 1) + '-' + (i + 1));
-				selectedDay = (i + 1);
-				selectedMonth = month;
-				selectedYear = year;
-				selected_date_element.textContent = formatDate(selectedDate);
-				selected_date_element.dataset.value = selectedDate;
-				populateDates();
-				getSeatsFromDate(selectedDay, selectedMonth, selectedYear);
-			});
-			days_element.appendChild(day_element);
-		}
-	}
-	
-	// HELPER FUNCTIONS
-	function checkEventPathForClass (path, selector) {
-		if(path=="siga") {
-			return false;
-		}
-		for (let i = 0; i < path.length; i++) {
-			if (path[i].classList && path[i].classList.contains(selector)) return true;
-		}	
-		return false;
-	}
-	
-	function formatDate (d) {
-		let day = d.getDate();
-		if (day < 10) day = '0' + day;
-		let month = d.getMonth() + 1;
-		if (month < 10) month = '0' + month;
-		let year = d.getFullYear();
-		return day + ' / ' + month + ' / ' + year;
-	}
+	console.log(selectedDay, selectedMonth, selectedYear);
+	getSeatsFromDate();
+	document.getElementById('dateField').value = selectedDay + "/"+ selectedMonth +"/"+selectedYear;
 };
+
+function dateSelected(){
+	var str = document.getElementById('dateField').value;
+	var index = str.indexOf("/");
+	selectedMonth = str.substring(0,index);
+	str = str.substring(index+1);
+	index = str.indexOf("/");
+	selectedDay = str.substring(0,index);
+	selectedYear = str.substring(index+1);
+	getSeatsFromDate();
+}
 
 function reserva(){
 	var flag = 0;
-	const selectedDate = document.getElementById('selected-date').innerHTML;
+	const currDate = new Date();
+	const selDate = new Date(selectedYear,(selectedMonth-1),selectedDay);
+	const currStrDate = currDate.getFullYear()+"-"+currDate.getMonth()+"-"+currDate.getDate();
+	const selStrDate = selDate.getFullYear()+"-"+selDate.getMonth()+"-"+selDate.getDate();
+	console.log(currDate);
+	console.log(selDate);
+	console.log(currStrDate);
+	console.log(selStrDate);
 	const cb1 = document.getElementById('cb1');
 	const cb2 = document.getElementById('cb2');
 	const cb3 = document.getElementById('cb3');
@@ -177,6 +92,14 @@ function reserva(){
 	}else{
 		document.getElementById('required5').innerHTML = "*";
 	}
+	if(currStrDate==selStrDate){
+		document.getElementById('required6').innerHTML = "*";
+	}else if(currDate>selDate){
+		document.getElementById('required6').innerHTML = "Data inválida";
+		flag=1;
+	}else{
+		document.getElementById('required6').innerHTML = "*";
+	}
 	if (flag==0){
 		var time = ""
 		if (cb1.checked)time = "9h-11h;";
@@ -184,11 +107,7 @@ function reserva(){
 		else if (cb3.checked)time = " 14h-16h;";
 		else if (cb4.checked)time = " 16h-18h;";
 		else if (cb5.checked)time = " 18h-20h;";
-		var fdt = cleanDate(selectedDate);
-		var dia = fdt.d;
-		var mes = fdt.m;
-		var ano = fdt.a;
-		sendReservation(dia, mes, ano, time, field1.value, field2.value, field3.value, field4.value, field5.value, tour);
+		sendReservation(selectedDay, selectedMonth, selectedYear, time, field1.value, field2.value, field3.value, field4.value, field5.value, tour);
 	}
 	return false;
 }
@@ -336,7 +255,7 @@ async function getSeatsFromDate(){
 		document.getElementById("cbexpress").checked = true;
 		var barco = 3;
 	}
-	var finaldate = selectedYear+'-'+(selectedMonth+1)+'-'+selectedDay;
+	var finaldate = selectedYear+'-'+selectedMonth+'-'+selectedDay;
 	const options = {
 		method: 'POST',
 		headers:{'Content-Type':'application/json'},
@@ -356,23 +275,27 @@ async function getSeatsFromDate(){
 		for(var i = 0; i < data.bookings.length; i++){
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("9h-11h")){
 				lugaresMax[0] = (10-data.bookings[i]["SUM(lugares)"]); 
-				bebeLugaresMax[0] = (3-data.bookings[i]["SUM(bebes)"]); 
+				bebeLugaresMax[0] = (3-data.bookings[i]["SUM(bebes)"]);
+				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb1').disabled = true;
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("11h-13h")){
 				lugaresMax[1] = (10-data.bookings[i]["SUM(lugares)"]);
-				bebeLugaresMax[1] = (3-data.bookings[i]["SUM(bebes)"]); 
+				bebeLugaresMax[1] = (3-data.bookings[i]["SUM(bebes)"]);
+				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb2').disabled = true;
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("14h-16h")){
 				lugaresMax[2] = (10-data.bookings[i]["SUM(lugares)"]);
-				bebeLugaresMax[2] = (3-data.bookings[i]["SUM(bebes)"]); 
+				bebeLugaresMax[2] = (3-data.bookings[i]["SUM(bebes)"]);
+				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb3').disabled = true;
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("16h-18h")){
 				lugaresMax[3] = (10-data.bookings[i]["SUM(lugares)"]);
-				bebeLugaresMax[3] = (3-data.bookings[i]["SUM(bebes)"]); 
+				bebeLugaresMax[3] = (3-data.bookings[i]["SUM(bebes)"]);
+				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb4').disabled = true;
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("18h-20h")){
 				lugaresMax[4] = (10-data.bookings[i]["SUM(lugares)"]);
-				bebeLugaresMax[4] = (3-data.bookings[i]["SUM(bebes)"]); 
+				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb5').disabled = true;
 			}			
 			document.getElementById("cb1Text").innerHTML = " ("+ lugaresMax[0] + " lugares livres)";
 			document.getElementById("cb2Text").innerHTML = " ("+ lugaresMax[1] + " lugares livres)";
@@ -403,6 +326,11 @@ async function getSeatsFromDate(){
 }
 
 function resetValues(){
+	document.getElementById('cb1').disabled = false;
+	document.getElementById('cb2').disabled = false;
+	document.getElementById('cb3').disabled = false;
+	document.getElementById('cb4').disabled = false;
+	document.getElementById('cb5').disabled = false;
 	document.getElementById('required1').innerHTML = "*";
 	document.getElementById('required2').innerHTML = "*";
 	document.getElementById('required3').innerHTML = "*";
@@ -411,6 +339,7 @@ function resetValues(){
 	document.getElementById("adultonum").value=0;
 	document.getElementById("ciancanum").value=0;
 	document.getElementById("bebenum").value=0;
+	document.getElementById('dateField').value = selectedDay + "/"+ selectedMonth +"/"+selectedYear;
 	adultCount = 0;
 	criancaCount = 0;
 	bebeCount = 0;
@@ -452,7 +381,7 @@ function bebeMenos(){
 	document.getElementById("bebenum").value=bebeCount;	
 }
 function bebeMais(){
-	if(bebeCount > (bebeMaxSeats-1)) return
+	if((bebeCount > (bebeMaxSeats-1)) || adultCount==0) return
 	bebeCount++;
 	document.getElementById("bebenum").value=bebeCount;
 }
@@ -521,3 +450,4 @@ function cbClick(cb){
 	document.getElementById("ciancanum").value=0;
 	document.getElementById("bebenum").value=0;
 }
+
