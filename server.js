@@ -95,3 +95,33 @@ app.post('/getDateBooking',(req, res) => {
         res.send({ bookings: sqlRes });
     });
 });
+
+app.post('/adminReservations',(req, res) => {
+    var sqlExtra="";
+    console.log(req.body.date);
+    if(req.body.id!="") sqlExtra+= " AND ID="+req.body.id;
+    if(req.body.boat!=0) sqlExtra+= " AND barcoID="+req.body.boat;
+    if(req.body.date!="") sqlExtra+= " AND data='"+req.body.date+"'";
+    if(req.body.fname!="") sqlExtra+= " AND primeiroNome='"+req.body.fname+"'";
+    if(req.body.lname!="") sqlExtra+= " AND ultimoNome='"+req.body.lname+"'";
+    if(req.body.email!="") sqlExtra+= " AND bookings.email='"+req.body.email+"'";
+    if(req.body.telefone!="") sqlExtra+= " AND telefone='"+req.body.telefone+"'";
+    var query = BD.query("SELECT * FROM bookings, clientes WHERE bookings.email=clientes.email"+sqlExtra+" ORDER BY data;", function(err,sqlRes) {
+        if (err) console.log(err);
+        res.send({ bookings: sqlRes });
+    });
+});
+
+app.post('/deleteReservation',(req, res) => {
+    var query = BD.query("UPDATE bookings SET info_apagada=concat(lugares,'; ',bebes,'; ',data,'; ',hora,'; ',preco), lugares=0, bebes=0, data='1999-01-01', hora='0h', preco=999999 WHERE ID="+req.body.id+" AND email='"+req.body.email+"';", function(err,sqlRes) {
+        if (err) console.log(err);
+        res.send({ client: sqlRes });
+    });
+});
+
+app.post('/modReservation',(req, res) => {
+    var query = BD.query("UPDATE bookings SET info_apagada=concat(lugares,'; ',bebes,'; ',data,'; ',hora,'; ',preco), lugares=0, bebes=0, data='1999-01-01', hora='0h', preco=999999 WHERE ID="+req.body.id+" AND email='"+req.body.email+"';", function(err,sqlRes) {
+        if (err) console.log(err);
+        res.send({ client: sqlRes });
+    });
+});
