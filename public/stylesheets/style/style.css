@@ -1,0 +1,115 @@
+@media screen and (min-width: 1024px) {
+  .hide__lg {
+    display: none; } }
+
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+  .hide__sm {
+    display: none; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #navbar {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #navbar {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #navbar {
+    padding: 40px 30px; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #header {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #header {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #header {
+    padding: 40px 30px; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #about {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #about {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #about {
+    padding: 40px 30px; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #tours {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #tours {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #tours {
+    padding: 40px 30px; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #rents {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #rents {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #rents {
+    padding: 40px 30px; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #testimonials {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #testimonials {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #testimonials {
+    padding: 40px 30px; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #gallery {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #gallery {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #gallery {
+    padding: 40px 30px; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #contacts {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #contacts {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #contacts {
+    padding: 40px 30px; } }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  #footer {
+    padding: 20px 10px; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #footer {
+    padding: 30px 20px; } }
+
+@media screen and (min-width: 1024px) {
+  #footer {
+    padding: 40px 30px; } }

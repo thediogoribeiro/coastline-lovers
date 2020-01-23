@@ -4,33 +4,45 @@
 	<title>Coastline Lovers</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="/public/stylesheets/styles.css">
-	<script type="text/javascript" src="/public/javascripts/script.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style/style.css">
+	<script type="text/javascript" src="javascripts/script.js"></script>
 </head>
 <body>
-	<navbar id="nabvar" class="container">
+	<navbar id="navbar" class="container">
 		<div class="nav__box row">
 
 			<div class="nav__logo">
 
 			</div>
-			<div class="nav__about">
+			<div class="nav__about" href="#about">
 				<h3>SOBRE NÓS</h3>
 			</div>
-			<div class="nav__tours">
+			<div class="nav__tours" href="#tours">
 				<h3>TOURS</h3>
 			</div>
-			<div class="nav__rents">
+			<div class="nav__rents" href="#rents">
 				<h3>RENTS</h3>
 			</div>
-			<div class="nav__testimonials">
+			<div class="nav__testimonials" href="#testimonials">
 				<h3>TESTEMUNHOS</h3>
 			</div>
-			<div class="nav__gallery">
+			<div class="nav__gallery" href="#gallery">
 				<h3>GALERIA</h3>
 			</div>
-			<div class="nav__contacts">
+			<div class="nav__contacts" href="#contacts">
 				<h3>CONTACTOS</h3>
+			</div>
+
+			<a id="icon" class="icon"> 
+		  	<i class="fas fa-bars fa-2x" onclick="showBurger()"></i>
+		  </a>
+			<div id="menu__links" class="menu__links">
+				<a href="#about">SOBRE NÓS</a>
+				<a href="#tours">TOURS</a>
+				<a href="#rents">RENTS</a>
+				<a href="#testimonials">TESTEMUNHOS</a>
+				<a href="#gallery">GALERIA</a>
+				<a href="#contacts">CONTACTOS</a>
 			</div>
 
 		</div>
@@ -286,6 +298,9 @@
 
 		</div>
 	</footer>
+
+	<!-- FONT AWESOME -->
+	<script src="https://kit.fontawesome.com/a1645ab757.js" crossorigin="anonymous"></script>
 
 </body>	
 
