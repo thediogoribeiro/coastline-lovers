@@ -5,35 +5,106 @@
 	<link rel="stylesheet" href="stylesheets/admin.css" />
 </head>
 <body>
-	<input type="radio" name="admin" value="1" onclick="adminrChange('1');"checked> Pesquisar bookings<br>
-	<input type="radio" name="admin" value="2" onclick="adminrChange('2');"> Eliminar bookings<br>
-	<input type="radio" name="admin" value="3" onclick="adminrChange('3');"> Modificar bookings<br> 
-	<input type="radio" name="admin" value="3" onclick="adminrChange('3');"> Inserir bookings<br> <br><br>
-	<div id="searchBookings">
-		Pesquisar por:<br>
-		ID:<input id="idField" type="text" name="field1" class="" size="8" placeholder=" 1234" onkeyup="textEnter(event)"/>
-		Tour:<input id="tourField" type="text" name="field1" class="" size="8" placeholder="Normal" onkeyup="textEnter(event)"/>
-		Data:<input id="dateField" type="text" name="field1" class="" size="8" placeholder=" 2020-01-30" onkeyup="textEnter(event)"/>
-		Primeiro Nome:<input id="fNameField" type="text" name="field1" class="" size="10" placeholder=" Jorge" onkeyup="textEnter(event)"/>
-		Último Nome:<input id="lNameField" type="text" name="field1" class="" size="10" placeholder=" Almeida" onkeyup="textEnter(event)"/>
-		Email:<input id="emailField" type="text" name="field1" class="" size="30" placeholder=" exemplo@cll.pt" onkeyup="textEnter(event)"/>
-		Telefone:<input id="telField" type="text" name="field1" class="" size="10" placeholder=" 931231231" onkeyup="textEnter(event)"/><br><br>
+	<input type="radio" name="admin" value="3" onclick="adminrChange('3');" checked> Modificar dados<br> 
+	<input type="radio" name="admin" value="2" onclick="adminrChange('2');"> Eliminar reservas<br>
+	<input type="radio" name="admin" value="4" onclick="adminrChange('4');"> Inserir reserva<br> <br><br>
+	<div id="div_search">	Pesquisar por:<br>
+		ID:<input id="idField" type="text" name="field1" class="" size="8" placeholder=" 1234" onkeyup="textEnter('search')" autocomplete="off"/>
+		Primeiro Nome:<input id="fNameField" type="text" name="field1" class="" size="8" placeholder=" Jorge" onkeyup="textEnter('search')" autocomplete="off"/>
+		Último Nome:<input id="lNameField" type="text" name="field1" class="" size="8" placeholder=" Almeida" onkeyup="textEnter('search')" autocomplete="off"/>
+		Email:<input id="emailField" type="text" name="field1" class="" size="30" placeholder=" exemplo@cll.pt" onkeyup="textEnter('search')" autocomplete="off"/>
+		Telefone:<input id="telField" type="text" name="field1" class="" size="10" placeholder=" 931231231" onkeyup="textEnter('search')" autocomplete="off"/>
+		Tour:<select id="tourField" onkeyup="textEnter('search')">
+			<option value="" selected disabled hidden> Escolha o tour</option>
+			<option value="normal" > Normal</option>
+			<option value="private" > Private</option>
+			<option value="express" > Express</option>
+		</select>
+		Data:<input id="dateField" type="text" name="field1" class="" size="8" placeholder=" 2020-01-30" onkeyup="textEnter('search')" autocomplete="off"/>
+		<br><br>
+		_____________________________________________________________________________________________________________________________________________________________
+		<br><br>
 	</div>
-	<div id="deleteBookings" style="display:none;">
-		ID:<input id="idField2" type="text" name="field1" class="" size="8" placeholder=" 1234" />
-		Email:<input id="emailField2" type="text" name="field1" class="" size="30" placeholder=" exemplo@cll.pt"/>
+	<div id="modBookings">
+		Novos dados:<br>
+		Nome:<input id="newfNameField" type="text" name="field1" class="" size="8" placeholder=" Jorge" autocomplete="off"/> 
+				  <input id="newlNameField" type="text" name="field1" class="" size="8" placeholder=" Almeida" autocomplete="off"/>
+		Email:<input id="newemailField" type="text" name="field1" class="" size="30" placeholder=" novoEmail@cll.pt" autocomplete="off"/>
+		Telefone:<input id="newtelField" type="text" name="field1" class="" size="10" placeholder=" 931231231" autocomplete="off"/>
+		Tour:<select id="newtourField" onchange="changetour()">
+			<option value="same" > </option>
+			<option value="normal" > Normal</option>
+			<option value="private" > Private</option>
+			<option value="express" > Express</option>
+		</select>
+		Adultos:<select id="newfieldadults">
+			<option value="" > </option><option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
+			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
+		</select>
+		Crianças:<select id="newfieldchildren">
+			<option value="" > </option><option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
+			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
+		</select>
+		Bebés:<select id="newfieldbaby">
+			<option value="" > </option><option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
+			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
+		</select><br><br>
+		Obs:<input id="newobsField" type="text" name="field1" class="" size="35" placeholder=" Obs" autocomplete="off"/>
+		Data:<input id="newdateField" type="text" name="field1" class="" size="8" placeholder=" 1999-01-01" autocomplete="off"/>
+		hora:
+		<select id="newtimeSelect">
+			<option value="same" > </option>
+			<option value="9h-11h" > 9h-11h</option>
+			<option value="11h-13h" > 11h-13h</option>
+			<option value="13h-14h" > 13h-14h</option>
+			<option value="14h-16h" > 14h-16h</option>
+			<option value="16h-18h" > 16h-18h</option>
+			<option value="18h-20h" > 18h-20h</option>  
+		</select>
+		A Receber:<input id="newrecField" type="text" name="field1" class="" size="4" placeholder=" 0" autocomplete="off"/>
+		A pagar:<input id="newpagField" type="text" name="field1" class="" size="4" placeholder=" 0" autocomplete="off"/><br><br>
+		<button type="button" onclick="modReservas();">Modificar dados</button><br><br>
+	</div>
+	<div id="deleteBookings"style="display:none;">
 		<button type="button" onclick="eliminarReservas();">Eliminar reserva</button><br><br>
 	</div>
-	<div id="modBookings" style="display:none;">
-		ID:<input id="idField3" type="text" name="field1" class="" size="8" placeholder=" 1234" />
-		Email:<input id="emailField3" type="text" name="field1" class="" size="30" placeholder=" exemplo@cll.pt"/><br><br><br>
-		Novo Tour:<input id="newtourField" type="text" name="field1" class="" size="8" placeholder="Normal" onkeyup="textEnter(event)"/>
-		Nova Data:<input id="newdateField" type="text" name="field1" class="" size="8" placeholder=" 2020-01-30" onkeyup="textEnter(event)"/>
-		Novo Nome:<input id="newfNameField" type="text" name="field1" class="" size="10" placeholder=" Jorge" onkeyup="textEnter(event)"/> <input id="lNameField3" type="text" name="field1" class="" size="10" placeholder=" Almeida" onkeyup="textEnter(event)"/>
-		Novo Email:<input id="newemailField" type="text" name="field1" class="" size="30" placeholder=" exemplo@cll.pt" onkeyup="textEnter(event)"/>
-		Novo Telefone:<input id="newtelField" type="text" name="field1" class="" size="10" placeholder=" 931231231" onkeyup="textEnter(event)"/>
-		<button type="button" onclick="modificarReservas();">Modificar reserva</button><br><br>
-	</div>
 	<div id="sqlresult"></div>
+	<div id="insertBookings" style="display:none;">
+		Nome:<input id="insertfieldfname" type="text" name="field1" class="" size="8" placeholder=" Jorge" autocomplete="off"/> 
+		<input id="insertfieldlname" type="text" name="field1" class="" size="8" placeholder=" Almeida" autocomplete="off"/>
+		Email:<input id="insertfieldemail" type="text" name="field1" class="" size="30" placeholder=" novoEmail@cll.pt" autocomplete="off"/>
+		Telefone:<input id="insertfieldtel" type="text" name="field1" class="" size="10" placeholder=" 931231231" autocomplete="off"/>
+		Tour:<select id="insertselecttour" onchange="changetour()">
+			<option value="normal" > Normal</option>
+			<option value="private" > Private</option>
+			<option value="express" > Express</option>
+		</select>
+		Adultos:<select id="insertfieldadults" >
+			<option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
+			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
+		</select>
+		Crianças:<select id="insertfieldchildren" >
+			<option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
+			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
+		</select>
+		Bebés:<select id="insertfieldbaby">
+			<option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
+			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
+		</select><br><br>
+		Obs:<input id="insertfieldobs" type="text" name="field1" class="" size="35" placeholder=" Obs" autocomplete="off"/>
+		Data:<input id="insertfielddate" type="text" name="field1" class="" size="8" placeholder=" 1999-01-01" autocomplete="off"/>
+		hora:<select id="insertselecttime">
+			<option value="9h-11h" > 9h-11h</option>
+			<option value="11h-13h" > 11h-13h</option>
+			<option value="13h-14h" > 13h-14h</option>
+			<option value="14h-16h" > 14h-16h</option>
+			<option value="16h-18h" > 16h-18h</option>
+			<option value="18h-20h" > 18h-20h</option> 
+		</select>
+		A Receber:<input id="insertfieldreceive" type="text" name="field1" class="" size="4" placeholder=" 0" autocomplete="off"/>
+		A pagar:<input id="insertfieldpay" type="text" name="field1" class="" size="4" placeholder=" 0" autocomplete="off"/><br><br>
+		<button type="button" onclick="inserirReserva();">Inserir reserva</button><br><br>
+	</div>
+	
 </body>
 </html>
