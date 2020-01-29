@@ -4,39 +4,43 @@
 	<title>Coastline Lovers</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- CSS -->
   <link rel="stylesheet" href="/stylesheets/style/style.css">
+  <!-- INSTAFEED -->
+	<script type="text/javascript" src="javascripts/instafeed.min.js"></script>
+	<!-- JS -->
 	<script type="text/javascript" src="javascripts/script.js"></script>
 </head>
 <body>
-	<navbar id="navbar" class="container">
-		<div class="nav__box row">
+	<div id="navbar" class="">
+		<div class="nav__box container">
 
 			<div class="nav__logo">
-
+				<img src="">
 			</div>
-			<div class="nav__about" href="#about">
+			<div class="nav__about hide__sm" href="#about">
 				<h3>SOBRE NÓS</h3>
 			</div>
-			<div class="nav__tours" href="#tours">
+			<div class="nav__tours hide__sm" href="#tours">
 				<h3>TOURS</h3>
 			</div>
-			<div class="nav__rents" href="#rents">
+			<div class="nav__rents hide__sm" href="#rents">
 				<h3>RENTS</h3>
 			</div>
-			<div class="nav__testimonials" href="#testimonials">
+			<div class="nav__testimonials hide__sm" href="#testimonials">
 				<h3>TESTEMUNHOS</h3>
 			</div>
-			<div class="nav__gallery" href="#gallery">
+			<div class="nav__gallery hide__sm" href="#gallery">
 				<h3>GALERIA</h3>
 			</div>
-			<div class="nav__contacts" href="#contacts">
+			<div class="nav__contacts hide__sm" href="#contacts">
 				<h3>CONTACTOS</h3>
 			</div>
 
 			<a id="icon" class="icon"> 
-		  	<i class="fas fa-bars fa-2x" onclick="showBurger()"></i>
+		  	<i class="fas fa-bars fa-3x" onclick="showBurger()"></i>
 		  </a>
-			<div id="menu__links" class="menu__links">
+			<div id="menu__links" class="menu__links hide__sm">
 				<a href="#about">SOBRE NÓS</a>
 				<a href="#tours">TOURS</a>
 				<a href="#rents">RENTS</a>
@@ -46,21 +50,22 @@
 			</div>
 
 		</div>
-	</navbar>
+	</div>
 
-	<div id="header" class="container">
-		<div class="head__box row">
+	<div id="header" class="">
+		<div class="head__box container">
 
 			<div class="head__title">
 				<h1 class="">GRUTAS DE BENAGIL</h1>
 			</div>
 
 			<div class="head__text">
-				<h3>Conheça as grutas mais famosos da costa algarvia.</p>
-				<h3>Uma experiência verdadeiramente incrível!</p>
+				<h3>Conheça as grutas mais famosos da costa algarvia.</h5>
+				<h3>Uma experiência verdadeiramente incrível!</h5>
 			</div>
 
 			<div class="head__button">
+				<h2 class="button">RESERVE JÁ</h2>
 			</div>
 
 		</div>
@@ -70,11 +75,11 @@
 		<div class="about__box row">
 
 			<div class="about__title">
-				<h2 class="">Sobre Nós</h2>
+				<h2 class="">SOBRE NÓS</h2>
 			</div>
 
 			<div class="about__text">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Lobortis feugiat vivamus at augue. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Facilisi nullam vehicula ipsum a arcu. Enim eu turpis egestas pretium. Scelerisque in dictum non consectetur a erat.</p>
+				<h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Lobortis feugiat vivamus at augue. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Facilisi nullam vehicula ipsum a arcu. Enim eu turpis egestas pretium. Scelerisque in dictum non consectetur a erat.</h5>
 			</div>
 
 		</div>
@@ -88,7 +93,7 @@
 			</div>
 
 			<div class="tours__text">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac.</p>
+				<h5>Tenha uma experiência incrível num dos nossos tours na costa algarvia. Venha conhecer a famosa gruta de Benagil.</h5>
 			</div>
 
 			<div class="tours-1">
@@ -129,7 +134,7 @@
 			</div>
 
 			<div class="rents__text">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac.</p>
+				<h5>Todos os nossos Rents são efetuados na maravilhosa Praia Nossa Senhora da Rocha, XXXXX Atreves-te a experimentar?</h5>
 			</div>
 
 			<div class="rents-1">
@@ -189,22 +194,23 @@
 		</div>
 	</div>
 
-	<div id="testimonials" class="container">
-		<div class="testimonials__box row">
+	<div id="testimonials" class="">
 
-			<div class="testimonials__title">
-				<h2 class="">O QUE DIZEM OS NOSSOS CLIENTES</h2>
-			</div>
+		<div class="testimonials__title">
+			<h2 class="">O QUE DIZEM OS NOSSOS CLIENTES</h2>
+		</div>
+
+		<div class="testimonials__box container">
 
 			<div class="testimonials__text">
-				<p>“Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão.</p>
-				<p>Fernando Sousa, Porto</p>
+				<h3>“Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão.</h3>
+				<h3>Fernando Sousa, Porto</h3>
 			</div>
 
 		</div>
 	</div>
 
-	<div id="galley" class="container">
+	<div id="gallery" class="container">
 		<div class="gallery__box row">
 
 			<div class="gallery__text">
@@ -216,7 +222,7 @@
 				<button class="">Seguir no instagram</button>
 			</div>
 
-			<div class="gallery__insta__api">
+			<div class="gallery__insta__api instafeed">
 			</div>
 
 		</div>
@@ -226,19 +232,23 @@
 		<div class="contacts__box row">
 
 			<div class="contacts__title">
-				<h4>MAIS INFORMAÇÔES</h4>
+				<h2>FALE CONNOSCO</h2>
 			</div>
 
 			<div class="contacts__icon-1">
+				<i class="fas fa-phone-alt fa-2x"></i>
+				<div class="icon__circle-1"></div>
 			</div>
 
 			<div class="contacts__icon-2">
+				<i class="far fa-envelope fa-2x"></i>
+				<div class="icon__circle-2"></div>
 			</div>
 
 		</div>
 	</div>
 
-	<footer id="footer" class="container">
+	<div id="footer" class="container">
 		<div class="footer__box container">
 
 			<div class="footer__logo">
@@ -246,24 +256,24 @@
 			</div>
 
 			<div class="footer__info">
-				<div class="footer__info">
+				<div class="footer__maisinfo">
 					<h4>MAIS INFORMAÇÔES</h4>
 				</div>
 				<div class="footer__phone">
-					<a>
+					<a></a>
 					<p>+351 969 999 999</p>
 				</div>
 				<div class="footer__email">
-					<a>
+					<a></a>
 					<p>booking@coastlinelovers.com</p>
 				</div>
 				<div class="footer__street">
-					<a>
+					<a></a>
 					<p>Clube Naval de Portimão, Portimão 8500</p>
 				</div>
 			</div>
 			
-			<div class="footer__menu">
+			<div class="footer__nav">
 				<div class="footer__menu">
 					<h4>MENU</h4>
 				</div>
@@ -289,15 +299,26 @@
 
 			<div class="footer__icons">
 				<div class="footer__icon-1">
+					<i class="fab fa-youtube fa-2x"></i>
 				</div>
 				<div class="footer__icon-2">
+					<i class="fab fa-instagram fa-2x"></i>
 				</div>
 				<div class="footer__icon-3">
+					<i class="fab fa-facebook-square fa-2x"></i>
 				</div>
 			</div>
 
 		</div>
-	</footer>
+
+		<div id="trademark" style="margin-top: 30px">
+			<div class="my__mark container" style="text-align: right">
+				<a href="www.iamdiogoribeiro.com" style="color: $white"></a>
+				<p>Made by Digital Studio</p>
+			</div>
+		</div>
+
+	</div>
 
 	<!-- FONT AWESOME -->
 	<script src="https://kit.fontawesome.com/a1645ab757.js" crossorigin="anonymous"></script>

@@ -1,0 +1,33 @@
+#navbar
+	position: absolute
+	z-index: 2
+	width: 90%
+
+	.nav__box
+		display: grid
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-template-rows: 1fr
+			grid-template-columns: 1fr 1fr
+		@media screen and (min-width: $lg)
+			grid-template-rows: 1fr
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr
+
+	.icon
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 1
+			grid-row-end: 2
+			grid-column-start: 2
+			grid-column-end: 3
+			text-align: right
+	
+	.fas
+		color: $white
+
+	.menu__links
+		grid-column-start: 2
+		grid-column-end: 3
+		text-align: right
+		
+
+
+

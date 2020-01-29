@@ -1,0 +1,31 @@
+#testimonials
+	@media screen and (min-width: $xs) and (max-width: $lg - 1)
+		display: grid
+		grid-template-columns: 1fr
+		grid-template-rows: 1fr 3fr
+
+	.testimonials__title
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 1
+			grid-row-end: 2
+			grid-column-start: 1
+			grid-column-end: 2
+			text-align: center
+			padding: auto
+
+	.testimonials__box
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 2
+			grid-row-end: 3
+			grid-column-start: 1
+			grid-column-end: 2
+			text-align: center
+			margin: 0 -2.5% 0 -2.5%
+			background: url("/assets/testimonials.jpg") no-repeat center
+
+	.testimonials__text
+		background-color: rgba(14,51,86, 0.5)
+		padding: 0.75em 0.5em
+
+
+			 

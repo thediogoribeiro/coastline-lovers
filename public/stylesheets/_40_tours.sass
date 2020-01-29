@@ -1,0 +1,91 @@
+#tours	
+	.tours__box
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			display: grid
+			grid-template-columns: 100%
+			grid-template-rows: 1fr 1fr 1fr 1fr
+			width: 100%
+
+	.tours__title
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 1
+			grid-row-end: 2
+			grid-column-start: 1
+			grid-column-end: 2
+			text-align: center
+			align-self: center
+
+	.tours__text
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 1
+			grid-row-end: 2
+			grid-column-start: 1
+			grid-column-end: 2
+			text-align: justify
+			align-self: end
+
+	.tours-1
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 2
+			grid-row-end: 3
+			grid-column-start: 1
+			grid-column-end: 2
+			width: 100%
+
+	.tours-2
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 3
+			grid-row-end: 4
+			grid-column-start: 1
+			grid-column-end: 2
+			width: 100%
+
+	.tours-3
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 4
+			grid-row-end: 5
+			grid-column-start: 1
+			grid-column-end: 2
+			width: 100%
+
+	.tours-1, .tours-2, .tours-3
+		display: grid
+		@media screen and (min-width: $xs) and (max-width: $md - 1)
+			grid-template-rows: 200px
+			grid-template-columns: 1fr
+			margin: 20px 0 
+		@media screen and (min-width: $md) and (max-width: $lg - 1)
+			grid-template-rows: 300px
+			grid-template-columns: 1fr
+			margin: 20px 0
+
+
+	.tours__photo-1, .tours__photo-2, .tours__photo-3
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 1
+			grid-row-end: 2
+			grid-column-start: 1
+			grid-column-end: 2
+			overflow: hidden
+			display: flex
+			img
+				width: 100%
+				height: auto
+				align-self: center
+
+	.tours__text-1, .tours__text-2, .tours__text-3
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-row-start: 1
+			grid-row-end: 2
+			grid-column-start: 1
+			grid-column-end: 2
+			align-self: center
+			text-align: center
+			background-color: rgba(204, 161, 77, 0.7)
+
+
+
+
+
+
+
