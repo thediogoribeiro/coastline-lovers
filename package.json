@@ -6,16 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "scss": "node-sass --watch public/stylesheets/style.scss -o public/stylesheets/style",
-    "start": "node server.js"
+    "start": "concurrently \"node server.js\" \"node-sass --watch public/stylesheets/style.scss -o public/stylesheets/style\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "concurrently": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http": "^0.0.0",
-    "mysql": "^2.18.0",
+    "mysql": "^2.18.1",
     "node-sass": "^4.13.1",
     "path": "^0.12.7",
     "readable-stream": "^2.3.7"

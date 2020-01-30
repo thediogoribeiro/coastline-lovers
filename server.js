@@ -17,12 +17,16 @@ app.use(express.json({limit:'1mb'}));
 var BD = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
-    password : '',
+    password : 'root',
+    port : '8889',
     database : 'coastlinelovers'
 });
 
 BD.connect(function(err) {
-    if (err) console.log(err);
+    if (err) {
+        console.log(err);
+        return;
+    }
     console.log('Connected to database...');
 });
 

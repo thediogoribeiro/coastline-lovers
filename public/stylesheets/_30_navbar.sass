@@ -12,22 +12,42 @@
 			grid-template-rows: 1fr
 			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr
 
-	.icon
+	.nav__menu
+		overflow: hidden
+	  position: relative
+	  z-index: 100
 		@media screen and (min-width: $xs) and (max-width: $lg - 1)
 			grid-row-start: 1
 			grid-row-end: 2
 			grid-column-start: 2
 			grid-column-end: 3
 			text-align: right
+			justify-self: right
 	
 	.fas
 		color: $white
 
 	.menu__links
-		grid-column-start: 2
-		grid-column-end: 3
 		text-align: right
-		
+		display: none
+		background-color: rgba(0, 0, 0, 0.4)
+		border: 1px solid $white
+		padding: 10px 5px 0 5px
+		a
+			margin-bottom: 10px
 
+	.nav__menu a
+	  color: $white
+	  text-decoration: none
+	  display: block
+
+	.nav__menu a.icon
+	  display: block
+	  right: 0
+	  top: 0
+
+	.menu__links:hover
+	  
+		
 
 

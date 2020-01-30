@@ -51,27 +51,51 @@
     padding: 0em 6.5em 0 6.5em; } }
 
 @media screen and (min-width: 320px) and (max-width: 410px) {
-  #about, #tours, #rents, #gallery, #contacts {
+  #about, #gallery, #contacts {
     padding: 2em 1em 0 1em; } }
 
 @media screen and (min-width: 411px) and (max-width: 767px) {
-  #about, #tours, #rents, #gallery, #contacts {
+  #about, #gallery, #contacts {
     padding: 3em 1em 0 1em; } }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-  #about, #tours, #rents, #gallery, #contacts {
+  #about, #gallery, #contacts {
     padding: 5em 3.5em 0 3.5em; } }
 
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
-  #about, #tours, #rents, #gallery, #contacts {
+  #about, #gallery, #contacts {
     padding: 6em 4.5em 0 4.5em; } }
 
 @media screen and (min-width: 1280px) and (max-width: 1439px) {
-  #about, #tours, #rents, #gallery, #contacts {
+  #about, #gallery, #contacts {
     padding: 7em 5.5em 0 5.5em; } }
 
 @media screen and (min-width: 1440px) {
-  #about, #tours, #rents, #gallery, #contacts {
+  #about, #gallery, #contacts {
+    padding: 8em 6.5em 0 6.5em; } }
+
+@media screen and (min-width: 320px) and (max-width: 410px) {
+  #tours, #rents {
+    padding: 0em 1em 0 1em; } }
+
+@media screen and (min-width: 411px) and (max-width: 767px) {
+  #tours, #rents {
+    padding: 0em 1em 0 1em; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #tours, #rents {
+    padding: 5em 3.5em 0 3.5em; } }
+
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  #tours, #rents {
+    padding: 6em 4.5em 0 4.5em; } }
+
+@media screen and (min-width: 1280px) and (max-width: 1439px) {
+  #tours, #rents {
+    padding: 7em 5.5em 0 5.5em; } }
+
+@media screen and (min-width: 1440px) {
+  #tours, #rents {
     padding: 8em 6.5em 0 6.5em; } }
 
 @media screen and (min-width: 320px) and (max-width: 410px) {
@@ -234,6 +258,13 @@ p {
       font-size: 12px;
       line-height: 14px;
       letter-spacing: 0.1em; } }
+
+.menu__links a {
+  font-style: bold;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  letter-spacing: 0.1em; }
 
 .button {
   border: 1.25px solid #0E3356;
@@ -424,19 +455,36 @@ p {
       #navbar .nav__box {
         grid-template-rows: 1fr;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; } }
-  @media screen and (min-width: 320px) and (max-width: 1023px) {
-    #navbar .icon {
-      grid-row-start: 1;
-      grid-row-end: 2;
-      grid-column-start: 2;
-      grid-column-end: 3;
-      text-align: right; } }
+  #navbar .nav__menu {
+    overflow: hidden;
+      overflow-position: relative;
+      overflow-z-index: 100; }
+    @media screen and (min-width: 320px) and (max-width: 1023px) {
+      #navbar .nav__menu {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 2;
+        grid-column-end: 3;
+        text-align: right;
+        justify-self: right; } }
   #navbar .fas {
     color: #FFFFFF; }
   #navbar .menu__links {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    text-align: right; }
+    text-align: right;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid #FFFFFF;
+    padding: 10px 5px 0 5px; }
+    #navbar .menu__links a {
+      margin-bottom: 10px; }
+  #navbar .nav__menu a {
+    color: #FFFFFF;
+    text-decoration: none;
+    display: block; }
+  #navbar .nav__menu a.icon {
+    display: block;
+    right: 0;
+    top: 0; }
 
 @media screen and (min-width: 320px) and (max-width: 1023px) {
   #header {
