@@ -13,6 +13,7 @@ var conditions = ["9h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
 var strangeChars = [",","&","'","!",'"',"#","+","*","(","?",";",":",")"];
 
 
+
 window.onload = function() {
 	showAllBookings("",0,"","","","","");
 	date = new Date();
@@ -150,7 +151,7 @@ async function sendReservation(dia, mes, ano, horas, fname, lname, mail, tel, te
 	};
 	const res = await fetch('/Reservation', options);
 	const data = await res.json();
-	location.reload();
+	location.reload();	
 }
 
 async function getPrivateBookings(){
@@ -453,30 +454,38 @@ function cbClick(cb){
 async function eliminarReservas(){
     var id = document.getElementById("idField").value;
     if (id=="") {
-        alert("Preencha o ID");
+        swal("Preencha o ID");
         return;
-    }
-    if (confirm("Tem a certeza que quer eliminar a reserva de baixo?")) {
-        const options = {
-            method: 'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({id:id})
-        };
-        const res = await fetch('/deleteReservation', options);
-        const data = await res.json();
-        if (data.client.affectedRows==1) alert("Eliminado com sucesso");
-        else alert("Erro ao eliminar (O ID escolhido existe?)");
-        showAllBookings("",0,"","","","","");
-    }else{
-        alert("nada eliminado");
-    }
+	}
+	swal({
+		title: "Tem a certeza?",
+		text: "Impossivel recuperar reservas eliminadas!",
+		icon: "warning",
+		buttons: ['Não!','Sim!'],
+		dangerMode: true,
+	  }).then(async function(isConfirm) {
+		if (isConfirm) {
+			const options = {
+				method: 'POST',
+				headers:{'Content-Type':'application/json'},
+				body: JSON.stringify({id:id})
+			};
+			const res = await fetch('/deleteReservation', options);
+			const data = await res.json();
+			if (data.client.affectedRows==1) swal("Sucesso!", "Eliminado com sucesso!", "success");
+			else swal("Erro ao eliminar (O ID escolhido existe?)");
+			showAllBookings("",0,"","","","","");
+		} else {
+		  swal("Cancelado", "A reserva não foi cancelada", "error");
+		}
+	  });
 }
 
 async function modReservas(){
     var data;
     var id = document.getElementById("idField").value;
     if (id=="") {
-        alert("Preencha o ID");
+        swal("ERRO", "Preencha o ID", "error");
         return;
     }
     var fName = document.getElementById("newfNameField").value;
@@ -500,27 +509,27 @@ async function modReservas(){
     var e = document.getElementById("newtimeSelect");
     var hora = e.options[e.selectedIndex].value + ";";
     if(parseInt(adultos, 10)+parseInt(criancas, 10)>10) {
-        alert("Demasiados lugares");
+        swal("ERRO", "Demasiados lugares", "error");
         return;
     }
     if(bebes>3) {
-        alert("Demasiados bebés");
+        swal("ERRO", "Demasiados bebés", "error");
         return;
     }
     if(tour!="express" && hora=="13h-14h;"){
-        alert("Hora inválida para essa tour");
+        swal("ERRO", "Hora inválida para essa tour", "error");
         return;
     }
     if(tour=="express" && hora!="13h-14h;"){
-        alert("Hora inválida para essa tour");
+        swal("ERRO", "Hora inválida para essa tour", "error");
         return;
     }
     if(tour=="private" && hora!="18h-20h;"){
-        alert("Hora inválida para essa tour");
+        swal("ERRO", "Hora inválida para essa tour", "error");
         return;
     }   
     if(fName=="" && lName=="" && tel=="" && email=="" && obs=="" && receber=="" && pagar=="" && tour=="same" && adultos=="" && criancas=="" && bebes=="" && date=="" && hora=="same;") {
-        alert("Todos os campos a modificar vazios");
+        swal("ERRO", "Todos os campos a modificar vazios", "error");
         return;
     }
     if(tour=="same" && adultos=="" && criancas=="" && bebes=="" && date=="" && hora=="same;"){
@@ -542,8 +551,8 @@ async function modReservas(){
           data = await res.json();
           showAllBookings("",0,"","","","","");
     }
-    if(data.mod=="NULL") alert("ID não existe");
-    if(data.mod=="ERROR") alert("ERRO: vagas ocupadas para esse horaio / data?");
+    if(data.mod=="NULL") swal("ERRO", "ID não existe", "error");
+    if(data.mod=="ERROR") swal("ERRO", "Vagas ocupadas para esse horaio / data?", "error");
 }
 
 function textEnter(tipo){
