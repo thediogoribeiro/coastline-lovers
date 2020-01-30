@@ -266,6 +266,22 @@ p {
   line-height: 14px;
   letter-spacing: 0.1em; }
 
+.head__button a {
+  font-family: 'roboto'; }
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .head__button a {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 28px;
+      text-align: center;
+      letter-spacing: 0.1em;
+      text-indent: 6px;
+      color: #FFFFFF; } }
+
+a {
+  text-decoration: none; }
+
 .button {
   border: 1.25px solid #0E3356;
   border-radius: 10px;
@@ -274,11 +290,11 @@ p {
 #header .button {
   padding: 10px 20px; }
 
-#gallery button {
+#gallery .button {
   border: 1.25px solid #DD2A7B;
   border-radius: 10px;
   background-color: #DD2A7B;
-  padding: 2% 10%;
+  padding: 2% 8%;
   color: #FFFFFF; }
 
 #contacts .fa-phone-alt, #contacts .fa-envelope {
@@ -302,7 +318,7 @@ p {
       width: 60px;
       top: -45px; } }
 
-#footer .footer__icons {
+#footer .footer__icons a {
   color: #FFFFFF; }
 
 #footer {
@@ -797,7 +813,7 @@ p {
     margin: 0;
     padding: 0 10%; }
 
-#gallery .gallery__seguir {
+#gallery .gallery__follow {
   grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start: 1;
