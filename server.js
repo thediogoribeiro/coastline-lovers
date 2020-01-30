@@ -7,6 +7,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const http = require('http');
 const mysql = require('mysql');
+var bAdultoN = 3000;
+var bCriancaN = 1500;
+var bAdultoE = 2000;
+var bCriancaE = 1250;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -34,29 +38,49 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/views/index.html'));
 });
 
-var server = app.listen(port, host, function() {//poe o sv a correr
+app.listen(port, host, function() {//poe o sv a correr
 	console.log('Running at: ',host,port);
 });
 
 app.post('/Reservation',(req, res) => {
+    var sqlStr, price, seats;
+    var adults = req.body.adults;
+    console.log(adults);
+    if (adults==0) return;
+    var children = req.body.children;
     var mail = req.body.email;
-    var seats = req.body.seats;
     var text = req.body.obs;
     var time = req.body.time;
-    var price = req.body.preco;
     var tour = req.body.tour;
     var babys = req.body.baby;
     var pNome = req.body.fName;
     var uNome = req.body.lName;
     var tel = req.body.tel;
     var date = req.body.date;
-    var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
-    if(tour=='normal') var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='normal' OR tour='private') AND hora= ? AND data= ? GROUP BY hora;";
+    if (tour=="normal") {
+        sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='normal' OR tour='private') AND hora= ? AND data= ? GROUP BY hora;";
+        price = (((parseInt(adults, 10)*bAdultoN)+(parseInt(children, 10)*bCriancaN))/100);
+        seats = parseInt(adults, 10)+parseInt(children, 10);
+    }
+    else if (tour=="private") {
+        sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
+        seats=10;
+        price = 300;
+        time="18h-20h;";
+    }
+    else if(tour=="express") {
+        sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
+        price = (((parseInt(adults, 10)*bAdultoE)+(parseInt(children, 10)*bCriancaE))/100);
+        time="13h-14h;";
+        seats = parseInt(adults, 10)+parseInt(children, 10);
+    }
+    console.log(sqlStr);
     BD.query(sqlStr,[time,date], function(err,sqlRes) {
         if (err) console.log(err);
         if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
             var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`) ";
             booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            console.log(booking);
             BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price], function(err,sqlRes) {if (err) console.log(err);});
             res.send({ insert: "OK" });
         }else{
@@ -114,7 +138,7 @@ app.post('/filterReservations',(req, res) => {
 });
 
 app.post('/deleteReservation',(req, res) => {
-    var sqlCommand = "UPDATE bookings SET info_apagada=data, data='1999-01-01' WHERE data>'2000-01-01' AND ID= ?"
+    var sqlCommand = "UPDATE bookings SET info_apagada=data, data='1999-01-01' WHERE data>'2000-01-01' AND ID= ?";
     BD.query(sqlCommand, [req.body.id],function(err,sqlRes) {
         if (err) console.log(err)
         res.send({ client: sqlRes });
@@ -188,22 +212,16 @@ app.post('/deleteANDinsertReservation',(req, res) => {
             lugares = sqlRes[0].lugares;
             price = sqlRes[0].preco;
         }else {
-            var bAdulto = 30;
-            var bCrianca = 15;
             lugares =  parseInt(adults, 10)+parseInt(children, 10);
             if (tour=="normal") {
-                bAdulto = 30;
-                bCrianca = 15;
-                price = (parseInt(adults, 10)*bAdulto)+(parseInt(children, 10)*bCrianca);
+                price = (((parseInt(adults, 10)*bAdultoN)+(parseInt(children, 10)*bCriancaN))/100);
             }
             else if (tour=="private") {
                 lugares=10;
                 price = 300;
             }
             else if(tour=="express") {
-                bAdulto = 20;
-                bCrianca = 12.5;
-                price = (parseInt(adults, 10)*bAdulto)+(parseInt(children, 10)*bCrianca);
+                price = (((parseInt(adults, 10)*bAdultoE)+(parseInt(children, 10)*bCriancaE))/100);
             }
         }
         var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour!='express' AND hora= ? AND data= ? AND ID!= ? GROUP BY hora;";

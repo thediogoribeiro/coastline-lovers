@@ -9,7 +9,7 @@ var price = 0;
 var maxSeats = 10;
 var bebeMaxSeats = 3;
 var tour="normal";
-var conditions = ["9h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
+var conditions = ["09h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
 var strangeChars = [",","&","'","!",'"',"#","+","*","(","?",";",":",")"];
 
 
@@ -119,7 +119,7 @@ function reserva(){
 	}
 	if (flag==0){
 		var time = ""
-		if (cb1.checked)time = "9h-11h;";
+		if (cb1.checked)time = "09h-11h;";
 		else if (cb2.checked)time = "11h-13h;";
 		else if (cb3.checked)time = "14h-16h;";
 		else if (cb4.checked)time = "16h-18h;";
@@ -130,24 +130,11 @@ function reserva(){
 }
 
 async function sendReservation(dia, mes, ano, horas, fname, lname, mail, tel, text, type){
-	var lugares, preco;
-	if(type=="normal"){
-		lugares = (adultCount+criancaCount);
-		preco = (adultCount*30)+(criancaCount*15);
-	}else if(type=="private"){
-		lugares = 10;
-		preco = 300;
-		horas="18h-20h;";
-	}else{
-		lugares = (adultCount+criancaCount);
-		preco = (adultCount*20)+(criancaCount*12.5);
-		horas="13h-14h;";
-	}
 	var date = ano+"-"+mes+"-"+dia
 	const options = {
 	  method: 'POST',
 	  headers:{'Content-Type':'application/json'},
-	  body: JSON.stringify({date:date, time:horas, fName:fname, lName:lname, email:mail, tel:tel, obs:text, seats:lugares,preco:preco, type:type, tour:type, baby:bebeCount})
+	  body: JSON.stringify({date:date, time:horas, fName:fname, lName:lname, email:mail, tel:tel, obs:text, adults:adultCount,children:criancaCount, type:type, tour:type, baby:bebeCount})
 	};
 	const res = await fetch('/Reservation', options);
 	const data = await res.json();
@@ -266,7 +253,7 @@ async function getSeatsFromDate(){
 			document.getElementById("bebeSeatsNum").innerHTML = " (3 lugares livres)";
 		}
 		for(var i = 0; i < data.bookings.length; i++){
-			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("9h-11h")){
+			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("09h-11h")){
 				lugaresMax[0] = (10-data.bookings[i]["SUM(lugares)"]); 
 				bebeLugaresMax[0] = (3-data.bookings[i]["SUM(bebes)"]);
 				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb1').disabled = true;
