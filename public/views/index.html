@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script src="javascripts/admin.js"></script>
+	<title>Date Picker & Admin</title>
+	<script src="javascripts/main.js"></script>
+	<link rel="stylesheet" href="stylesheets/main.css" />
+	<link href="stylesheets/bootstrap.css" rel="stylesheet" />
+	<link href="stylesheets/bootstrap-datepicker.css" rel="stylesheet" />  
+	<script src="javascripts/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="javascripts/bootstrap.js" type="text/javascript"></script>
+	<script src="javascripts/bootstrap-datepicker.js"></script>
 	<link rel="stylesheet" href="stylesheets/admin.css" />
 </head>
 <body>
@@ -20,18 +27,18 @@
 			<option value="private" > Private</option>
 			<option value="express" > Express</option>
 		</select>
-		Data:<input id="dateField" type="text" name="field1" class="" size="8" placeholder=" 2020-01-30" onkeyup="textEnter('search')" autocomplete="off"/>
+		Data:<input id="dateField" type="text" name="field1" class="datepicker" size="8" placeholder=" 2020-01-30" onkeyup="textEnter('search')" autocomplete="off"/>
 		<br><br>
 		_____________________________________________________________________________________________________________________________________________________________
 		<br><br>
 	</div>
 	<div id="modBookings">
 		Novos dados:<br>
-		Nome:<input id="newfNameField" type="text" name="field1" class="" size="8" placeholder=" Jorge" autocomplete="off"/> 
-				  <input id="newlNameField" type="text" name="field1" class="" size="8" placeholder=" Almeida" autocomplete="off"/>
-		Email:<input id="newemailField" type="text" name="field1" class="" size="30" placeholder=" novoEmail@cll.pt" autocomplete="off"/>
-		Telefone:<input id="newtelField" type="text" name="field1" class="" size="10" placeholder=" 931231231" autocomplete="off"/>
-		Tour:<select id="newtourField" onchange="changetour()">
+		Nome:<input id="newfNameField" type="text" name="field1" size="8" placeholder=" Jorge" autocomplete="off"/> 
+				  <input id="newlNameField" type="text" name="field1" size="8" placeholder=" Almeida" autocomplete="off"/>
+		Email:<input id="newemailField" type="text" name="field1" size="30" placeholder=" novoEmail@cll.pt" autocomplete="off"/>
+		Telefone:<input id="newtelField" type="text" name="field1" size="10" placeholder=" 931231231" autocomplete="off"/>
+		Tour:<select id="newtourField">
 			<option value="same" > </option>
 			<option value="normal" > Normal</option>
 			<option value="private" > Private</option>
@@ -49,8 +56,8 @@
 			<option value="" > </option><option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
 			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
 		</select><br><br>
-		Obs:<input id="newobsField" type="text" name="field1" class="" size="35" placeholder=" Obs" autocomplete="off"/>
-		Data:<input id="newdateField" type="text" name="field1" class="" size="8" placeholder=" 1999-01-01" autocomplete="off"/>
+		Obs:<input id="newobsField" type="text" name="field1" size="35" placeholder=" Obs" autocomplete="off"/>
+		Data:<input id="newdateField" type="text" name="field1" class="datepicker" size="8" placeholder=" 1999-01-01" autocomplete="off"/>
 		hora:
 		<select id="newtimeSelect">
 			<option value="same" > </option>
@@ -65,46 +72,88 @@
 		A pagar:<input id="newpagField" type="text" name="field1" class="" size="4" placeholder=" 0" autocomplete="off"/><br><br>
 		<button type="button" onclick="modReservas();">Modificar dados</button><br><br>
 	</div>
-	<div id="deleteBookings"style="display:none;">
+	<div id="deleteBookings" style="display:none;">
 		<button type="button" onclick="eliminarReservas();">Eliminar reserva</button><br><br>
 	</div>
 	<div id="sqlresult"></div>
-	<div id="insertBookings" style="display:none;">
-		Nome:<input id="insertfieldfname" type="text" name="field1" class="" size="8" placeholder=" Jorge" autocomplete="off"/> 
-		<input id="insertfieldlname" type="text" name="field1" class="" size="8" placeholder=" Almeida" autocomplete="off"/>
-		Email:<input id="insertfieldemail" type="text" name="field1" class="" size="30" placeholder=" novoEmail@cll.pt" autocomplete="off"/>
-		Telefone:<input id="insertfieldtel" type="text" name="field1" class="" size="10" placeholder=" 931231231" autocomplete="off"/>
-		Tour:<select id="insertselecttour" onchange="changetour()">
-			<option value="normal" > Normal</option>
-			<option value="private" > Private</option>
-			<option value="express" > Express</option>
-		</select>
-		Adultos:<select id="insertfieldadults" >
-			<option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
-			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
-		</select>
-		Crianças:<select id="insertfieldchildren" >
-			<option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
-			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
-		</select>
-		Bebés:<select id="insertfieldbaby">
-			<option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option><option value="4" > 4</option>
-			<option value="5" > 5</option><option value="6" > 6</option><option value="7" > 7</option><option value="8" > 8</option><option value="9" > 9</option><option value="10" > 10</option>
-		</select><br><br>
-		Obs:<input id="insertfieldobs" type="text" name="field1" class="" size="35" placeholder=" Obs" autocomplete="off"/>
-		Data:<input id="insertfielddate" type="text" name="field1" class="" size="8" placeholder=" 1999-01-01" autocomplete="off"/>
-		hora:<select id="insertselecttime">
-			<option value="9h-11h" > 9h-11h</option>
-			<option value="11h-13h" > 11h-13h</option>
-			<option value="13h-14h" > 13h-14h</option>
-			<option value="14h-16h" > 14h-16h</option>
-			<option value="16h-18h" > 16h-18h</option>
-			<option value="18h-20h" > 18h-20h</option> 
-		</select>
-		A Receber:<input id="insertfieldreceive" type="text" name="field1" class="" size="4" placeholder=" 0" autocomplete="off"/>
-		A pagar:<input id="insertfieldpay" type="text" name="field1" class="" size="4" placeholder=" 0" autocomplete="off"/><br><br>
-		<button type="button" onclick="inserirReserva();">Inserir reserva</button><br><br>
-	</div>
+	<div id="insert_booking" style="display:none;">
+		<h1>CoastLine <span>Booking </span></h1>
+		<div>
+			<ul class="form-style-1">
+				<li>
+					<label>Selecione a data: <span id="required6" class="required">*</span></label>
+					<input id="date_Field" type="text" name="birthdate" class="datepicker" autocomplete="off" />
+				</li>
+				<li>			
+					<p><label>Selecione a tour:</label></p>
+					<input type="radio" name="tour" value="1" onclick="radioClick('1');"checked> Benagil Normal<br>
+					<input type="radio" name="tour" value="2" onclick="radioClick('2');"> Benagil Private (Compra todos lugares)<br>
+					<input type="radio" name="tour" value="3" onclick="radioClick('3');"> Benagil Express<br>  
+				</li>
+				<li>
+					<div id="normaltour">
+						<p><label>Selecione a hora:<span id="required1" class="required"></span></label></p>
+						<input id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');" checked> 9h-11h<span id="cb1Text"></span><br>
+						<input id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');"> 11h-13h<span id="cb2Text"></span><br>
+						<input id="cb3" type="radio" name="hora" value="3" onclick="cbClick('3');"> 14h-16h<span id="cb3Text"></span><br>
+						<input id="cb4" type="radio" name="hora" value="2" onclick="cbClick('4');"> 16h-18h<span id="cb4Text"></span><br>
+						<input id="cb5" type="radio" name="hora" value="3" onclick="cbClick('5');"> 18h-20h<span id="cb5Text"></span><br>  
+					</div>
+					<div id="privatetour" style="display:none;">
+						<input id="cbprivate" type="radio" name="h1" value="18" checked> 18h-20h<span id="rPrivateText"></span><br><br>
+					</div>
+					<div id="expresstour" style="display:none;">
+						<input id="cbexpress" type="radio" name="h1" value="13" checked>13h-14h <span id="rExpressText"><span><br><br>
+					</div>
+				</li>
+				<li><div id="lugares" class="lugares">
+					<label>Número de lugares:<span id="required5" class="required">*</span></label><div id="privatetourdiv" style="display:none"> 300,00 € </div>
+					<div id="lugares_adulto">
+						<div id="la-normal"><span style="font-size: 150%;">Normal </span><span> 30,00 €</span></div><div id="la-express" style="display:none;"><span style="font-size: 150%;">Normal </span><span> 20,00 €</span></div>
+						<input id="adultomenos" type="button" value="-" class="button-minus" onclick="adultoMenos()">
+						<input id="adultonum" type="number" step="1" max="" value=0 name="category_1738" class="quantity-field" readonly="">
+						<input id="adultomais" type="button" value="+" class="button-plus" onclick="adultoMais()">
+					</div>
+					<div id="lugares_crianca">
+						<div id="lc-normal"><span style="font-size: 150%;">Crianças (dos 3 aos 10 anos) </span><span> 15,00 €</span></div><div id="lc-express" style="display:none;"><span style="font-size: 150%;">Criança (dos 3 aos 10 anos)</span><span>12,5 €</span></div>
+						<input id="ciancamenos" type="button" value="-" class="button-minus" onclick="criancaMenos()">
+						<input id="ciancanum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
+						<input id="ciancamais"type="button" value="+" class="button-plus" onclick="criancaMais()">
+					</div>
+					<div id="lugares_bebes">
+						<div id="lb-normal"><span style="font-size: 150%;">Crianças (menos 3 anos) </span><span> Grátis</span><br><span id="bebeSeatsNum"></span></div>
+						<input id="bebemenos" type="button" value="-" class="button-minus" onclick="bebeMenos()">
+						<input id="bebenum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
+						<input id="bebemais"type="button" value="+" class="button-plus" onclick="bebeMais()">
+					</div>
+				</li>			
+				<li><label>Nome <span id="required2" class="required">*</span></label>
+					<input id="field1" type="text" name="field1" class="field-divided" placeholder="Primeiro"/> 
+					<input id="field2" type="text" name="field2" class="field-divided" placeholder="Último"/></li>
+				<li>
+					<label>Email <span id="required3" class="required">*</span></label>
+					<input id="field3" type="email" name="field3" class="field-long" />
+				</li>
+				<li>
+					<label>Telefone <span id="required4" class="required">*</span></label>
+					<input id="field4" type="tel" name="field4" class="field-long" />
+				</li>
+				<li>
+					<label>Observações (Não obrigátório) </label>
+					<textarea id="field5" name="field5" class="field-long field-textarea"></textarea id="field5">
+				</li>
+				<li>
+					<button onclick="reserva()"> Reservar </button>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			$('.datepicker').datepicker({
+				weekStart:1,
+				color: 'blue'
+			});
+		   </script>
+		 </div>
 	
 </body>
 </html>
