@@ -1,3 +1,11 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load()
+  }
+  
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY
+  
+
 const path = require('path');
 const host = '0.0.0.0';
 const port = 3000;
