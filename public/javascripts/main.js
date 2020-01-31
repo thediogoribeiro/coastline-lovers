@@ -5,12 +5,16 @@ var bebeLugaresMax = [3,3,3,3,3];
 var adultCount = 0;
 var criancaCount = 0;
 var bebeCount = 0;
-var price = 0;
+var bAdultoN = 3000;
+var bCriancaN = 1500;
+var bAdultoE = 2000;
+var bCriancaE = 1250;
 var maxSeats = 10;
 var bebeMaxSeats = 3;
 var tour="normal";
 var conditions = ["09h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
 var strangeChars = [",","&","'","!",'"',"#","+","*","(","?",";",":",")"];
+var stripePublicKey = "pk_test_mO123Ap9UupBtLlNhyDl37Db00nxyjzZ89";
 
 
 
@@ -124,9 +128,39 @@ function reserva(){
 		else if (cb3.checked)time = "14h-16h;";
 		else if (cb4.checked)time = "16h-18h;";
 		else if (cb5.checked)time = "18h-20h;";
-		sendReservation(selectedDay, selectedMonth, selectedYear, time, field1.value, field2.value, field3.value.toLowerCase(), field4.value, field5.value, tour);
+		var stripeHandler = StripeCheckout.configure({
+			key: stripePublicKey,
+			locale: 'auto',
+			token: function(token) {
+				var date = selectedYear+"-"+selectedMonth+"-"+selectedDay;
+				fetch('/Reservation', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Accept': 'application/json'
+					},
+					body: JSON.stringify({stripeTokenId: token.id,date:date, time:time, fName:field1.value, lName:field2.value, email:field3.value.toLowerCase(), tel:field4.value, obs:field5.value, adults:adultCount,children:criancaCount, tour:tour, baby:bebeCount})
+				}).then(function(res) {
+					return res.json()
+				}).then(function(data) {
+					location.reload();
+				}).catch(function(error) {
+					console.error(error)
+				})
+			}
+		});
+		purchaseClicked(stripeHandler);
+		//sendReservation(selectedDay, selectedMonth, selectedYear, time, field1.value, field2.value, field3.value.toLowerCase(), field4.value, field5.value, tour);
 	}
 	return false;
+}
+
+function purchaseClicked(stripeHandler) {
+	var price = 0;
+	if (tour=="normal") price = ((parseInt(adultCount, 10)*bAdultoN)+(parseInt(criancaCount, 10)*bCriancaN));
+    else if (tour=="private") price = 300;
+    else if(tour=="express") price = ((parseInt(adultCount, 10)*bAdultoE)+(parseInt(criancaCount, 10)*bCriancaE));
+    stripeHandler.open({ amount: price })
 }
 
 async function sendReservation(dia, mes, ano, horas, fname, lname, mail, tel, text, type){
@@ -138,7 +172,7 @@ async function sendReservation(dia, mes, ano, horas, fname, lname, mail, tel, te
 	};
 	const res = await fetch('/Reservation', options);
 	const data = await res.json();
-	location.reload();	
+	//location.reload();	
 }
 
 async function getPrivateBookings(){
@@ -619,20 +653,8 @@ function tourChange(){
     else if (tour=="express") document.getElementById("expressSelect").style.display = "block";
 }
 
-function adminReserva(){
-    var nAdult = document.getElementById("adultonum").value;
-    var ncrianca = document.getElementById("criancanum").value;
-    var nbebe = document.getElementById("bebenum").value;
-    var pNome = document.getElementById("field1").value;
-    var uNome = document.getElementById("field2").value;
-    var email = document.getElementById("field3").value;
-    var nAdult = document.getElementById("adultonum").value;
-    var nAdult = document.getElementById("adultonum").value;
-}
-
 function onlyDigit(str) {
 	var patt = /^[0-9]*$/;
 	if (str.match(patt)==null) return false;
 	else return true;
-  }
-
+}

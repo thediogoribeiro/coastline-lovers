@@ -1,11 +1,11 @@
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').load()
+    require('dotenv').config();
   }
   
-  const stripeSecretKey = process.env.STRIPE_SECRET_KEY
-  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
   
-
+const stripe = require('stripe')(stripeSecretKey)
 const path = require('path');
 const host = '0.0.0.0';
 const port = 3000;
@@ -13,7 +13,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const http = require('http');
 const mysql = require('mysql');
 var bAdultoN = 3000;
 var bCriancaN = 1500;
@@ -53,7 +52,6 @@ app.listen(port, host, function() {//poe o sv a correr
 app.post('/Reservation',(req, res) => {
     var sqlStr, price, seats;
     var adults = req.body.adults;
-    console.log(adults);
     if (adults==0) return;
     var children = req.body.children;
     var mail = req.body.email;
@@ -67,7 +65,7 @@ app.post('/Reservation',(req, res) => {
     var date = req.body.date;
     if (tour=="normal") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='normal' OR tour='private') AND hora= ? AND data= ? GROUP BY hora;";
-        price = (((parseInt(adults, 10)*bAdultoN)+(parseInt(children, 10)*bCriancaN))/100);
+        price = (parseInt(adults, 10)*bAdultoN)+(parseInt(children, 10)*bCriancaN);
         seats = parseInt(adults, 10)+parseInt(children, 10);
     }
     else if (tour=="private") {
@@ -78,23 +76,32 @@ app.post('/Reservation',(req, res) => {
     }
     else if(tour=="express") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
-        price = (((parseInt(adults, 10)*bAdultoE)+(parseInt(children, 10)*bCriancaE))/100);
+        price = (parseInt(adults, 10)*bAdultoE)+(parseInt(children, 10)*bCriancaE);
         time="13h-14h;";
         seats = parseInt(adults, 10)+parseInt(children, 10);
     }
-    console.log(sqlStr);
-    BD.query(sqlStr,[time,date], function(err,sqlRes) {
-        if (err) console.log(err);
-        if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
-            var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`) ";
-            booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            console.log(booking);
-            BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price], function(err,sqlRes) {if (err) console.log(err);});
-            res.send({ insert: "OK" });
-        }else{
-            res.send({ insert: "ERROR" });
-        }
-    });
+
+    stripe.charges.create({
+        amount: price,
+        source: req.body.stripeTokenId,
+        currency: 'eur'
+      }).then(function() {
+        price = price/100;
+        BD.query(sqlStr,[time,date], function(err,sqlRes) {
+            if (err) console.log(err);
+            if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
+                var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`) ";
+                booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price], function(err,sqlRes) {if (err) console.log(err);});
+                res.send({ insert: "OK" });
+            }else{
+                res.send({ insert: "ERROR" });
+            }
+        });
+      }).catch(function() {
+        console.log('Charge Fail');
+        res.status(500).end();
+      })
 });
 
 app.post('/getNormalBookings',(req, res) => {
@@ -251,4 +258,8 @@ app.post('/deleteANDinsertReservation',(req, res) => {
             }
         });
     });
+});
+
+app.post('/pubKey', function(req, res) {
+    res.send({ stripePublicKey: stripePublicKey });
 });
