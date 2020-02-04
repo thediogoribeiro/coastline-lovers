@@ -15,11 +15,9 @@ var tour="normal";
 var conditions = ["09h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
 var strangeChars = [",","&","'","!",'"',"#","+","*","(","?",";",":",")"];
 var stripePublicKey = "pk_test_mO123Ap9UupBtLlNhyDl37Db00nxyjzZ89";
-
-
+var code ="";
 
 window.onload = function() {
-	showAllBookings("",0,"","","","","");
 	date = new Date();
 	let day = date.getDate();
 	let month = date.getMonth();
@@ -71,6 +69,7 @@ function reserva(){
 	const field3 = document.getElementById('field3');
 	const field4 = document.getElementById('field4');
 	const field5 = document.getElementById('field5');
+	const promo = document.getElementById('promo-code');
 	if (tour=="normal" && !cb1.checked && !cb2.checked && !cb3.checked && !cb4.checked && !cb5.checked){
 		document.getElementById('required1').innerHTML = "Selecione pelo menos uma hora";
 		flag=1;
@@ -90,6 +89,9 @@ function reserva(){
 		document.getElementById('required3').innerHTML = "Insira o seu 'Email'";
 		flag=1;
 	}else if (strangeChars.some(el => field3.value.includes(el)) ){
+		document.getElementById('required3').innerHTML = "Email inválido";
+		flag=1;
+	}else if (!field3.value.includes("@") || !field3.value.includes(".")){
 		document.getElementById('required3').innerHTML = "Email inválido";
 		flag=1;
 	}else{
@@ -128,18 +130,19 @@ function reserva(){
 		else if (cb3.checked)time = "14h-16h;";
 		else if (cb4.checked)time = "16h-18h;";
 		else if (cb5.checked)time = "18h-20h;";
+		var date = selectedYear+"-"+selectedMonth+"-"+selectedDay;
 		var stripeHandler = StripeCheckout.configure({
 			key: stripePublicKey,
 			locale: 'auto',
 			token: function(token) {
-				var date = selectedYear+"-"+selectedMonth+"-"+selectedDay;
-				fetch('/Reservation', {
+				fetch('/PaidReservation', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
 						'Accept': 'application/json'
 					},
-					body: JSON.stringify({stripeTokenId: token.id,date:date, time:time, fName:field1.value, lName:field2.value, email:field3.value.toLowerCase(), tel:field4.value, obs:field5.value, adults:adultCount,children:criancaCount, tour:tour, baby:bebeCount})
+					body: JSON.stringify({stripeTokenId: token.id,date:date, time:time, fName:field1.value, lName:field2.value, email:field3.value.toLowerCase(), tel:field4.value,
+						 obs:field5.value, adults:adultCount,children:criancaCount, tour:tour, baby:bebeCount})
 				}).then(function(res) {
 					return res.json()
 				}).then(function(data) {
@@ -149,8 +152,30 @@ function reserva(){
 				})
 			}
 		});
-		purchaseClicked(stripeHandler);
-		//sendReservation(selectedDay, selectedMonth, selectedYear, time, field1.value, field2.value, field3.value.toLowerCase(), field4.value, field5.value, tour);
+		var codeObj = document.getElementById('codeField');
+		if(codeObj!=null) code = codeObj.value;
+		fetch('/FreeReservation', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			body: JSON.stringify({code:code,date:date, time:time, fName:field1.value, lName:field2.value, email:field3.value.toLowerCase(), tel:field4.value, obs:field5.value, adults:adultCount,children:criancaCount, tour:tour, baby:bebeCount,promo:promo.value})
+		}).then(function(res) {
+			return res.json()
+		}).then(function(data) {
+			if(data.code=="ADMIN" || data.code=="PROMO"){
+				resetValues();
+				getSeatsFromDate();
+				swal("Sucesso!", "Reservado com sucesso!", "success");
+				return;
+			} else{
+				purchaseClicked(stripeHandler);
+			}
+			if (data.code=="PROMO") code=""
+		}).catch(function(error) {
+			console.error(error)
+		})
 	}
 	return false;
 }
@@ -163,16 +188,33 @@ function purchaseClicked(stripeHandler) {
     stripeHandler.open({ amount: price })
 }
 
-async function sendReservation(dia, mes, ano, horas, fname, lname, mail, tel, text, type){
-	var date = ano+"-"+mes+"-"+dia
-	const options = {
-	  method: 'POST',
-	  headers:{'Content-Type':'application/json'},
-	  body: JSON.stringify({date:date, time:horas, fName:fname, lName:lname, email:mail, tel:tel, obs:text, adults:adultCount,children:criancaCount, type:type, tour:type, baby:bebeCount})
-	};
-	const res = await fetch('/Reservation', options);
-	const data = await res.json();
-	//location.reload();	
+async function adminCheck(){
+	if (event.key === "Enter") {
+		var user = document.getElementById('adminuserField').value;
+		var pw = document.getElementById('adminpwField').value;
+		const options = {
+			method: 'POST',
+			headers:{'Content-Type':'application/json'},
+			body: JSON.stringify({user:user,pw:pw})
+		};
+		fetch('/checkAdmin', options).then(function(res) {
+			return res.json()
+		}).then(function(data) {
+			if(data.res=="ok"){
+				code = document.getElementById('adminpwField').value;
+				showAllBookings("",0,"","","","","");
+				document.getElementById('admin-login').style.display = "none";
+				document.getElementById('adminpage').style.display = "block";
+				document.getElementById("div_search").style.display = "block";
+				document.getElementById("sqlresult").style.display = "block";
+				document.getElementById("deleteBookings").style.display = "none";
+				document.getElementById("modBookings").style.display = "block";
+				document.getElementById("insert_booking").style.display = "none";
+			}
+		}).catch(function(error) {
+			console.error(error)
+		})
+	}
 }
 
 async function getPrivateBookings(){
@@ -309,6 +351,7 @@ async function getSeatsFromDate(){
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("18h-20h")){
 				lugaresMax[4] = (10-data.bookings[i]["SUM(lugares)"]);
+				bebeLugaresMax[4] = (3-data.bookings[i]["SUM(bebes)"]);
 				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb5').disabled = true;
 			}			
 			document.getElementById("cb1Text").innerHTML = " ("+ lugaresMax[0] + " lugares livres)";
@@ -361,6 +404,14 @@ function resetValues(){
 	document.getElementById("ciancanum").value=0;
 	document.getElementById("bebenum").value=0;
 	document.getElementById('date_Field').value = selectedDay + "/"+ selectedMonth +"/"+selectedYear;
+	document.getElementById('field1').value="";
+	document.getElementById('field2').value="";
+	document.getElementById('field3').value="";
+	document.getElementById('field4').value="";
+	document.getElementById('field5').value="";
+	document.getElementById('cb1').checked=true;
+	var codeObj = document.getElementById('codeField');
+	if(codeObj!=null) codeObj.value="";
 	adultCount = 0;
 	criancaCount = 0;
 	bebeCount = 0;
@@ -392,6 +443,7 @@ function criancaMenos(){
 	document.getElementById("ciancanum").value=criancaCount;	
 }
 function criancaMais(){
+	if(adultCount==0) return;
 	if((adultCount + criancaCount) > (maxSeats-1)) return
 	criancaCount++;
 	document.getElementById("ciancanum").value=criancaCount;
@@ -489,7 +541,7 @@ async function eliminarReservas(){
 			const options = {
 				method: 'POST',
 				headers:{'Content-Type':'application/json'},
-				body: JSON.stringify({id:id})
+				body: JSON.stringify({id:id,code:code})
 			};
 			const res = await fetch('/deleteReservation', options);
 			const data = await res.json();
@@ -557,7 +609,7 @@ async function modReservas(){
         const options = {
             method: 'POST',
             headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({id,fName:fName,lName:lName,email:email,tel:tel,obs:obs,receber:receber,pagar:pagar,tour:tour,adults:adultos,children:criancas,baby:bebes,date:date,time:hora})
+            body: JSON.stringify({code:code,id:id,fName:fName,lName:lName,email:email,tel:tel,obs:obs,receber:receber,pagar:pagar,tour:tour,adults:adultos,children:criancas,baby:bebes,date:date,time:hora})
           };
           const res = await fetch('/simpleModReservation', options);
           data = await res.json();
@@ -566,7 +618,7 @@ async function modReservas(){
         const options = {
             method: 'POST',
             headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({id,fName:fName,lName:lName,email:email,tel:tel,obs:obs,receber:receber,pagar:pagar,tour:tour,adults:adultos,children:criancas,baby:bebes,date:date,time:hora})
+            body: JSON.stringify({code:code,id:id,fName:fName,lName:lName,email:email,tel:tel,obs:obs,receber:receber,pagar:pagar,tour:tour,adults:adultos,children:criancas,baby:bebes,date:date,time:hora})
           };
           const res = await fetch('/deleteANDinsertReservation', options);
           data = await res.json();
@@ -576,7 +628,7 @@ async function modReservas(){
     if(data.mod=="ERROR") swal("ERRO", "Vagas ocupadas para esse horaio / data?", "error");
 }
 
-function textEnter(tipo){
+function textEnter(){
     if (event.key === "Enter") {
 		var id = document.getElementById("idField").value;
         var e = document.getElementById("tourField");
@@ -599,6 +651,7 @@ function adminrChange(rb){
         document.getElementById("modBookings").style.display = "none";
         document.getElementById("insert_booking").style.display = "none";
     }else if(rb=="3"){
+		showAllBookings("",0,"","","","","");
         document.getElementById("div_search").style.display = "block";
         document.getElementById("sqlresult").style.display = "block";
         document.getElementById("modBookings").style.display = "block";
@@ -625,12 +678,13 @@ async function showAllBookings(id,tour,date,fName,lName,email,tel,order){
 	};
 	const res = await fetch('/filterReservations', options);
     const data = await res.json();
-    sqlTable.innerHTML+="<tr><th class='dedo' onclick=\"order('id')\">ID</th><th>Nome</th><th>Email</th><th>Telefone</th><th class='dedo' onclick=\"order('tour')\">Tour</th><th>NºLugares</th><th>NºBebes</th><th>observações</th><th class='dedo' onclick=\"order('data')\">Data</th><th>Hora</th><th>Preço</th><th>A Receber</th><th>A Pagar</th></tr>";
+	sqlTable.innerHTML+="<tr><th class='dedo' onclick=\"order('id')\">ID</th><th>Nome</th><th>Email</th><th>Telefone</th><th class='dedo' onclick=\"order('tour')\">Tour</th><th>NºLugares</th>\
+	<th>NºBebes</th><th>observações</th><th class='dedo' onclick=\"order('data')\">Data</th><th>Hora</th><th>Preço</th><th>A Receber</th><th>A Pagar</th><th>Promotor</th><th>Código Promo</th></tr>";
 	for (var i = 0; i < data.bookings.length; i++){
         var date =data.bookings[i].data.replace("T00:00:00.000Z", "");
         sqlTable.innerHTML+="<tr><td> "+data.bookings[i].ID+" </td><td> "+data.bookings[i].primeiroNome +" "+data.bookings[i].ultimoNome+" </td><td> "+data.bookings[i].email+" </td><td> "+data.bookings[i].telefone+"\
          </td><td> "+data.bookings[i].tour+" </td><td> "+data.bookings[i].lugares+" </td><td> "+data.bookings[i].bebes+" </td><td> "+data.bookings[i].observacoes+" </td><td> "+date+" </td><td> "+data.bookings[i].hora+"\
-          </td><td> "+data.bookings[i].preco+" </td><td> "+data.bookings[i].aPagar+" </td><td> "+data.bookings[i].aReceber+" </td></tr> "; 
+          </td><td> "+data.bookings[i].preco+" </td><td> "+data.bookings[i].aPagar+" </td><td> "+data.bookings[i].aReceber+" </td><td> "+data.bookings[i].promotor+" </td><td> "+data.bookings[i].codigoPromo+" </td></tr> "; 
     }
     sqlr.innerHTML+="</table>";
 }

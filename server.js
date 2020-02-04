@@ -2,8 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
   }
   
-  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   
 const stripe = require('stripe')(stripeSecretKey)
 const path = require('path');
@@ -18,6 +17,9 @@ var bAdultoN = 3000;
 var bCriancaN = 1500;
 var bAdultoE = 2000;
 var bCriancaE = 1250;
+var adminUser ="admin";
+var adminPW ="55555";
+var promo = ["promo123", "promo000"];
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -49,7 +51,20 @@ app.listen(port, host, function() {//poe o sv a correr
 	console.log('Running at: ',host,port);
 });
 
-app.post('/Reservation',(req, res) => {
+app.get('/Administrador', function(request, response){
+    response.sendFile(path.join(__dirname + '/public/views/admin.html'));
+});
+
+app.post('/checkAdmin',(req, res) => {
+    if(adminPW==req.body.pw && adminUser==req.body.user) res.send({ res: "ok" });
+    else res.send({ res: "Wrong admin" });
+});
+
+app.post('/FreeReservation',(req, res) => {
+    if (!promo.includes(req.body.code) && req.body.code!=adminPW){
+        res.send({ code: "NO" });
+        return;
+    }
     var sqlStr, price, seats;
     var adults = req.body.adults;
     if (adults==0) return;
@@ -80,28 +95,72 @@ app.post('/Reservation',(req, res) => {
         time="13h-14h;";
         seats = parseInt(adults, 10)+parseInt(children, 10);
     }
+    price = price/100;
+    BD.query(sqlStr,[time,date], function(err,sqlRes) {
+        if (err) console.log(err);
+        if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
+            var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `promotor`, `stripeID`, `codigoPromo` ) ";
+            booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'FREE', ?)";
+            BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,req.body.code,req.body.promo], function(err,sqlRes) {if (err) console.log(err);});
+            if(adminPW==req.body.code) res.send({ code: "ADMIN" });
+            else if(promo.includes(req.body.code)) res.send({ code: "PROMO" });
+        }else{
+            res.send({ code: "YES" });
+        }
+    });
+});
 
+app.post('/PaidReservation',(req, res) => {
+    var sqlStr, price, seats;
+    var adults = req.body.adults;
+    if (adults==0) return;
+    var children = req.body.children;
+    var mail = req.body.email;
+    var text = req.body.obs;
+    var time = req.body.time;
+    var tour = req.body.tour;
+    var babys = req.body.baby;
+    var pNome = req.body.fName;
+    var uNome = req.body.lName;
+    var tel = req.body.tel;
+    var date = req.body.date;
+    if (tour=="normal") {
+        sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='normal' OR tour='private') AND hora= ? AND data= ? GROUP BY hora;";
+        price = (parseInt(adults, 10)*bAdultoN)+(parseInt(children, 10)*bCriancaN);
+        seats = parseInt(adults, 10)+parseInt(children, 10);
+    }
+    else if (tour=="private") {
+        sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
+        seats=10;
+        price = 300;
+        time="18h-20h;";
+    }
+    else if(tour=="express") {
+        sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
+        price = (parseInt(adults, 10)*bAdultoE)+(parseInt(children, 10)*bCriancaE);
+        time="13h-14h;";
+        seats = parseInt(adults, 10)+parseInt(children, 10);
+    }
     stripe.charges.create({
         amount: price,
         source: req.body.stripeTokenId,
         currency: 'eur'
-      }).then(function() {
-        price = price/100;
-        BD.query(sqlStr,[time,date], function(err,sqlRes) {
-            if (err) console.log(err);
-            if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
-                var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`) ";
-                booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price], function(err,sqlRes) {if (err) console.log(err);});
-                res.send({ insert: "OK" });
-            }else{
-                res.send({ insert: "ERROR" });
-            }
+      }).then(charge =>  {
+            price = price/100;
+            BD.query(sqlStr,[time,date], function(err,sqlRes) {
+                if (err) console.log(err);
+                if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
+                    var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `stripeID`, `codigoPromo` ) ";
+                    booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,charge.id,req.body.promo], function(err,sqlRes) {if (err) console.log(err);});
+                    res.send({ insert: "OK" });
+                }else{
+                    res.send({ insert: "ERROR" });
+                }
         });
-      }).catch(function() {
-        console.log('Charge Fail');
+        }).catch(error => {
         res.status(500).end();
-      })
+        })
 });
 
 app.post('/getNormalBookings',(req, res) => {
@@ -112,7 +171,8 @@ app.post('/getNormalBookings',(req, res) => {
 });
 
 app.post('/getPrivateBookings',(req, res) => {
-    BD.query("SELECT * FROM `bookings` WHERE data>=current_date AND tour='private'", function(err,sqlRes) {
+    if(req.body.code!=adminPW) return;
+    BD.query("SELECT * FROM `bookings` WHERE tour='private' OR (tour='normal' AND hora='18h-20h;')", function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });
@@ -126,9 +186,10 @@ app.post('/getExpressBookings',(req, res) => {
 });
 
 app.post('/getDateBooking',(req, res) => {
-    if (req.body.type=='express')  var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour='express' AND data= ? GROUP BY hora;";
-    else if(req.body.type=='private') var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour='private' AND data= ? GROUP BY hora;";
-    else var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='normal' OR tour='private') AND data= ? GROUP BY hora;";
+    var sqlStr = "";
+    if (req.body.type=='express')  sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour='express' AND data= ? GROUP BY hora;";
+    else if(req.body.type=='private') sqlStr = "SELECT tour, SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='private' OR (tour='normal' AND hora='18h-20h;')) AND data= ? GROUP BY hora";
+    else sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='normal' OR tour='private') AND data= ? GROUP BY hora;";
     BD.query(sqlStr, [req.body.date], function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
@@ -153,6 +214,7 @@ app.post('/filterReservations',(req, res) => {
 });
 
 app.post('/deleteReservation',(req, res) => {
+    if(req.body.code!=adminPW) return;
     var sqlCommand = "UPDATE bookings SET info_apagada=data, data='1999-01-01' WHERE data>'2000-01-01' AND ID= ?";
     BD.query(sqlCommand, [req.body.id],function(err,sqlRes) {
         if (err) console.log(err)
@@ -161,6 +223,7 @@ app.post('/deleteReservation',(req, res) => {
 });
 
 app.post('/simpleModReservation',(req, res) => {
+    if(req.body.code!=adminPW) return;
     var sqlExtra="";
     if(req.body.fName!="") sqlExtra+= " primeiroNome="+mysql.escape(req.body.fName)+",";
     if(req.body.lName!="") sqlExtra+= " ultimoNome="+mysql.escape(req.body.lName)+",";
@@ -179,6 +242,7 @@ app.post('/simpleModReservation',(req, res) => {
 });
 
 app.post('/deleteANDinsertReservation',(req, res) => {
+    if(req.body.code!=adminPW) return;
     var price,lugares;
     BD.query("SELECT * FROM bookings WHERE ID= ? AND  data>'2000-01-01';",[req.body.id], function(err,sqlRes) {
         if (err) console.log(err);
@@ -258,8 +322,4 @@ app.post('/deleteANDinsertReservation',(req, res) => {
             }
         });
     });
-});
-
-app.post('/pubKey', function(req, res) {
-    res.send({ stripePublicKey: stripePublicKey });
 });
