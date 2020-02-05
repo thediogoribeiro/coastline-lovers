@@ -39,26 +39,21 @@ function convertDateFromat(str){
 	index = str.indexOf("/");
 	var day = str.substring(0,index);
 	var year = str.substring(index+1);
-	return year+"-"+month+"-"+day;
+	return {y:year,m:month,d:day};
 }
 
-function dateSelected(){
+function dateSelected(e){
 	var str = document.getElementById('date_Field').value;
-	var index = str.indexOf("/");
-	selectedMonth = str.substring(0,index);
-	str = str.substring(index+1);
-	index = str.indexOf("/");
-	selectedDay = str.substring(0,index);
-	selectedYear = str.substring(index+1);
+	var date = convertDateFromat(str);
+	selectedMonth = date.m;
+	selectedDay = date.d;
+	selectedYear = date.y;
 	getSeatsFromDate();
 }
 
 function reserva(){
 	var flag = 0;
 	const currDate = new Date();
-	const selDate = new Date(selectedYear,(selectedMonth-1),selectedDay);
-	const currStrDate = currDate.getFullYear()+"-"+currDate.getMonth()+"-"+currDate.getDate();
-	const selStrDate = selDate.getFullYear()+"-"+selDate.getMonth()+"-"+selDate.getDate();
 	const cb1 = document.getElementById('cb1');
 	const cb2 = document.getElementById('cb2');
 	const cb3 = document.getElementById('cb3');
@@ -70,6 +65,26 @@ function reserva(){
 	const field4 = document.getElementById('field4');
 	const field5 = document.getElementById('field5');
 	const promo = document.getElementById('promo-code');
+	var time = ""
+	if (cb1.checked){
+		time = "09h-11h;";
+		hora = 9;
+	}else if (cb2.checked){
+		time = "11h-13h;";
+		hora=11;
+	}else if (cb3.checked){
+		time = "14h-16h;";
+		hora=14;
+	}	else if (cb4.checked){
+		time = "16h-18h;";
+		hora=16;
+	}	else if (cb5.checked){
+		time = "18h-20h;";
+		hora=18;
+	}
+	var selDate = new Date(selectedYear,(selectedMonth-1),selectedDay,hora,30,0,0);
+	if (tour=="private") hora=18;
+	else if(tour=="express") hora=13;
 	if (tour=="normal" && !cb1.checked && !cb2.checked && !cb3.checked && !cb4.checked && !cb5.checked){
 		document.getElementById('required1').innerHTML = "Selecione pelo menos uma hora";
 		flag=1;
@@ -114,22 +129,14 @@ function reserva(){
 		flag=1;
 	}else{
 		document.getElementById('required5').innerHTML = "*";
-	}
-	if(currStrDate==selStrDate){
-		document.getElementById('required6').innerHTML = "*";
-	}else if(currDate>selDate){
-		document.getElementById('required6').innerHTML = "Data inválida";
+	}if(currDate>selDate){
+		document.getElementById('required6').innerHTML = "Data ou hora inválida";
+		document.getElementById('required1').innerHTML = "Data ou hora inválida";
 		flag=1;
 	}else{
 		document.getElementById('required6').innerHTML = "*";
 	}
-	if (flag==0){
-		var time = ""
-		if (cb1.checked)time = "09h-11h;";
-		else if (cb2.checked)time = "11h-13h;";
-		else if (cb3.checked)time = "14h-16h;";
-		else if (cb4.checked)time = "16h-18h;";
-		else if (cb5.checked)time = "18h-20h;";
+	if (flag==0){	
 		var date = selectedYear+"-"+selectedMonth+"-"+selectedDay;
 		var stripeHandler = StripeCheckout.configure({
 			key: stripePublicKey,
@@ -170,6 +177,11 @@ function reserva(){
 				swal("Sucesso!", "Reservado com sucesso!", "success");
 				return;
 			} else{
+				selDate = new Date(selectedYear,(selectedMonth-1),selectedDay,hora,0,0,0);
+				if (currDate>=selDate){
+					swal("Cancelado", "Essa tour já partiu", "error");
+					return;
+				}
 				purchaseClicked(stripeHandler);
 			}
 			if (data.code=="PROMO") code=""
@@ -183,9 +195,14 @@ function reserva(){
 function purchaseClicked(stripeHandler) {
 	var price = 0;
 	if (tour=="normal") price = ((parseInt(adultCount, 10)*bAdultoN)+(parseInt(criancaCount, 10)*bCriancaN));
-    else if (tour=="private") price = 300;
+    else if (tour=="private") {price = 30000;adultCount=10}
     else if(tour=="express") price = ((parseInt(adultCount, 10)*bAdultoE)+(parseInt(criancaCount, 10)*bCriancaE));
     stripeHandler.open({ amount: price })
+}
+
+function changeButtonName() {
+	if(document.getElementById('codeField').value=="") document.getElementById('reservebutton').innerHTML = "Comprar com cartão";
+	else document.getElementById('reservebutton').innerHTML = "Reservar como promotor";
 }
 
 async function adminCheck(){
@@ -418,7 +435,7 @@ function resetValues(){
 }
 
 function paintCallendar(){
-	if(tour=="normal"){
+	if(tour=="normal") {
 		getNormalBookings();
 	}else if(tour=="private"){
 		getPrivateBookings();
@@ -552,10 +569,11 @@ async function eliminarReservas(){
 		  swal("Cancelado", "A reserva não foi cancelada", "error");
 		}
 	  });
+	  resetAdminFields();
 }
 
 async function modReservas(){
-    var data;
+	var data;
     var id = document.getElementById("idField").value;
     if (id=="") {
         swal("ERRO", "Preencha o ID", "error");
@@ -578,9 +596,22 @@ async function modReservas(){
     var e5 = document.getElementById("newfieldbaby");
     var bebes = e5.options[e5.selectedIndex].value;
 	var date = document.getElementById("newdateField").value;
-	if(date.includes("/")) date = convertDateFromat(date);
-    var e = document.getElementById("newtimeSelect");
-    var hora = e.options[e.selectedIndex].value + ";";
+	var e = document.getElementById("newtimeSelect");
+	var hora = e.options[e.selectedIndex].value + ";";
+	var novaHora = parseInt(hora.substring(0, 2));
+	if(date.includes("/")){
+		dateObj = convertDateFromat(date);
+		const currDate = new Date();
+		const selDate = new Date(dateObj.y,(dateObj.m-1),dateObj.d,novaHora,30,0,0);
+		date = dateObj.y+"-"+dateObj.m+"-"+dateObj.d;
+		if(currDate>selDate){
+			swal("ERRO", "Data / Hora inválida", "error");
+			return;
+		}
+	} else if(date!=""){
+		swal("ERRO", "Data ", "error");
+		return;
+	}
     if(parseInt(adultos, 10)+parseInt(criancas, 10)>10) {
         swal("ERRO", "Demasiados lugares", "error");
         return;
@@ -621,20 +652,25 @@ async function modReservas(){
             body: JSON.stringify({code:code,id:id,fName:fName,lName:lName,email:email,tel:tel,obs:obs,receber:receber,pagar:pagar,tour:tour,adults:adultos,children:criancas,baby:bebes,date:date,time:hora})
           };
           const res = await fetch('/deleteANDinsertReservation', options);
-          data = await res.json();
-          showAllBookings("",0,"","","","","");
-    }
+		  data = await res.json();
+		  swal("Sucesso!", "Novo ID:" + data.id, "success");
+          showAllBookings(id,0,"","","","","");
+	}
+	resetAdminFields();
     if(data.mod=="NULL") swal("ERRO", "ID não existe", "error");
     if(data.mod=="ERROR") swal("ERRO", "Vagas ocupadas para esse horaio / data?", "error");
 }
 
-function textEnter(){
-    if (event.key === "Enter") {
+function textEnter(r){
+    if (event.key === "Enter" || r=="btn") {
 		var id = document.getElementById("idField").value;
         var e = document.getElementById("tourField");
         var tour = e.options[e.selectedIndex].value;
 		var date = document.getElementById("dateField").value;
-		if(date.includes("/")) date = convertDateFromat(date);
+		if(date.includes("/")){
+			date = convertDateFromat(date);
+			date= date.y+"-"+date.m+"-"+date.d;
+		} 
         var fName = document.getElementById("fNameField").value;
         var lName = document.getElementById("lNameField").value;
         var email = document.getElementById("emailField").value.toLowerCase();
@@ -642,8 +678,29 @@ function textEnter(){
         showAllBookings(id,tour,date,fName,lName,email,tel);
     }
 }
+function resetAdminFields(){
+	document.getElementById("idField").value="";
+	document.getElementById("dateField").value="";
+	document.getElementById("fNameField").value="";
+	document.getElementById("lNameField").value="";
+	document.getElementById("emailField").value="";
+	document.getElementById("telField").value="";
+    document.getElementById("newfNameField").value="";
+    document.getElementById("newlNameField").value="";
+    document.getElementById("newtelField").value="";
+    document.getElementById("newemailField").value="";
+    document.getElementById("newobsField").value="";
+    document.getElementById("newrecField").value="";
+    document.getElementById("newpagField").value="";
+	document.getElementById("newdateField").value="";
+	var elements = document.getElementsByTagName("select");
+	for (var ii=0; ii < elements.length; ii++) {
+			elements[ii].selectedIndex = 0;
+	}
+}
 
 function adminrChange(rb){
+	resetAdminFields();
     if(rb === "2"){
         document.getElementById("div_search").style.display = "block";
         document.getElementById("sqlresult").style.display = "block";
@@ -674,17 +731,17 @@ async function showAllBookings(id,tour,date,fName,lName,email,tel,order){
 	const options = {
 	  method: 'POST',
 	  headers:{'Content-Type':'application/json'},
-	  body: JSON.stringify({id:id, tour:tour,date:date,fname:fName,lname:lName,email:email,telefone:tel,order:order})
+	  body: JSON.stringify({code:code,id:id, tour:tour,date:date,fname:fName,lname:lName,email:email,telefone:tel,order:order})
 	};
 	const res = await fetch('/filterReservations', options);
     const data = await res.json();
 	sqlTable.innerHTML+="<tr><th class='dedo' onclick=\"order('id')\">ID</th><th>Nome</th><th>Email</th><th>Telefone</th><th class='dedo' onclick=\"order('tour')\">Tour</th><th>NºLugares</th>\
-	<th>NºBebes</th><th>observações</th><th class='dedo' onclick=\"order('data')\">Data</th><th>Hora</th><th>Preço</th><th>A Receber</th><th>A Pagar</th><th>Promotor</th><th>Código Promo</th></tr>";
+	<th>NºBebes</th><th>observações</th><th class='dedo' onclick=\"order('data')\">Data</th><th>Hora</th><th>Preço</th><th>A Receber</th><th>A Pagar</th><th>Promotor</th><th>Código Promo</th><th>ID antigo</th></tr>";
 	for (var i = 0; i < data.bookings.length; i++){
         var date =data.bookings[i].data.replace("T00:00:00.000Z", "");
-        sqlTable.innerHTML+="<tr><td> "+data.bookings[i].ID+" </td><td> "+data.bookings[i].primeiroNome +" "+data.bookings[i].ultimoNome+" </td><td> "+data.bookings[i].email+" </td><td> "+data.bookings[i].telefone+"\
-         </td><td> "+data.bookings[i].tour+" </td><td> "+data.bookings[i].lugares+" </td><td> "+data.bookings[i].bebes+" </td><td> "+data.bookings[i].observacoes+" </td><td> "+date+" </td><td> "+data.bookings[i].hora+"\
-          </td><td> "+data.bookings[i].preco+" </td><td> "+data.bookings[i].aPagar+" </td><td> "+data.bookings[i].aReceber+" </td><td> "+data.bookings[i].promotor+" </td><td> "+data.bookings[i].codigoPromo+" </td></tr> "; 
+		sqlTable.innerHTML+="<tr><td> "+data.bookings[i].ID+" </td><td> "+data.bookings[i].primeiroNome +" "+data.bookings[i].ultimoNome+" </td><td> "+data.bookings[i].email+" </td><td> "+data.bookings[i].telefone+"</td><td> "+data.bookings[i].tour+" </td>\
+		<td> "+data.bookings[i].lugares+" </td><td> "+data.bookings[i].bebes+" </td><td> "+data.bookings[i].observacoes+" </td><td> "+date+" </td><td> "+data.bookings[i].hora+"</td><td> "+data.bookings[i].preco+" </td><td> "+data.bookings[i].aPagar+" </td>\
+		<td> "+data.bookings[i].aReceber+" </td><td> "+data.bookings[i].promotor+" </td><td> "+data.bookings[i].codigoPromo+" </td><td> "+data.bookings[i].oldID+" </td></tr> "; 
     }
     sqlr.innerHTML+="</table>";
 }

@@ -132,7 +132,7 @@ app.post('/PaidReservation',(req, res) => {
     else if (tour=="private") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
         seats=10;
-        price = 300;
+        price = 30000;
         time="18h-20h;";
     }
     else if(tour=="express") {
@@ -159,7 +159,8 @@ app.post('/PaidReservation',(req, res) => {
                 }
         });
         }).catch(error => {
-        res.status(500).end();
+            console.log(error);
+            res.status(500).end();
         })
 });
 
@@ -197,16 +198,18 @@ app.post('/getDateBooking',(req, res) => {
 });
 
 app.post('/filterReservations',(req, res) => {
+    if(req.body.code!=adminPW) return;
     var sqlExtra="";
     var order =req.body.order;
     if(order=="" || order==undefined) order="data desc, hora";
-    if(req.body.fname!="") sqlExtra+= " AND primeiroNome="+mysql.escape(req.body.fname);
+    if(req.body.fname!="") sqlExtra+= " AND primeiroNome LIKE '%"+req.body.fname+"%'";
     if(req.body.tour!="") sqlExtra+= " AND tour="+mysql.escape(req.body.tour);
     if(req.body.date!="") sqlExtra+= " AND data="+mysql.escape(req.body.date);
-    if(req.body.lname!="") sqlExtra+= " AND ultimoNome="+mysql.escape(req.body.lname);
-    if(req.body.email!="") sqlExtra+= " AND email="+mysql.escape(req.body.email);
-    if(req.body.telefone!="") sqlExtra+= " AND telefone="+mysql.escape(req.body.telefone);
-    if(req.body.id!="") sqlExtra+= " AND ID="+mysql.escape(+req.body.id);
+    if(req.body.lname!="") sqlExtra+= " AND ultimoNome LIKE '%"+req.body.lname+"%'";;
+    if(req.body.email!="") sqlExtra+= " AND email LIKE '%"+req.body.email+"%'";;
+    if(req.body.telefone!="") sqlExtra+= " AND telefone LIKE '%"+req.body.telefone+"%'";;
+    if(req.body.id!="") sqlExtra+= " AND (ID="+mysql.escape(+req.body.id)+" OR oldID="+mysql.escape(+req.body.id)+")";
+    console.log("SELECT * FROM bookings WHERE data>'2000-01-01'"+sqlExtra+" ORDER BY "+order);
     BD.query("SELECT * FROM bookings WHERE data>'2000-01-01'"+sqlExtra+" ORDER BY "+order, function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
@@ -215,8 +218,8 @@ app.post('/filterReservations',(req, res) => {
 
 app.post('/deleteReservation',(req, res) => {
     if(req.body.code!=adminPW) return;
-    var sqlCommand = "UPDATE bookings SET info_apagada=data, data='1999-01-01' WHERE data>'2000-01-01' AND ID= ?";
-    BD.query(sqlCommand, [req.body.id],function(err,sqlRes) {
+    var sqlCommand = "UPDATE bookings SET info_apagada=data, data='1999-01-01' WHERE data>'2000-01-01' AND ID= ? OR oldID= ?";
+    BD.query(sqlCommand, [req.body.id,req.body.id],function(err,sqlRes) {
         if (err) console.log(err)
         res.send({ client: sqlRes });
     });
@@ -234,7 +237,7 @@ app.post('/simpleModReservation',(req, res) => {
     if(req.body.receber!="") sqlExtra+= " aReceber="+mysql.escape(req.body.receber)+",";
     if(req.body.pagar!="") sqlExtra+= " aPagar="+mysql.escape(req.body.pagar)+",";
     sqlExtra = sqlExtra.slice(0, -1);
-    BD.query("UPDATE bookings SET "+sqlExtra+" WHERE ID= ? AND  data>'2000-01-01';",[req.body.id], function(err,sqlRes) {
+    BD.query("UPDATE bookings SET "+sqlExtra+" WHERE (ID= ? OR oldID= ?) AND  data>'2000-01-01';",[req.body.id,req.body.id], function(err,sqlRes) {
         if (err) console.log(err);
         if(sqlRes.changedRows==0) res.send({ mod: "NULL" });
         else res.send({ mod: "OK" });
@@ -244,7 +247,7 @@ app.post('/simpleModReservation',(req, res) => {
 app.post('/deleteANDinsertReservation',(req, res) => {
     if(req.body.code!=adminPW) return;
     var price,lugares;
-    BD.query("SELECT * FROM bookings WHERE ID= ? AND  data>'2000-01-01';",[req.body.id], function(err,sqlRes) {
+    BD.query("SELECT * FROM bookings WHERE (ID= ? OR oldID= ?) AND  data>'2000-01-01';",[req.body.id,req.body.id], function(err,sqlRes) {
         if (err) console.log(err);
         if(sqlRes[0]==null){
             res.send({ mod: "NULL" });
@@ -271,6 +274,8 @@ app.post('/deleteANDinsertReservation',(req, res) => {
         var time = req.body.time;
         var tour = req.body.tour;
         var date = req.body.date;
+        if(adults=="") adults=0;
+        if(children=="") children=0;
         if(req.body.fName=="") pNome = sqlRes[0].primeiroNome;
         if(req.body.lName=="") uNome = sqlRes[0].ultimoNome;
         if(req.body.email=="") mail = sqlRes[0].email;
@@ -287,36 +292,36 @@ app.post('/deleteANDinsertReservation',(req, res) => {
             date =date.replace('"', '');
             date =date.replace('"', '');
         } 
-        if(adults=="" && children =="") {
+        if(adults==0 && children ==0) {
             lugares = sqlRes[0].lugares;
             price = sqlRes[0].preco;
         }else {
-            lugares =  parseInt(adults, 10)+parseInt(children, 10);
+            lugares =  parseInt(adults)+parseInt(children);
             if (tour=="normal") {
-                price = (((parseInt(adults, 10)*bAdultoN)+(parseInt(children, 10)*bCriancaN))/100);
+                price = (((parseInt(adults)*bAdultoN)+(parseInt(children)*bCriancaN))/100);
             }
             else if (tour=="private") {
                 lugares=10;
                 price = 300;
             }
             else if(tour=="express") {
-                price = (((parseInt(adults, 10)*bAdultoE)+(parseInt(children, 10)*bCriancaE))/100);
+                price = (((parseInt(adults)*bAdultoE)+(parseInt(children)*bCriancaE))/100);
             }
         }
-        var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour!='express' AND hora= ? AND data= ? AND ID!= ? GROUP BY hora;";
-        if(tour=='express')  sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour='express' AND hora= ? AND data= ? AND ID!= ? GROUP BY hora;";
-        BD.query(sqlStr,[time,date,req.body.id], function(err,sqlRes2) {
+        var sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour!='express' AND hora= ? AND data= ? AND ID!= ? AND oldID!= ? GROUP BY hora;";
+        if(tour=='express')  sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour='express' AND hora= ? AND data= ? AND ID!= ? AND oldID!= ? GROUP BY hora;";
+        BD.query(sqlStr,[time,date,req.body.id,req.body.id], function(err,sqlRes2) {
             if (err) console.log(err);
-            if (sqlRes2[0]==null || (sqlRes2[0]['SUM(lugares)']+parseInt(lugares, 10)<=10 && sqlRes2[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
-                BD.query("UPDATE bookings SET info_apagada=data, data='1999-01-01' WHERE ID="+req.body.id, function(err,sqlRes) {
+            if (sqlRes2[0]==null || (sqlRes2[0]['SUM(lugares)']+parseInt(lugares)<=10 && sqlRes2[0]['SUM(bebes)']+parseInt(babys)<=3)){
+                BD.query("UPDATE bookings SET info_apagada=data, data='1999-01-01' WHERE (ID= ? OR oldID= ?)", [req.body.id,req.body.id],function(err,sqlRes) {
                     if (err) console.log(err);
                 });
-                var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `aReceber`, `aPagar` ) ";
-                booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";        
-                BD.query(booking, [pNome,uNome,mail,tel,tour,lugares,babys,text,date,time,price,receber,pagar],function(err,sqlRes3) {
+                var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `aReceber`, `aPagar`, `oldID` ) ";
+                booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";        
+                BD.query(booking, [pNome,uNome,mail,tel,tour,lugares,babys,text,date,time,price,receber,pagar,req.body.id],function(err,sqlRes3) {
                     if (err) console.log(err);
+                    res.send({ mod: "OK" ,id:sqlRes3.insertId});
                 });
-                res.send({ mod: "OK" });
             }else{
                 res.send({ mod: "ERROR" });
             }

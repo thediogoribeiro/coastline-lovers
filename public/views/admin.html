@@ -29,13 +29,14 @@
 			Último Nome:<input id="lNameField" type="text" name="field1" class="" size="8" placeholder=" Almeida" onkeyup="textEnter()" autocomplete="off"/>
 			Email:<input id="emailField" type="text" name="field1" class="" size="30" placeholder=" exemplo@cll.pt" onkeyup="textEnter()" autocomplete="off"/>
 			Telefone:<input id="telField" type="text" name="field1" class="" size="10" placeholder=" 931231231" onkeyup="textEnter()" autocomplete="off"/>
-			Tour:<select id="tourField" onkeyup="textEnter('search')">
+			Tour:<select id="tourField" onkeyup="textEnter()">
 				<option value="" selected disabled hidden> Escolha o tour</option>
 				<option value="normal" > Normal</option>
 				<option value="private" > Private</option>
 				<option value="express" > Express</option>
 			</select>
-			Data:<input id="dateField" type="text" name="field1" class="datepicker" size="8" placeholder=" 2020-01-30" onkeyup="textEnter()" autocomplete="off"/>
+			Data:<input id="dateField" type="text" name="field1" class="datepicker" size="8" placeholder=" 2020-01-30" onkeyup="textEnter()" autocomplete="off"/><br><br>
+			<button type="button" onclick="textEnter('btn');">Pesquisar</button>
 			<br><br>
 			_____________________________________________________________________________________________________________________________________________________________
 			<br><br>
@@ -64,7 +65,7 @@
 				<option value="" > </option><option value="0" > 0</option><option value="1" > 1</option><option value="2" > 2</option><option value="3" > 3</option>
 			</select><br><br>
 			Obs:<input id="newobsField" type="text" name="field1" size="35" placeholder=" Obs" autocomplete="off"/>
-			Data:<input id="newdateField" type="text" name="field1" class="datepicker" size="8" placeholder=" 1999-01-01" autocomplete="off"/>
+			Data:<input id="newdateField" type="text" name="field1" class="datepicker" size="8" placeholder=" 1999-01-30" autocomplete="off"/>
 			hora:
 			<select id="newtimeSelect">
 				<option value="same" > </option>

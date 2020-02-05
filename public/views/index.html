@@ -19,7 +19,7 @@
 			<ul class="form-style-1">
 				<li>
 					<label>Chave secreta: </label>
-					<input id="codeField" type="password" name="field2" class="field-long" placeholder="Reservado ao STAFF"/><br>
+					<input id="codeField" type="password" name="field2" class="field-long" placeholder="Reservado ao STAFF" autocomplete="off" onchange="changeButtonName()"/><br>
 				</li>
 				<li>
 					<label>Selecione a data: <span id="required6" class="required">*</span></label>
@@ -69,15 +69,15 @@
 					</div>
 				</li>			
 				<li><label>Nome <span id="required2" class="required">*</span></label>
-					<input id="field1" type="text" name="field1" class="field-divided" placeholder="Primeiro"/> 
-					<input id="field2" type="text" name="field2" class="field-divided" placeholder="Último"/></li>
+					<input id="field1" type="text" name="field1" class="field-divided" placeholder="Primeiro" autocomplete="off"/> 
+					<input id="field2" type="text" name="field2" class="field-divided" placeholder="Último" autocomplete="off"/></li>
 				<li>
 					<label>Email <span id="required3" class="required">*</span></label>
-					<input id="field3" type="email" name="field3" class="field-long" />
+					<input id="field3" type="email" name="field3" class="field-long" autocomplete="off"/>
 				</li>
 				<li>
 					<label>Telefone <span id="required4" class="required">*</span></label>
-					<input id="field4" type="tel" name="field4" class="field-long" />
+					<input id="field4" type="tel" name="field4" class="field-long" autocomplete="off"/>
 				</li>
 				<li>
 					<label>Observações (Não obrigátório): </label>
@@ -85,10 +85,10 @@
 				</li>
 				<li>
 					<label>Código promocional (Não obrigátório):</label>
-					<input id="promo-code" type="text" class="field-long" />
+					<input id="promo-code" type="text" class="field-long" autocomplete="off"/>
 				</li>
 				<li>
-					<button onclick="reserva()"> Reservar </button><br>
+					<button onclick="reserva()" id="reservebutton"> Reservar </button><br>
 				</li>
 			</ul>
 		</div>

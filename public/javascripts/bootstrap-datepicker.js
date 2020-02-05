@@ -319,7 +319,7 @@
 						break;
 				}
 			}
-			dateSelected();
+			dateSelected(e);
 		},
 		
 		mousedown: function(e){
