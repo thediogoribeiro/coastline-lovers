@@ -176,7 +176,7 @@ function reserva(){
 				getSeatsFromDate();
 				swal("Sucesso!", "Reservado com sucesso!", "success");
 				return;
-			} else{
+			} else if(data.code=="NO"){
 				selDate = new Date(selectedYear,(selectedMonth-1),selectedDay,hora,0,0,0);
 				if (currDate>=selDate){
 					swal("Cancelado", "Essa tour já partiu", "error");
@@ -185,11 +185,11 @@ function reserva(){
 				purchaseClicked(stripeHandler);
 			}
 			if (data.code=="PROMO") code=""
+			if (data.code=="FULL") swal("Cancelado", "Tente novamente", "error");
 		}).catch(function(error) {
 			console.error(error)
 		})
 	}
-	return false;
 }
 
 function purchaseClicked(stripeHandler) {
@@ -701,6 +701,7 @@ function resetAdminFields(){
 
 function adminrChange(rb){
 	resetAdminFields();
+	getSeatsFromDate();
     if(rb === "2"){
         document.getElementById("div_search").style.display = "block";
         document.getElementById("sqlresult").style.display = "block";

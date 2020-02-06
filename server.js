@@ -86,7 +86,7 @@ app.post('/FreeReservation',(req, res) => {
     else if (tour=="private") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
         seats=10;
-        price = 300;
+        price = 30000;
         time="18h-20h;";
     }
     else if(tour=="express") {
@@ -105,7 +105,7 @@ app.post('/FreeReservation',(req, res) => {
             if(adminPW==req.body.code) res.send({ code: "ADMIN" });
             else if(promo.includes(req.body.code)) res.send({ code: "PROMO" });
         }else{
-            res.send({ code: "YES" });
+            res.send({ code: "FULL" });
         }
     });
 });
@@ -209,7 +209,6 @@ app.post('/filterReservations',(req, res) => {
     if(req.body.email!="") sqlExtra+= " AND email LIKE '%"+req.body.email+"%'";;
     if(req.body.telefone!="") sqlExtra+= " AND telefone LIKE '%"+req.body.telefone+"%'";;
     if(req.body.id!="") sqlExtra+= " AND (ID="+mysql.escape(+req.body.id)+" OR oldID="+mysql.escape(+req.body.id)+")";
-    console.log("SELECT * FROM bookings WHERE data>'2000-01-01'"+sqlExtra+" ORDER BY "+order);
     BD.query("SELECT * FROM bookings WHERE data>'2000-01-01'"+sqlExtra+" ORDER BY "+order, function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
