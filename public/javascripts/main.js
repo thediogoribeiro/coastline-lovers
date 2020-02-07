@@ -53,6 +53,7 @@ function dateSelected(e){
 
 function reserva(){
 	var flag = 0;
+	var hora=0;
 	const currDate = new Date();
 	const cb1 = document.getElementById('cb1');
 	const cb2 = document.getElementById('cb2');
@@ -140,6 +141,8 @@ function reserva(){
 		var date = selectedYear+"-"+selectedMonth+"-"+selectedDay;
 		var stripeHandler = StripeCheckout.configure({
 			key: stripePublicKey,
+			image: "img/icon.png",
+			name: "Coastline Lovers",
 			locale: 'auto',
 			token: function(token) {
 				fetch('/PaidReservation', {
