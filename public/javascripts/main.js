@@ -52,6 +52,7 @@ function dateSelected(e){
 }
 
 function reserva(){
+	console.log(getFullPhoneNumber());
 	var flag = 0;
 	var hora=0;
 	const currDate = new Date();
@@ -151,7 +152,7 @@ function reserva(){
 						'Content-Type': 'application/json',
 						'Accept': 'application/json'
 					},
-					body: JSON.stringify({stripeTokenId: token.id,date:date, time:time, fName:field1.value, lName:field2.value, email:field3.value.toLowerCase(), tel:field4.value,
+					body: JSON.stringify({stripeTokenId: token.id,date:date, time:time, fName:field1.value, lName:field2.value, email:field3.value.toLowerCase(), tel:getFullPhoneNumber(),
 						 obs:field5.value, adults:adultCount,children:criancaCount, tour:tour, baby:bebeCount})
 				}).then(function(res) {
 					return res.json()
@@ -170,7 +171,7 @@ function reserva(){
 				'Content-Type': 'application/json',
 				'Accept': 'application/json'
 			},
-			body: JSON.stringify({code:code,date:date, time:time, fName:field1.value, lName:field2.value, email:field3.value.toLowerCase(), tel:field4.value, obs:field5.value, adults:adultCount,children:criancaCount, tour:tour, baby:bebeCount,promo:promo.value})
+			body: JSON.stringify({code:code,date:date, time:time, fName:field1.value, lName:field2.value, email:field3.value.toLowerCase(), tel:getFullPhoneNumber(), obs:field5.value, adults:adultCount,children:criancaCount, tour:tour, baby:bebeCount,promo:promo.value})
 		}).then(function(res) {
 			return res.json()
 		}).then(function(data) {
