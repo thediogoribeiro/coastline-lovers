@@ -1108,8 +1108,13 @@ p {
   @media screen and (min-width: 320px) and (max-width: 767px) {
     #tours .tours__box {
       grid-template-columns: 100%;
-      grid-template-rows: 2.5fr 1fr 1fr 1fr;
       width: 100%; } }
+  @media screen and (min-width: 320px) and (max-width: 767px) and (min-width: 320px) and (max-width: 374px) {
+    #tours .tours__box {
+      grid-template-rows: 2.5fr 1fr 1fr 1fr; } }
+  @media screen and (min-width: 320px) and (max-width: 767px) and (min-width: 375px) and (max-width: 767px) {
+    #tours .tours__box {
+      grid-template-rows: 2.3fr 1fr 1fr 1fr; } }
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     #tours .tours__box {
       grid-template-columns: 100%;
@@ -1153,16 +1158,8 @@ p {
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 2;
-    text-align: justify; } }
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  #tours .tours__text {
+    text-align: justify;
     align-self: end; } }
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-  #tours .tours__text {
-    align-self: end;
-    margin-bottom: 40px; } }
 
 @media screen and (min-width: 1024px) {
   #tours .tours__text {
@@ -1172,7 +1169,7 @@ p {
     grid-column-end: 4;
     text-align: center;
     align-self: end;
-    margin-bottom: 60px; } }
+    margin-bottom: 20px; } }
 
 #tours .tours__text h5 {
   text-align: center; }
@@ -1360,8 +1357,13 @@ p {
     @media screen and (min-width: 320px) and (max-width: 767px) {
       #rents .rents__box {
         grid-template-columns: 100%;
-        grid-template-rows: 1.8fr 1fr 1fr 1fr 1fr 1fr 1fr;
         width: 100%; } }
+  @media screen and (min-width: 320px) and (max-width: 767px) and (min-width: 320px) and (max-width: 374px) {
+    #rents .rents__box {
+      grid-template-rows: 2.3fr 1fr 1fr 1fr 1fr 1fr 1fr; } }
+  @media screen and (min-width: 320px) and (max-width: 767px) and (min-width: 375px) and (max-width: 767px) {
+    #rents .rents__box {
+      grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; } }
     @media screen and (min-width: 768px) and (max-width: 1023px) {
       #rents .rents__box {
         grid-template-columns: 100%;
@@ -1389,8 +1391,7 @@ p {
       margin-top: 50px; } }
   @media screen and (min-width: 320px) and (max-width: 1023px) and (min-width: 768px) and (max-width: 1023px) {
     #rents .rents__title {
-      align-self: start;
-      margin-top: 30px; } }
+      align-self: start; } }
   @media screen and (min-width: 1024px) {
     #rents .rents__title {
       grid-row-start: 1;
@@ -1776,26 +1777,26 @@ p {
 #contacts .contacts__box {
   display: grid;
   grid-template-row: 1fr 1fr;
-  grid-template-column: 1fr 1fr; }
+  grid-template-column: 1fr 1fr 1fr 1fr 1fr 1fr; }
 
 #contacts .contacts__title {
   grid-row-start: 1;
   grid-row-end: 2;
   grid-column-start: 1;
-  grid-column-end: 3; }
+  grid-column-end: 7; }
 
 #contacts .contacts__icon-1 {
   grid-row-start: 2;
   grid-row-end: 3;
-  grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-start: 2;
+  grid-column-end: 4;
   align-self: center;
   justify-self: center; }
 
 #contacts .contacts__icon-2 {
   grid-row-start: 2;
   grid-row-end: 3;
-  grid-column-start: 2;
-  grid-column-end: 3;
+  grid-column-start: 4;
+  grid-column-end: 6;
   align-self: center;
   justify-self: center; }

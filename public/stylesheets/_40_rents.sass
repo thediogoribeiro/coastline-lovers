@@ -3,8 +3,12 @@
 		display: grid
 		@media screen and (min-width: $xs) and (max-width: $md - 1)
 			grid-template-columns: 100%
-			grid-template-rows: 1.8fr 1fr 1fr 1fr 1fr 1fr 1fr
 			width: 100%
+			@media screen and (min-width: $xs) and (max-width: $sm - 1)
+				grid-template-rows: 2.3fr 1fr 1fr 1fr 1fr 1fr 1fr
+			@media screen and (min-width: $sm) and (max-width: $md - 1)
+				grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr 1fr
+
 		@media screen and (min-width: $md) and (max-width: $lg - 1)
 			grid-template-columns: 100%
 			grid-template-rows: 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr
@@ -28,7 +32,6 @@
 				margin-top: 50px
 			@media screen and (min-width: $md) and (max-width: $lg - 1)
 				align-self: start
-				margin-top: 30px
 		@media screen and (min-width: $lg)
 			grid-row-start: 1
 			grid-row-end: 2

@@ -3,8 +3,11 @@
 		display: grid
 		@media screen and (min-width: $xs) and (max-width: $md - 1)
 			grid-template-columns: 100%
-			grid-template-rows: 2.5fr 1fr 1fr 1fr
 			width: 100%
+			@media screen and (min-width: $xs) and (max-width: $sm - 1)
+				grid-template-rows: 2.5fr 1fr 1fr 1fr
+			@media screen and (min-width: $sm) and (max-width: $md - 1)
+				grid-template-rows: 2.3fr 1fr 1fr 1fr
 		@media screen and (min-width: $md) and (max-width: $lg - 1)
 			grid-template-columns: 100%
 			grid-template-rows: 1.5fr 1fr 1fr 1fr
@@ -42,11 +45,7 @@
 			grid-column-start: 1
 			grid-column-end: 2
 			text-align: justify
-		@media screen and (min-width: $xs) and (max-width: $md - 1)
 			align-self: end
-		@media screen and (min-width: $md) and (max-width: $lg - 1)
-			align-self: end
-			margin-bottom: 40px
 		@media screen and (min-width: $lg)
 			grid-row-start: 1
 			grid-row-end: 2
@@ -54,7 +53,7 @@
 			grid-column-end: 4
 			text-align: center
 			align-self: end
-			margin-bottom: 60px
+			margin-bottom: 20px
 		h5
 			text-align: center
 			@media screen and (min-width: $xs) and (max-width: $md - 1)
