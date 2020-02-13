@@ -26,6 +26,19 @@
   .hide__s {
     display: none; } }
 
+.hover__effect {
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform; }
+
+.hover__effect:hover, .hover__effect:focus, .hover__effect:active {
+  transform: scale(1.1); }
+
 body {
   margin: 0;
   padding: 0; }
@@ -313,18 +326,18 @@ body {
   letter-spacing: 0.1em;
   text-indent: 6px; }
 
-#gallery {
+#gallery .gallery__follow h4, #gallery .gallery__follow a {
   font-family: 'roboto';
   font-style: normal;
   font-weight: bold;
   letter-spacing: 0.1em;
   text-indent: 6px; }
   @media screen and (min-width: 320px) and (max-width: 767px) {
-    #gallery {
+    #gallery .gallery__follow h4, #gallery .gallery__follow a {
       font-size: 14px;
       line-height: 16px; } }
   @media screen and (min-width: 768px) {
-    #gallery {
+    #gallery .gallery__follow h4, #gallery .gallery__follow a {
       font-size: 24px;
       line-height: 28px; } }
 
@@ -485,8 +498,13 @@ p {
   border: 1.25px solid #DD2A7B;
   border-radius: 10px;
   background-color: #DD2A7B;
-  padding: 2% 8%;
   color: #FFFFFF; }
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    #gallery .button {
+      padding: 10px 20px; } }
+  @media screen and (min-width: 768px) {
+    #gallery .button {
+      padding: 15px 30px; } }
 
 #easy-bar .fa-instagram, #easy-bar .fa-facebook-square, #easy-bar .fa-phone-alt, #easy-bar .fa-envelope {
   color: #FFFFFF; }
@@ -858,6 +876,8 @@ p {
       @media screen and (min-width: 1024px) {
         #easy-bar .easy-bar .easy__item-4 {
           justify-self: left; } }
+    #easy-bar .easy-bar .easy__item-1:hover, #easy-bar .easy-bar .easy__item-2:hover, #easy-bar .easy-bar .easy__item-3:hover, #easy-bar .easy-bar .easy__item-4:hover {
+      color: #6CBDEA; }
 
 #navbar {
   position: absolute;

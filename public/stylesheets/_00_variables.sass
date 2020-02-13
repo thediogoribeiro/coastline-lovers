@@ -41,6 +41,21 @@ $pink: #DD2A7B
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
 		display: none
 
+// Hover
+.hover__effect
+	display: inline-block
+	vertical-align: middle
+	transform: translateZ(0)
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0)
+	backface-visibility: hidden
+	-moz-osx-font-smoothing: grayscale
+	transition-duration: 0.3s
+	transition-property: transform
+
+.hover__effect:hover, .hover__effect:focus, .hover__effect:active
+	transform: scale(1.1)
+
+
 // Font Awesome size
 .fa-2x
 	//@media screen and (min-width: $md) and (max-width: $lg - 1)
