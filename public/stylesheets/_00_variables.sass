@@ -18,19 +18,42 @@ $green: #329736
 $pink: #DD2A7B
 
 
-// Background colors
+// Background colors 
 
 
-// Hide
+// Hide large and xl
 .hide__lg
 	@media screen and (min-width: $lg)
 		display: none
 
+// Hide medium, large and xl
+.hide__md
+	@media screen and (min-width: $md)
+		display: none
+
+// Hide small and medium
 .hide__sm
 	@media screen and (min-width: $xs) and (max-width: $lg - 1)
 		display: none 
 
-	
+// Hide only small
+.hide__s
+	@media screen and (min-width: $xs) and (max-width: $md - 1)
+		display: none
+
+// Font Awesome size
+.fa-2x
+	//@media screen and (min-width: $md) and (max-width: $lg - 1)
+		//display: none
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,9 +1,12 @@
 #gallery
 	.gallery__box
 		display: grid
-		grid-template-rows: 1fr 1fr 2fr
 		grid-template-columns: 1fr
 		text-align: center
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			grid-template-rows: 1fr 1fr 2fr
+		@media screen and (min-width: $lg)
+			grid-row-gap: 50px
 
 	.gallery__text
 		grid-row-start: 1

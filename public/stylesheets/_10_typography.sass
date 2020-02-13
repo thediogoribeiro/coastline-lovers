@@ -1,85 +1,220 @@
+#easy-bar
+	p
+		color: $white
+		font-size: 12px
+
+#navbar
+	.nav__menu
+		i
+			border: 1.5px solid $white
+			border-radius: 5px
+			padding: 5px 10px	
+
+	.menu__links a
+		font-style: bold
+		font-weight: normal
+		font-size: 14px
+		line-height: 14px
+		letter-spacing: 0.1em
+
+	//h3
+		//@media screen and (min-width: $lg)
+			//font-family: 'roboto-bold'
+
 #header	
 	.head__box 
-		h1, h2, h3
+		h1, h2, h3, a
 			color: $white
+		a
 
-#tours, #rents, #testimonials
+
+#tours, #testimonials
 	h3
 		color: $white
 		margin: 10px 0
 		font-weight: normal
 
+#rents
+	h3
+		margin: 10px 0
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			color: $white
+			font-weight: normal
+		@media screen and (min-width: $lg)
+			color: $black
+			font-weight: bold
+
+#rents
+	.rents__slogan
+		font-family: 'roboto-bold'
+		text-align: center
+		letter-spacing: 0.1em
+		text-indent: 6px
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			font-size: 20px
+			line-height: 23px
+		@media screen and (min-width: $lg)
+			font-weight: 500
+			font-size: 26px
+			line-height: 42px
+
+#safety
+	ul
+		list-style: none
+		margin: 0
+		padding: 0
+		//text-align: justify
+
+	li
+		text-align: justify
+		margin-top: 25px
+		margin-left: 1.5em
+
+	li:before
+	  content: "\2022"
+	  color: $dark-blue
+	  font-weight: 900
+	  font-size: 26px
+	  display: inline-block
+	  width: 1em
+	  margin-left: -1.2em
+	  position: relative
+	  top: 4px
+
 
 #testimonials
 	h3
-		@media screen and (min-width: $xs) and (max-width: $md - 1)
-			font-style: italic
-			font-weight: 500
-			font-size: 16px
-			line-height: 19px
-			letter-spacing: 0.1em
-			text-indent: 6px
+		font-style: italic
+		font-weight: 500
+		font-size: 16px
+		line-height: 19px
+		letter-spacing: 0.1em
+		text-indent: 6px
+
+#gallery
+	font-family: 'roboto'
+	font-style: normal
+	font-weight: bold
+	letter-spacing: 0.1em
+	text-indent: 6px
+	@media screen and (min-width: $xs) and (max-width: $md - 1)
+		font-size: 14px
+		line-height: 16px
+	@media screen and (min-width: $md)
+		font-size: 24px
+		line-height: 28px
+		
 
 #footer
 	h4, p
 		color: $white
 	p
 		margin: 0px
+		font-size: 12px
+	h4
+		font-size: 14px	
 
 
-h1
+.head__button a, .contacts__title a
 	font-family: 'roboto'
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
-		font-style: normal
-		font-weight: 900
-		font-size: 40px
-		line-height: 47px
-		text-align: center
-		letter-spacing: 0.1em
-		text-indent: 6px
-
-h2
-	font-family: 'roboto'
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
-		font-style: normal
+	font-style: normal
+	letter-spacing: 0.1em
+	text-indent: 6px
+	text-align: center
+	@media screen and (min-width: $xs) and (max-width: $sm - 1)
+		font-weight: 500
+		font-size: 20px
+		line-height: 24px
+	@media screen and (min-width: $sm) and (max-width: $md - 1)
 		font-weight: 500
 		font-size: 24px
 		line-height: 28px
-		text-align: center
-		letter-spacing: 0.1em
-		text-indent: 6px
-		color: $dark-blue
+	@media screen and (min-width: $md)
+		font-weight: 900
+		font-size: 24px
+		line-height: 28px
+		font-feature-settings: 'cpsp' on
 
+a
+	text-decoration: none
 
 h3
+	text-align: center
+
+
+h1
+	font-family: 'roboto-bold'
+	font-style: normal
+	font-weight: 900
+	text-align: center
+	letter-spacing: 0.1em
+	text-indent: 6px
+	@media screen and (min-width: $xs) and (max-width: $md - 1)
+		font-size: 40px
+		line-height: 47px
+	@media screen and (min-width: $md)
+		font-size: 64px
+		line-height: 75px
+
+h2
 	font-family: 'roboto'
+	font-style: normal
+	letter-spacing: 0.1em
+	text-indent: 6px
+	color: $dark-blue
+	text-align: center
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
 		font-weight: 500
+		font-size: 24px
+		line-height: 28px
+	@media screen and (min-width: $md) and (max-width: $lg - 1)
+		font-weight: 900
+		font-size: 36px
+		line-height: 42px
+	@media screen and (min-width: $lg)
+		font-weight: 900
+		font-size: 46px
+		line-height: 54px
+
+h3, li
+	font-family: 'roboto'
+	font-weight: 500
+	letter-spacing: 0.1em
+	text-indent: 6px
+	@media screen and (min-width: $xs) and (max-width: $md - 1)
 		font-size: 16px
-		line-height: 19px
-		letter-spacing: 0.1em
-		text-indent: 6px
+		line-height: 21px
+	@media screen and (min-width: $md)
+		font-size: 20px
+		line-height: 23px
 
 h4
 	font-family: 'roboto'
+	font-style: normal
+	font-weight: bold
+	text-align: center
+	letter-spacing: 0.1em
+	text-indent: 6px
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
-		font-style: normal
-		font-weight: bold
 		font-size: 14px
 		line-height: 16px
-		text-align: center
-		letter-spacing: 0.1em
-		text-indent: 6px
+	@media screen and (min-width: $md)
+		font-size: 24px
+		line-height: 28px
 
 h5
 	font-family: 'roboto'
+	font-style: normal
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
-		font-style: normal
 		font-weight: 300
-		font-size: 16px
-		line-height: 19px
-		//letter-spacing: 0.1em
-		//text-indent: 6px
+		font-size: 18px
+		line-height: 21px
+	@media screen and (min-width: $md)
+		font-weight: normal
+		font-size: 22px
+		line-height: 26px
+		text-align: center
+
 
 p
 	font-family: 'roboto'
@@ -89,27 +224,13 @@ p
 		font-size: 12px
 		line-height: 14px
 		letter-spacing: 0.1em
-
-.menu__links a
-	font-style: bold
-	font-weight: normal
-	font-size: 14px
-	line-height: 14px
-	letter-spacing: 0.1em
-
-.head__button a
-	font-family: 'roboto'
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
+	@media screen and (min-width: $md)
 		font-style: normal
-		font-weight: 500
-		font-size: 24px
-		line-height: 28px
-		text-align: center
+		font-size: 16px
+		line-height: 19px
 		letter-spacing: 0.1em
 		text-indent: 6px
-		color: $white
 
-a
-	text-decoration: none
+
 
 

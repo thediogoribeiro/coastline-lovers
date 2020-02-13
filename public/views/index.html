@@ -12,20 +12,31 @@
 	<script type="text/javascript" src="javascripts/script.js"></script>
 </head>
 <body>
+	<div id="easy-bar">
+		<div class="easy-bar">
+			<a class="easy__item-1"><i class="fab fa-instagram"></i></a>
+			<a class="easy__item-2"><i class="fab fa-facebook-square"></i></a>
+			<a class="easy__item-3"><i class="fas fa-phone-alt"></i><p class="easy__phone hide__s">+351 969 999 999</p></a>
+			<a class="easy__item-4"><i class="far fa-envelope"></i><p class="easy__mail hide__s">booking@coastlinelovers.com</p></a>
+		</div>
+	</div>
 	<div id="navbar" class="">
 		<div class="nav__box container">
 
 			<div class="nav__logo" id="top">
-				<img src="">
+				<img src="/assets/cll-white.png">
 			</div>
 			<a class="nav__about hide__sm" href="#about">
 				<h3>SOBRE NÓS</h3>
 			</a>
 			<a class="nav__tours hide__sm" href="#tours">
-				<h3>TOURS</h3>
+				<h3>PASSEIOS</h3>
 			</a>
 			<a class="nav__rents hide__sm" href="#rents">
-				<h3>RENTS</h3>
+				<h3>ALUGUERES</h3>
+			</a>
+			<a class="nav__safety hide__sm" href="#safety">
+				<h3>AVISOS</h3>
 			</a>
 			<a class="nav__testimonials hide__sm" href="#testimonials">
 				<h3>TESTEMUNHOS</h3>
@@ -33,11 +44,9 @@
 			<a class="nav__gallery hide__sm" href="#gallery">
 				<h3>GALERIA</h3>
 			</a>
-			<a class="nav__contacts hide__sm" href="#contacts">
-				<h3>CONTACTOS</h3>
-			</a>
+			<!-- <a class="nav__contacts hide__sm" href="#contacts"><h3>CONTACTOS</h3></a> -->
 
-			<div class="nav__menu">
+			<div class="nav__menu hide__lg">
 				<a id="icon" class="icon"> 
 			  	<i class="fas fa-bars fa-2x" onclick="showBurger()"></i>
 			  </a>
@@ -45,6 +54,7 @@
 					<a href="#about">SOBRE NÓS</a>
 					<a href="#tours">TOURS</a>
 					<a href="#rents">RENTS</a>
+					<a href="#safety">SAFETY</a>
 					<a href="#testimonials">TESTEMUNHOS</a>
 					<a href="#gallery">GALERIA</a>
 					<a href="#contacts">CONTACTOS</a>
@@ -62,8 +72,8 @@
 			</div>
 
 			<div class="head__text">
-				<h3>Conheça as grutas mais famosos da costa algarvia.</h5>
-				<h3>Uma experiência verdadeiramente incrível!</h5>
+				<h3>Conheça as grutas mais famosos da costa algarvia.</h3>
+				<h3>Uma experiência verdadeiramente incrível!</h3>
 			</div>
 
 			<div class="head__button">
@@ -73,7 +83,7 @@
 		</div>
 	</div>
 
-	<div id="about" class="container">
+	<div id="about" class="container"> <!-- hide__md hide__s -->
 		<div class="about__box row">
 
 			<div class="about__title">
@@ -95,7 +105,10 @@
 			</div>
 
 			<div class="tours__text">
-				<h5>Tenha uma experiência incrível num dos nossos tours na costa algarvia. Venha conhecer a famosa gruta de Benagil.</h5>
+				<h5 class="tours__paragraph">Venha experienciar uma das melhores atividades para realizar com amigos ou família! Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão, até à famosa Gruta de Benagil!</h5>
+				<h5 class="tours__paragraph">Passará por lugares maravilhosos como Carvoeiro e Ferragudo, apreciando toda a vista da costa algarvia até chegar ao seu tão aguardado destino!</h5>
+				<h5 class="tours__paragraph">Faça já a sua reserva online ou entre em contacto conosco via email ou telemóvel.</h5>
+				<h5 class="tours__paragraph">Ponto de partida de todos os nossos tours, Clube Naval de Portimão</h5>
 			</div>
 
 			<div class="tours-1">
@@ -136,62 +149,117 @@
 			</div>
 
 			<div class="rents__text">
-				<h5>Todos os nossos Rents são efetuados na maravilhosa Praia Nossa Senhora da Rocha, XXXXX Atreves-te a experimentar?</h5>
+				<h5>A nossa segunda atividade é relativa aos “Rents”. Aqui podes encontrar inúmeras atividades aquáticas para realizar com os teus amigos ou família.</h5>
+				<h5>Todos os nossos “Rents” são realizados na Praia Nossa Senhora da Rocha.</h5>
+				<h5 class="rents__slogan">Atreves-te a experimentar?</h5>
 			</div>
 
 			<div class="rents-1">
-				<div class="rents__photo-1">
-					<img src="../assets/jetski.jpg">
+				<div id="rents__photo-1" class="rents__photo-1">
+					<img id="photo-1" src="../assets/jetski.jpg">
 				</div>
 				<div class="rents__text-1">
-					<h3 class="">JET SKI</h3>
+					<h3 class="elem-11">JET SKI</h3>
+					<div class="elem-12 hide__sm">
+						<i class=" elem-121 far fa-clock"></i>
+						<p class="elem-122">15 minutos (mínimo)</p>
+					</div>
+					<p class="elem-13 hide__sm">Prepara-te para uma experiência inesquecivél ao conduzir uma das nossas motas de água, sozinho ou acompanhado! Garantia de adrenalina e diversão!</p>
 				</div>
 			</div>
 
 			<div class="rents-2">
-				<div class="rents__photo-2">
-					<img src="../assets/gaivota.jpg">
+				<div id="rents__photo-2" class="rents__photo-2">
+					<img id="photo-2" src="../assets/gaivota.jpg">
 				</div>
 				<div class="rents__text-2">
-					<h3 class="">GAIVOTA</h3>
+					<h3 class="elem-21">GAIVOTA</h3>
+					<div class="elem-22 hide__sm">
+						<i class="elem-221 far fa-clock"></i>
+						<p class="elem-222">60 minutos (mínimo)</p>
+					</div>
+					<p class="elem-23 hide__sm">Junta a tua família e/ou os teus amigos e disfruta de um passeio de gaivota com escorrega para a água! Ótimo para crianças.</p>
 				</div>
 			</div>
 
 			<div class="rents-3">
-				<div class="rents__photo-3">
-					<img src="../assets/kayak.jpg">
+				<div id="rents__photo-3" class="rents__photo-3">
+					<img id="photo-3" src="../assets/kayak.jpg">
 				</div>
 				<div class="rents__text-3">
-					<h3 class="">KAYAK</h3>
+					<h3 class="elem-31">KAYAK</h3>
+					<div class="elem-32 hide__sm">
+						<i class="elem-321 far fa-clock"></i>
+						<p class="elem-322">60 minutos (mínimo)</p>
+					</div>
+					<p class="elem-33 hide__sm">Descubra sítios mágicos através de uma experiência no nossos kayaks, sozinho ou acompanhado. Aproveite para fazer um treino físico e de equilíbrio.</p>
 				</div>
 			</div>
 
 			<div class="rents-4">
-				<div class="rents__photo-4">
-					<img src="../assets/paddle.jpg">
+				<div id="rents__photo-4" class="rents__photo-4">
+					<img id="photo-4" src="../assets/paddle.jpg">
 				</div>
 				<div class="rents__text-4">
-					<h3 class="">PADDLE</h3>
+					<h3 class="elem-41">PADDLE</h3>
+					<div class="elem-42 hide__sm">
+						<i class="elem-421 far fa-clock"></i>
+						<p class="elem-422">60 minutos (mínimo)</p>
+					</div>
+					<p class="elem-43 hide__sm">Deslize sobre a água numa das nossas pranchas de paddle. Explore por si, ou vá numa das nossas tours até às grutas!</p>
 				</div>
 			</div>
 
 			<div class="rents-5">
-				<div class="rents__photo-5">
-					<img src="../assets/banana.jpg">
+				<div id="rents__photo-5" class="rents__photo-5">
+					<img id="photo-5" src="../assets/banana.jpg">
 				</div>
 				<div class="rents__text-5">
-					<h3 class="">BANANA BOAT</h3>
+					<h3 class="elem-51">BANANA BOAT</h3>
+					<div class="elem-52 hide__sm">
+						<i class="elem-521 far fa-clock"></i>
+						<p class="elem-522">15 minutos (mínimo)</p>
+					</div>
+					<p class="elem-53 hide__sm">A Banana é uma experiência espetacular para família e/ou amigos. Será que tens o que é preciso para não cair à àgua nenhuma vez? Venha experimentar!</p>
 				</div>
 			</div>
 
 			<div class="rents-6">
-				<div class="rents__photo-6">
-					<img src="../assets/crazy-sofa.jpg">
+				<div id="rents__photo-6" class="rents__photo-6">
+					<img id="photo-6" src="../assets/crazy-sofa.jpg">
 				</div>
 				<div class="rents__text-6">
-					<h3 class="">CRAZY SOFA</h3>
+					<h3 class="elem-61">CRAZY SOFA</h3>
+					<div class="elem-62 hide__sm">
+						<i class="elem-621 far fa-clock"></i>
+						<p class="elem-622">15 minutos (mínimo)</p>
+					</div>
+					<p class="elem-63 hide__sm">Puxado por um dos nossos barcos, o mítico crazy sofa atinge velocidades que te vão deixar louco! Uma aventura cheia de adrenalina!</p>
 				</div>
 			</div>
+
+		</div>
+	</div>
+
+	<div id="safety" class="">
+
+		<div class="safety__box container">
+
+			<div class="safety__icon">
+				<i class="fas fa-exclamation-triangle fa-inverse fa-4x"></i>
+			</div>
+
+			<div class="safety__title">
+				<h2 class="">AVISOS IMPORTANTES</h2>
+			</div>
+
+			<ul class="safety__text">
+				<li>Será fornecido um colete salva-vidas a todos os participantes.</li>
+				<li>A empresa não se responsabiliza por afins perdidos.</li>
+				<li>A perda do colete salva-vidas tem um custo de 30€.</li>
+				<li>A empresa reserva o direito de cancelar qualquer atividade derivado às condições atmosféricas.</li>
+				<li>A empresa tem o direito de terminar com qualquer atividade por uso inapropriado ou caso não sejam cumpridas as ordens dadas pelos colaboradores.</li>
+			</ul>
 
 		</div>
 	</div>
@@ -230,7 +298,7 @@
 		</div>
 	</div>
 
-	<div id="contacts" class="container">
+	<div id="contacts" class="container hide__md">
 		<div class="contacts__box row">
 
 			<div class="contacts__title">
@@ -254,7 +322,7 @@
 		<div class="footer__box container">
 
 			<div class="footer__logo" href="#top">
-				<img class="footer__image">
+				<img class="footer__image" src="/assets/cll-white.png">
 			</div>
 
 			<div class="footer__info">
@@ -310,7 +378,7 @@
 
 		</div>
 
-		<div id="trademark" style="margin-top: 30px">
+		<div id="trademark" style="">
 			<div class="my__mark container" style="text-align: right">
 				<a href="www.iamdiogoribeiro.com" style="color: $white"></a>
 				<p>Made by Digital Studio</p>

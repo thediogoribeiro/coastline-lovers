@@ -1,9 +1,11 @@
 #about	
 	.about__box
+		display: grid
+		grid-template-columns: 1fr
 		@media screen and (min-width: $xs) and (max-width: $lg - 1)
-			display: grid
-			grid-template-columns: 1fr
 			grid-template-rows: 1fr 3fr
+		@media screen and (min-width: $lg)
+			grid-template-rows: 1fr 1.5fr
 
 	.about__title
 		grid-row-start: 1
@@ -11,7 +13,11 @@
 		grid-column-start: 1
 		grid-column-end: 2
 		text-align: center
-		align-self: end
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			align-self: end
+		@media screen and (min-width: $lg)
+			align-self: end
+		
 
 	.about__text
 		grid-row-start: 2
@@ -19,6 +25,12 @@
 		grid-column-start: 1
 		grid-column-end: 2
 		text-align: justify
-		align-self: start
+		@media screen and (min-width: $xs) and (max-width: $md - 1)
+			align-self: start
+		@media screen and (min-width: $md) and (max-width: $lg - 1)
+			align-self: start
+		@media screen and (min-width: $lg)
+			align-self: end	
+		
 
 

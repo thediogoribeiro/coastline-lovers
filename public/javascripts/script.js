@@ -17,7 +17,14 @@ var feed = new Instafeed({
 feed.run();
 */
 
+/*
+var novaLargura = document.getElementById("rents__photo-2");
 
-
-
+document.getElementById("photo-1").height = (novaLargura.offsetWidth)/1.56;
+document.getElementById("photo-2").height = (novaLargura.offsetWidth)/1.56;
+document.getElementById("photo-3").height = (novaLargura.offsetWidth)/1.56;
+document.getElementById("photo-4").height = (novaLargura.offsetWidth)/1.56;
+document.getElementById("photo-5").height = (novaLargura.offsetWidth)/1.56;
+document.getElementById("photo-6").height = (novaLargura.offsetWidth)/1.56;
+*/
 
