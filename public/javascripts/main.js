@@ -16,6 +16,7 @@ var conditions = ["09h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
 var strangeChars = [",","&","'","!",'"',"#","+","*","(","?",";",":",")"];
 var stripePublicKey = "pk_test_mO123Ap9UupBtLlNhyDl37Db00nxyjzZ89";
 var code ="";
+var arrow="&uarr;";
 
 window.onload = function() {
 	date = new Date();
@@ -52,7 +53,6 @@ function dateSelected(e){
 }
 
 function reserva(){
-	console.log(getFullPhoneNumber());
 	var flag = 0;
 	var hora=0;
 	const currDate = new Date();
@@ -740,8 +740,8 @@ async function showAllBookings(id,tour,date,fName,lName,email,tel,order){
 	};
 	const res = await fetch('/filterReservations', options);
     const data = await res.json();
-	sqlTable.innerHTML+="<tr><th class='dedo' onclick=\"order('id')\">ID</th><th>Nome</th><th>Email</th><th>Telefone</th><th class='dedo' onclick=\"order('tour')\">Tour</th><th>NºLugares</th>\
-	<th>NºBebes</th><th>observações</th><th class='dedo' onclick=\"order('data')\">Data</th><th>Hora</th><th>Preço</th><th>A Receber</th><th>A Pagar</th><th>Promotor</th><th>Código Promo</th><th>ID antigo</th></tr>";
+	sqlTable.innerHTML+="<tr><th class='dedo' onclick=\"order('id')\">"+arrow+" ID "+arrow+"</th><th>Nome</th><th>Email</th><th>Telefone</th><th class='dedo' onclick=\"order('tour')\">"+arrow+" Tour "+arrow+"</th><th>NºLugares</th>\
+	<th>NºBebes</th><th>observações</th><th class='dedo' onclick=\"order('data')\">"+arrow+" Data "+arrow+"</th><th>Hora</th><th>Preço</th><th>A Receber</th><th>A Pagar</th><th>Promotor</th><th>Código Promo</th><th>ID antigo</th></tr>";
 	for (var i = 0; i < data.bookings.length; i++){
         var date =data.bookings[i].data.replace("T00:00:00.000Z", "");
 		sqlTable.innerHTML+="<tr><td> "+data.bookings[i].ID+" </td><td> "+data.bookings[i].primeiroNome +" "+data.bookings[i].ultimoNome+" </td><td> "+data.bookings[i].email+" </td><td> "+data.bookings[i].telefone+"</td><td> "+data.bookings[i].tour+" </td>\
@@ -753,7 +753,12 @@ async function showAllBookings(id,tour,date,fName,lName,email,tel,order){
 
 function order(o){
     newOrder = o;
-    if(newOrder == oldOrder) o=o+" desc";
+    if(newOrder == oldOrder){
+		o=o+" desc";
+		arrow = "&uarr;";
+	} else{
+		arrow = "&darr;";
+	}
     showAllBookings("",0,"","","","","",o);
     oldOrder=o;    
 }
