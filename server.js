@@ -1,4 +1,4 @@
-const keys = require('./config/keys');
+const keys = require('./stripe/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 const path = require('path');
 const host = '0.0.0.0';
