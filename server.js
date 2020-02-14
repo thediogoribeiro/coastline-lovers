@@ -1,3 +1,4 @@
+var STRIPE_SECRET_KEY;
 const stripeSecretKey = STRIPE_SECRET_KEY;
   
 const stripe = require('stripe')(stripeSecretKey)
