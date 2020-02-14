@@ -29,9 +29,9 @@ app.use(express.json({limit:'1mb'}));
 
 var BD = mysql.createConnection({
     host : 'localhost',
-    port : 8888,
     user : 'root',
     password : 'root',
+    port : '8889',
     database : 'coastlinelovers'
 });
 
