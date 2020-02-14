@@ -28,11 +28,11 @@ app.use(express.static('public'));
 app.use(express.json({limit:'1mb'}));
 
 var BD = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : 'root',
-    port : '8889',
-    database : 'coastlinelovers'
+    host : 'us-cdbr-iron-east-04.cleardb.net', //localhost
+    user : 'bb3571693f7bee', //root
+    password : 'a192f195', //root
+    //port : '8889',
+    database : 'heroku_3a464d27dbd82c7'
 });
 
 BD.connect(function(err) {
