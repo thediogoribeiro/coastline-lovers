@@ -27,7 +27,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "scss": "node-sass --watch public/stylesheets/style.scss -o public/stylesheets/style",
-    "start": "concurrently \"node server.js\" \"node-sass --watch public/stylesheets/style.scss -o public/stylesheets/style\""
+    "start": "node server.js",
+    "start-v2": "concurrently \"node server.js\" \"node-sass --watch public/stylesheets/style.scss -o public/stylesheets/style\""
   },
   "repository": {
     "type": "git",
