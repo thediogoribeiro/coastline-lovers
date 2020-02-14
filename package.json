@@ -10,7 +10,6 @@
     "express": "^4.17.1",
     "http": "^0.0.0",
     "mysql": "^2.17.1",
-    "node-sass": "^4.13.1",
     "path": "^0.12.7",
     "readable-stream": "^2.3.7",
     "stripe": "^8.17.0",
