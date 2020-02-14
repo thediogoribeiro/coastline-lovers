@@ -416,6 +416,7 @@ function resetValues(){
 	document.getElementById('cb3').disabled = false;
 	document.getElementById('cb4').disabled = false;
 	document.getElementById('cb5').disabled = false;
+	document.getElementById('cb1').checked=true;
 	document.getElementById('required1').innerHTML = "*";
 	document.getElementById('required2').innerHTML = "*";
 	document.getElementById('required3').innerHTML = "*";
@@ -430,7 +431,6 @@ function resetValues(){
 	document.getElementById('field3').value="";
 	document.getElementById('field4').value="";
 	document.getElementById('field5').value="";
-	document.getElementById('cb1').checked=true;
 	var codeObj = document.getElementById('codeField');
 	if(codeObj!=null) codeObj.value="";
 	adultCount = 0;
