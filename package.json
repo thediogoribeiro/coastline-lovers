@@ -12,20 +12,24 @@
     "path": "^0.12.7",
     "stripe": "^8.8.2",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^9.7.1"
+    "sweetalert2": "^9.7.1",
+    "concurrently": "^5.1.0",
+    "node-sass": "^4.13.1",
+    "readable-stream": "^2.3.7"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "scss": "node-sass --watch public/stylesheets/style.scss -o public/stylesheets/style",
+    "start": "concurrently \"node server.js\" \"node-sass --watch public/stylesheets/style.scss -o public/stylesheets/style\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thediogoribeiro/coastline-lovers.git"
   },
-  "author": "",
+  "author": "Digital Studio",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/thediogoribeiro/coastline-lovers/issues"

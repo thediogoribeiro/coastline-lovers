@@ -30,7 +30,8 @@ app.use(express.json({limit:'1mb'}));
 var BD = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
-    password : '',
+    password : 'root',
+    port : '8889',
     database : 'coastlinelovers'
 });
 
@@ -41,7 +42,6 @@ BD.connect(function(err) {
         return;
     }
     console.log('Connected to database without errors');
-});
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/views/index.html'));
