@@ -1,7 +1,5 @@
-var STRIPE_SECRET_KEY;
-const stripeSecretKey = STRIPE_SECRET_KEY;
-  
-const stripe = require('stripe')(stripeSecretKey)
+const keys = require('./config/keys');
+const stripe = require('stripe')(keys.stripeSecretKey);
 const path = require('path');
 const host = '0.0.0.0';
 const port = 3000;
