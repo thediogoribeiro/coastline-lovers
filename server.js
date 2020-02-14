@@ -48,9 +48,7 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/views/index.html'));
 });
 
-app.listen(port, host, function() {//poe o sv a correr
-    console.log('Running at: ',host,port);
-});
+app.listen(process.env.PORT || 3000)
 
 app.get('/Administrador', function(request, response){
     response.sendFile(path.join(__dirname + '/public/views/admin.html'));
