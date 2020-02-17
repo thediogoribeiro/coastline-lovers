@@ -22,22 +22,32 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use(express.json({limit:'1mb'}));
 
-var BD = mysql.createConnection({
-    host : 'us-cdbr-iron-east-04.cleardb.net', //localhost
-    user : 'bb3571693f7bee', //root
-    password : 'a192f195', //root
-    //port : '8889',
-    database : 'heroku_3a464d27dbd82c7'
-});
 
-BD.connect(function(err) {
-    if (err) {
-        console.log(err);
-        console.log('Some errors ocurred while connecting to database');
-        return;
-    }
-    console.log('Connected to database without errors');
-});
+function handleDisconnect() {
+    var BD = mysql.createConnection({
+        host : 'us-cdbr-iron-east-04.cleardb.net', //localhost
+        user : 'bb3571693f7bee', //root
+        password : 'a192f195', //root
+        //port : '8889',
+        database : 'heroku_3a464d27dbd82c7'
+    });  // Recreate the connection, since the old one cannot be reused.
+    db.connect( function onConnect(err) {   // The server is either down
+        if (err) {                                  // or restarting (takes a while sometimes).
+            console.log('error when connecting to db:', err);
+            setTimeout(handleDisconnect, 10000);    
+        }
+        console.log('Connected to database without errors');                                          
+    });                                            
+    db.on('error', function onError(err) {
+        console.log('db error', err);
+        if (err.code == 'PROTOCOL_CONNECTION_LOST') {   
+            handleDisconnect();                         
+        } else {                                        
+            throw err;                                  
+        }
+    });
+}
+handleDisconnect();
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/views/index.html'));
