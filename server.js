@@ -31,14 +31,14 @@ function handleDisconnect() {
         //port : '8889',
         database : 'heroku_3a464d27dbd82c7'
     });  // Recreate the connection, since the old one cannot be reused.
-    db.connect( function onConnect(err) {   // The server is either down
+    BD.connect( function onConnect(err) {   // The server is either down
         if (err) {                                  // or restarting (takes a while sometimes).
             console.log('error when connecting to db:', err);
             setTimeout(handleDisconnect, 10000);    
         }
         console.log('Connected to database without errors');                                          
     });                                            
-    db.on('error', function onError(err) {
+    BD.on('error', function onError(err) {
         console.log('db error', err);
         if (err.code == 'PROTOCOL_CONNECTION_LOST') {   
             handleDisconnect();                         
