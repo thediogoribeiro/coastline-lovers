@@ -105,10 +105,7 @@ function reserva(){
 	if (field3.value==""){
 		document.getElementById('required3').innerHTML = "Insira o seu 'Email'";
 		flag=1;
-	}else if (strangeChars.some(el => field3.value.includes(el)) ){
-		document.getElementById('required3').innerHTML = "Email inválido";
-		flag=1;
-	}else if (!field3.value.includes("@") || !field3.value.includes(".")){
+	}else if (!isEmail(field3.value)){
 		document.getElementById('required3').innerHTML = "Email inválido";
 		flag=1;
 	}else{
@@ -142,7 +139,7 @@ function reserva(){
 		var date = selectedYear+"-"+selectedMonth+"-"+selectedDay;
 		var stripeHandler = StripeCheckout.configure({
 			key: stripePublicKey,
-			image: "img/icon.png",
+			image: "../assets/icon.png",
 			name: "Coastline Lovers",
 			locale: 'auto',
 			token: function(token) {
@@ -176,7 +173,6 @@ function reserva(){
 			return res.json()
 		}).then(function(data) {
 			if(data.code=="ADMIN" || data.code=="PROMO"){
-				resetValues();
 				getSeatsFromDate();
 				swal("Sucesso!", "Reservado com sucesso!", "success");
 				return;
@@ -268,38 +264,23 @@ async function getNormalBookings(){
 	  body: JSON.stringify({})
 	};
 	const res = await fetch('/getNormalBookings', options);
-	const data = await res.json();	
+	const data = await res.json();
+	console.log(data);	
 	for (var i = 0; i < data.bookings.length; i++){
-		var horas = data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"];
-		var str = data.bookings[i].data;
-		str = str.replace("T00:00:00.000Z", "");
-		var index = str.indexOf("-");
-		var ano = str.substring(0,index);
-		str = str.substring(index+1);
-		index = str.indexOf("-");
-		var mes =str.substring(0,index);
-		var dia = str.substring(index+1);
-		const finaldate = dia+" / "+mes+" / "+ano;
-		var dayDiv = document.getElementById(finaldate);
-		if(dayDiv!=null){
-			if (conditions.every(el => horas.includes(el))){
-				const opts = {
-					method: 'POST',
-					headers:{'Content-Type':'application/json'},
-					body: JSON.stringify({type:tour, date:ano+'-'+mes+'-'+dia})
-				};
-				const res2 = await fetch('/getDateBooking', opts);
-				const data2 = await res2.json();
-				var flag=0;
-				if(data2.bookings.length==5){
-					for(var j = 0; j <5;j++){
-						if(data2.bookings[j]['SUM(lugares)']<10) flag=1;
-					}
-					if(flag==1) dayDiv.style.backgroundColor = "yellow";
-					else dayDiv.style.backgroundColor = "red"; 
-				}				
-			}else if (conditions.some(el => horas.includes(el))) dayDiv.style.backgroundColor = "yellow"; 
-		} 
+		if (data.bookings[i]['SUM(lugares)']>=50){
+			var horas = data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"];
+			var str = data.bookings[i].data;
+			str = str.replace("T00:00:00.000Z", "");
+			var index = str.indexOf("-");
+			var ano = str.substring(0,index);
+			str = str.substring(index+1);
+			index = str.indexOf("-");
+			var mes =str.substring(0,index);
+			var dia = str.substring(index+1);
+			const finaldate = dia+" / "+mes+" / "+ano;
+			var dayDiv = document.getElementsByClassName("day "+finaldate);
+			dayDiv[0].style.backgroundColor = "red";
+		}
 	}
 }
 
@@ -320,6 +301,8 @@ async function getExpressBookings(){
 		index = str.indexOf("-");
 		var mes =str.substring(0,index);
 		var dia = str.substring(index+1);
+		dia = parseInt(dia);
+		mes = parseInt(mes);
 		finaldate = dia+" / "+mes+" / "+ano;
 		var dayDiv = document.getElementById(finaldate);
 		if(dayDiv!=null && data.bookings[i].lugares>=10) dayDiv.style.backgroundColor = "red"
@@ -433,6 +416,7 @@ function resetValues(){
 	document.getElementById('field5').value="";
 	var codeObj = document.getElementById('codeField');
 	if(codeObj!=null) codeObj.value="";
+	changeButtonName();
 	adultCount = 0;
 	criancaCount = 0;
 	bebeCount = 0;
@@ -451,6 +435,12 @@ function paintCallendar(){
 function adultoMenos(){
 	if(adultCount == 0) return
 	adultCount--;
+	if(adultCount == 0) {
+		criancaCount=0;
+		bebeCount=0;
+		document.getElementById("ciancanum").value = 0;
+		document.getElementById("bebenum").value = 0;
+	}
 	document.getElementById("adultonum").value=adultCount;	
 }
 function adultoMais(){
@@ -776,6 +766,12 @@ function tourChange(){
 
 function onlyDigit(str) {
 	var patt = /^[0-9]*$/;
+	if (str.match(patt)==null) return false;
+	else return true;
+}
+
+function isEmail(str) {
+	var patt = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if (str.match(patt)==null) return false;
 	else return true;
 }

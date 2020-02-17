@@ -1,8 +1,6 @@
 const keys = require('./stripe/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 const path = require('path');
-const host = '0.0.0.0';
-const port = 3000;
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -15,6 +13,7 @@ var bCriancaE = 1250;
 var adminUser ="admin";
 var adminPW ="55555";
 var promo = ["promo123", "promo000"];
+var BD;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -22,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use(express.json({limit:'1mb'}));
 
-var BD;
+
 function handleDisconnect() {
     BD = mysql.createConnection({
         host : 'us-cdbr-iron-east-04.cleardb.net', //localhost
@@ -169,7 +168,7 @@ app.post('/PaidReservation',(req, res) => {
 });
 
 app.post('/getNormalBookings',(req, res) => {
-    BD.query("SELECT data, GROUP_CONCAT(hora SEPARATOR '; ') FROM bookings WHERE data>=current_date AND tour!='express' GROUP BY data;", function(err,sqlRes) {
+    BD.query("SELECT SUM(lugares), data FROM `bookings` WHERE data>=current_date AND (tour='normal' OR tour='private') GROUP BY data;", function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });
@@ -177,14 +176,14 @@ app.post('/getNormalBookings',(req, res) => {
 
 app.post('/getPrivateBookings',(req, res) => {
     if(req.body.code!=adminPW) return;
-    BD.query("SELECT * FROM `bookings` WHERE tour='private' OR (tour='normal' AND hora='18h-20h;')", function(err,sqlRes) {
+    BD.query("SELECT data FROM `bookings` WHERE tour='private' OR (tour='normal' AND hora='18h-20h;')", function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });
 });
 
 app.post('/getExpressBookings',(req, res) => {
-    BD.query("SELECT * FROM `bookings` WHERE data>=current_date AND tour='express'", function(err,sqlRes) {
+    BD.query("SELECT data, lugares FROM `bookings` WHERE data>=current_date AND tour='express'", function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });

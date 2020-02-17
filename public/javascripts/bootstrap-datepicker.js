@@ -205,6 +205,7 @@
 			var clsName,
 				prevY,
 				prevM;
+			var cont=0;
 			while(prevMonth.valueOf() < nextMonth) {
 				if (prevMonth.getDay() === this.weekStart) {
 					html.push('<tr>');
@@ -219,6 +220,16 @@
 				}
 				if (prevMonth.valueOf() === currentDate) {
 					clsName += ' active ' + this.color;
+					cont++;
+				}
+				if(clsName==""){
+					cont++;
+					var mes,dia;
+					if (month>9) mes=(month+1);
+					else mes="0"+(month+1);
+					if (cont>9) dia=cont;
+					else dia="0"+cont;
+					clsName+=dia+" / "+mes+" / "+year;
 				}
 				html.push('<td class="day '+clsName+'"><p>'+prevMonth.getDate() + '</p></td>');
 				if (prevMonth.getDay() === this.weekEnd) {
