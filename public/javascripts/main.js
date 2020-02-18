@@ -201,8 +201,12 @@ function purchaseClicked(stripeHandler) {
 }
 
 function changeButtonName() {
-	if(document.getElementById('codeField').value=="") document.getElementById('reservebutton').innerHTML = "Comprar com cartão";
-	else document.getElementById('reservebutton').innerHTML = "Reservar como promotor";
+	var sPath = window.location.pathname;
+	var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+	if(sPage == "booking.html"){
+		if(document.getElementById('codeField').value=="") document.getElementById('reservebutton').innerHTML = "Comprar com cartão";
+		else document.getElementById('reservebutton').innerHTML = "Reservar como promotor";
+	}
 }
 
 async function adminCheck(){
@@ -234,83 +238,8 @@ async function adminCheck(){
 	}
 }
 
-async function getPrivateBookings(){
-	const options = {
-	  method: 'POST',
-	  headers:{'Content-Type':'application/json'},
-	  body: JSON.stringify({})
-	};
-	const res = await fetch('/getPrivateBookings', options);
-	const data = await res.json();
-	for (var i = 0; i < data.bookings.length; i++){
-		var str = data.bookings[i].data;
-		str = str.replace("T00:00:00.000Z", "");
-		var index = str.indexOf("-");
-		var ano = str.substring(0,index);
-		str = str.substring(index+1);
-		index = str.indexOf("-");
-		var mes =str.substring(0,index);
-		var dia = str.substring(index+1);
-		finaldate = dia+" / "+mes+" / "+ano;
-		var dayDiv = document.getElementById(finaldate);
-		if(dayDiv!=null) dayDiv.style.backgroundColor = "red";
-	}
-}
-
-async function getNormalBookings(){
-	const options = {
-	  method: 'POST',
-	  headers:{'Content-Type':'application/json'},
-	  body: JSON.stringify({})
-	};
-	const res = await fetch('/getNormalBookings', options);
-	const data = await res.json();
-	console.log(data);	
-	for (var i = 0; i < data.bookings.length; i++){
-		if (data.bookings[i]['SUM(lugares)']>=50){
-			var horas = data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"];
-			var str = data.bookings[i].data;
-			str = str.replace("T00:00:00.000Z", "");
-			var index = str.indexOf("-");
-			var ano = str.substring(0,index);
-			str = str.substring(index+1);
-			index = str.indexOf("-");
-			var mes =str.substring(0,index);
-			var dia = str.substring(index+1);
-			const finaldate = dia+" / "+mes+" / "+ano;
-			var dayDiv = document.getElementsByClassName("day "+finaldate);
-			dayDiv[0].style.backgroundColor = "red";
-		}
-	}
-}
-
-async function getExpressBookings(){
-	const options = {
-		method: 'POST',
-		headers:{'Content-Type':'application/json'},
-		body: JSON.stringify({})
-	};
-	const res = await fetch('/getExpressBookings', options);
-	const data = await res.json();
-	for (var i = 0; i < data.bookings.length; i++){
-		var str = data.bookings[i].data;
-		str = str.replace("T00:00:00.000Z", "");
-		var index = str.indexOf("-");
-		var ano = str.substring(0,index);
-		str = str.substring(index+1);
-		index = str.indexOf("-");
-		var mes =str.substring(0,index);
-		var dia = str.substring(index+1);
-		dia = parseInt(dia);
-		mes = parseInt(mes);
-		finaldate = dia+" / "+mes+" / "+ano;
-		var dayDiv = document.getElementById(finaldate);
-		if(dayDiv!=null && data.bookings[i].lugares>=10) dayDiv.style.backgroundColor = "red"
-		if(dayDiv!=null && data.bookings[i].lugares<10) dayDiv.style.backgroundColor = "yellow"
-	}
-}
-
 async function getSeatsFromDate(){
+	paintCallendar();
 	resetValues();
 	lugaresMax = [10,10,10,10,10];
 	bebeLugaresMax = [3,3,3,3,3];
@@ -422,13 +351,45 @@ function resetValues(){
 	bebeCount = 0;
 }
 
-function paintCallendar(){
-	if(tour=="normal") {
-		getNormalBookings();
-	}else if(tour=="private"){
-		getPrivateBookings();
-	}else if(tour=="express"){
-		getExpressBookings();
+function clearColors(){
+	var month = (currMonth+1);
+	if (month<10) month = '0'+month;
+	for(var i = 0; i< 32; i++){
+		var day = i;
+		if (day<10) day = '0'+i;
+		var finaldate = day +" / "+month+" / "+currYear;
+		var dayDiv = document.getElementsByClassName("day "+finaldate);
+		if(dayDiv.length!=0) dayDiv[0].style.backgroundColor = "transparent";
+	}
+}
+
+async function paintCallendar(){
+	document.getElementsByClassName("datepicker-days")[0].innerHTML=document.getElementsByClassName("datepicker-days")[0].innerHTML.split(" full red").join("");
+	const options = {
+		method: 'POST',
+		headers:{'Content-Type':'application/json'},
+		body: JSON.stringify({tour:tour})
+	};
+	const res = await fetch('/paintCallendar', options);
+	const data = await res.json();
+	for (var i = 0; i < data.bookings.length; i++){
+		var str = data.bookings[i].data;
+		str = str.replace("T00:00:00.000Z", "");
+		var index = str.indexOf("-");
+		var ano = str.substring(0,index);
+		str = str.substring(index+1);
+		index = str.indexOf("-");
+		var mes =str.substring(0,index);
+		var dia = str.substring(index+1);
+		finaldate = dia+" / "+mes+" / "+ano;
+		var dayDiv = document.getElementsByClassName("day "+finaldate);		
+		if(tour=="normal" && dayDiv.length!=0 && data.bookings[i]['SUM(lugares)']>=50) {
+			dayDiv[0].className += " full red";
+		}else if(tour=="private" && dayDiv.length!=0){
+			dayDiv[0].className += " full red";
+		}else if(tour=="express" && dayDiv.length!=0 && data.bookings[i].lugares>=10){
+			dayDiv[0].className += " full red";
+		}
 	}
 }
 
@@ -511,17 +472,7 @@ function radioClick(radio){
 	getSeatsFromDate();
 }
 
-function clearColors(){
-	var month = (currMonth+1);
-	if (month<10) month = '0'+month;
-	for(var i = 0; i< 32; i++){
-		var day = i;
-		if (day<10) day = '0'+i;
-		var finaldate = day +" / "+month+" / "+currYear;
-		var dayDiv = document.getElementById(finaldate);
-		if(dayDiv!=null) dayDiv.style.backgroundColor = "transparent";
-	}
-}
+
 
 function cbClick(cb){
 	maxSeats = (lugaresMax[cb-1]);

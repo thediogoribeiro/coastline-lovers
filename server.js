@@ -167,23 +167,12 @@ app.post('/PaidReservation',(req, res) => {
         })
 });
 
-app.post('/getNormalBookings',(req, res) => {
-    BD.query("SELECT SUM(lugares), data FROM `bookings` WHERE data>=current_date AND (tour='normal' OR tour='private') GROUP BY data;", function(err,sqlRes) {
-        if (err) console.log(err);
-        res.send({ bookings: sqlRes });
-    });
-});
-
-app.post('/getPrivateBookings',(req, res) => {
-    if(req.body.code!=adminPW) return;
-    BD.query("SELECT data FROM `bookings` WHERE tour='private' OR (tour='normal' AND hora='18h-20h;')", function(err,sqlRes) {
-        if (err) console.log(err);
-        res.send({ bookings: sqlRes });
-    });
-});
-
-app.post('/getExpressBookings',(req, res) => {
-    BD.query("SELECT data, lugares FROM `bookings` WHERE data>=current_date AND tour='express'", function(err,sqlRes) {
+app.post('/paintCallendar',(req, res) => {
+    var sqlStr = "";
+    if (req.body.tour=='express')  sqlStr = "SELECT data, lugares FROM `bookings` WHERE data>current_date AND tour='express'";
+    else if(req.body.tour=='private') sqlStr = "SELECT tour, data FROM `bookings` WHERE data>current_date AND tour='private' OR (tour='normal' AND hora='18h-20h;')";
+    else sqlStr = "SELECT SUM(lugares), data FROM `bookings` WHERE data>current_date AND (tour='normal' OR tour='private') GROUP BY data;";
+    BD.query(sqlStr, function(err,sqlRes) {
         if (err) console.log(err);
         res.send({ bookings: sqlRes });
     });
