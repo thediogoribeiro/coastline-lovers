@@ -1,6 +1,6 @@
 #intro__booking
 	display: grid
-	grid-template-rows: 2fr 1fr 3fr 3fr 1fr
+	grid-template-rows: 2fr 1fr 2.5fr 2fr 1fr
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
 		grid-template-columns: 1fr
 	@media screen and (min-width: $md)
@@ -17,11 +17,15 @@
 		height: auto
 
 .cll__title
+	color: $dark-blue
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
 		grid-row-start: 2
 		grid-row-end: 3
 		grid-column-start: 1
 		grid-column-end: 2
+	h1
+		margin: 0
+
 
 .cll__photos
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
@@ -36,6 +40,8 @@
 		grid-row-end: 5
 		grid-column-start: 1
 		grid-column-end: 2
+		h4
+			text-align: center
 
 .staff
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
@@ -43,8 +49,17 @@
 		grid-row-end: 6
 		grid-column-start: 1
 		grid-column-end: 2
+		text-align: center
 
+		.cinput-1
+			text-align: center
+			@media screen and (min-width: $xs) and (max-width: $md - 1)
+				width: 75%
+				height: 15%
 
+		h4
+			color: $dark-blue
+			margin: 20px 0 10px 0
 
 
 

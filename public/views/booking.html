@@ -2,6 +2,8 @@
 <html lang="pt">
 <head>
 	<title>Pagina Admin CoastLineLovers</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- CSS -->
 	<link rel="stylesheet" href="../stylesheets/style/style.css" />
 	<!-- Indicativo Telm -->
@@ -26,14 +28,14 @@
 
 		<div id="" class="">
 
-			<div id="intro__booking">
+			<div id="intro__booking" class="intro__booking">
 
 				<div class="cll__logo">
 					<img src="/assets/cll-color.png">
 				</div>
 
 				<div class="cll__title">
-					<h1>GRUTA DE BENAGIL TOUR</h1>
+					<h1>GRUTA BENAGIL TOUR</h1>
 				</div>
 
 				<div class="cll__photos">
@@ -43,149 +45,154 @@
 				</div>
 
 				<div class="cll__description">
-					<h2>Descrição</h2>
+					<h4>Descrição</h4>
 					<p>Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão até à famosa Gruta de Benagil. Passará por paisagens maravilhosas como Carvoeiro e Ferragudo.</p>
 				</div>
 
 				<div class="staff">
-					<h5 class="clabel-1">Chave secreta: </h5>
-					<input class="cinput-1" id="codeField" type="password" name="field2" class="field-long" placeholder="Reservado ao STAFF" autocomplete="off" onchange="changeButtonName()"/><br>
+					<h4 class="">Chave secreta: </h4>
+					<input class="field-long" id="codeField" type="password" name="field2" placeholder="Reservado ao STAFF" autocomplete="off" onchange="changeButtonName()"/><br>
 				</div>
 
 			</div>
 
-			<ul id="booking" class=""> <!-- form-style-1 -->
+			<div id="booking" class="booking"> <!-- form-style-1 -->
 
-				<div id="book__calendar" class="book__calendarn">
-					<h5 class="clabel-1">Selecione a data: <a id="required6" class="required">*</a></h5>
-					<input class="cinput-1" id="date_Field" type="text" name="birthdate" class="datepicker" autocomplete="off" />
+				<div class="book__title">
+					<h5>AGENDAR VIAGEM</h5>
 				</div>
 
-				<div id="book__tour">			
-					<h5 class="clabel-1">Selecione a tour:</h5>
-					<input class="cinput-1" type="radio" name="tour" value="1" onclick="radioClick('1');"checked><p class="cpara-1"> Benagil Normal</p><br>
-					<input class="cinput-2" type="radio" name="tour" value="2" onclick="radioClick('2');"><p class="cpara-2"> Benagil Private (Compra todos lugares)</p><br>
-					<input class="cinput-3" type="radio" name="tour" value="3" onclick="radioClick('3');"><p class="cpara-3"> Benagil Express</p><br>  
+				<div id="book__calendar" class="book__calendar">
+					<h5 class="bcal__title">Selecione a data: <a id="required6" class="required">*</a></h5>
+					<input class="datepicker bcal__input" id="date_Field" type="text" name="birthdate" autocomplete="off" />
 				</div>
 
-				<div id="book__schedule">
+				<div id="book__tour" class="book__tour">			
+					<h5 class="btour__title">Selecione a tour:</h5>
+					<input class="btour__input-1" type="radio" name="tour" value="1" onclick="radioClick('1');"checked><p class="btour__p-1"> Benagil Normal</p><a> (2 horas)</a><br>
+					<input class="btour__input-2" type="radio" name="tour" value="2" onclick="radioClick('2');"><p class="btour__p-2"> Benagil Private</p><a> (todos os lugares)</a><br>
+					<input class="btour__input-3" type="radio" name="tour" value="3" onclick="radioClick('3');"><p class="btour__p-3"> Benagil Express<a> (1 hora)</a></p><br>  
+				</div>
+
+				<div id="book__schedule" class="book__schedule">
 
 					<div id="normaltour">
-						<h5 class="clabel-1">Selecione a hora:<a id="required1" class="required"></a></h5>
-						<input class="cinput-1" id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');" checked>
-						<p class="cpara-1">9h-11h</p>
-						<a id="cb1Text"></a>
+						<h5 class="bsch__title">Escolha a hora:<a id="required1" class="required"></a></h5>
+						<input class="bsch__input-1" id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');" checked><p class="bsch__p-1">9h-11h</p><a id="cb1Text"></a>
 						<br>
-						<input class="cinput-2" id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');">
-						<p class="cpara-2">11h-13h</p>
-						<a id="cb2Text"></a>
+						<input class="bsch__input-2" id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');"><p class="bsch__p-2">11h-13h</p><a id="cb2Text"></a>
 						<br>
-						<input class="cinput-3" id="cb3" type="radio" name="hora" value="3" onclick="cbClick('3');">
-						<p class="cpara-3">14h-16h</p>
-						<a id="cb3Text"></a>
+						<input class="bsch__input-3" id="cb3" type="radio" name="hora" value="3" onclick="cbClick('3');"><p class="bsch__p-3">14h-16h</p><a id="cb3Text"></a>
 						<br>
-						<input class="cinput-4" id="cb4" type="radio" name="hora" value="2" onclick="cbClick('4');">
-						<p class="cpara-4">16h-18h</p>
-						<a id="cb4Text"></a>
+						<input class="bsch__input-4" id="cb4" type="radio" name="hora" value="2" onclick="cbClick('4');"><p class="bsch__p-4">16h-18h</p><a id="cb4Text"></a>
 						<br>
-						<input class="cinput-5" id="cb5" type="radio" name="hora" value="3" onclick="cbClick('5');">
-						<p class="cpara-5">18h-20h</p>
-						<a id="cb5Text"></a>
+						<input class="bsch__input-5" id="cb5" type="radio" name="hora" value="3" onclick="cbClick('5');"><p class="bsch__p-5">18h-20h</p><a id="cb5Text"></a>
 						<br>  
 					</div>
 					<div id="privatetour" style="display:none;">
-						<input class="cinput-1" id="cbprivate" type="radio" name="h1" value="18" checked><p class="cpara-1">18h-20h</p><a id="rPrivateText"></a><br><br>
+						<input class="bsch__input-6" id="cbprivate" type="radio" name="h1" value="18" checked>
+						<p class="bsch__p-6">18h-20h</p>
+						<a id="rPrivateText"></a>
+						<br>
 					</div>
 					<div id="expresstour" style="display:none;">
-						<input class="cinput-1" id="cbexpress" type="radio" name="h1" value="13" checked><p class="cpara-2">13h-14h</p><a id="rExpressText"><span><br><br>
+						<input class="bsch__input-7" id="cbexpress" type="radio" name="h1" value="13" checked>
+							<p class="bsch__p-7">13h-14h</p>
+							<a id="rExpressText"></a>
+							<br>
 					</div>
 
 				</div>
 
-				<div id="book__tickets">
+				<div id="book__tickets" class="book__tickets">
 
 					<div id="lugares" class="lugares">
 
-						<h5 class="clabel-1">Número de lugares:
+						<h5 class="btick__title">Número de Pessoas:
 							<a id="required5" class="required">*</a>
 						</h5>
 
-						<div id="privatetourdiv" style="display:none"><p class="cpara-1">300,00 €</p></div>
-
-						<div id="lugares_adulto">
-							<div id="la-normal">
-								<span><p class="cpara-1">Normal - 30,00 €</p></a>
-							</div>
-							<div id="la-express" style="display:none;">
-								<span><p class="cpara-1">Normal - 20,00 €</p></a>
-							</div>
-							<input class="cinput-1" id="adultomenos" type="button" value="-" class="button button-minus" onclick="adultoMenos()">
-							<input class="cinput-2" id="adultonum" type="number" step="1" max="" value=0 name="category_1738" class="quantity-field" readonly="">
-							<input class="cinput-3" id="adultomais" type="button" value="+" class="button-plus" onclick="adultoMais()">
+						<div class="btick__priv" id="privatetourdiv" style="display:none">
+							<p class="btick__p-1">300,00 €</p>
 						</div>
 
-						<div id="lugares_crianca">
-							<div id="lc-normal">
-								<span><p class="cpara-2">Crianças - 15,00 €</p></a>
-								<span>(dos 3 aos 10 anos)</a>
+						<div class="btick__adult" id="lugares_adulto">
+							<div class="btick__normal" id="la-normal">
+								<p class="btick__p-2">Normal - 30,00 €</p>
 							</div>
-							<div id="lc-express" style="display:none;">
-								<span><p class="cpara-2">Criança - 12,5 €</p></a>
-								<span>(dos 3 aos 10 anos)</a>
+							<div class="btick__express" id="la-express" style="display:none;">
+								<p class="btick__p-3">Normal - 20,00 €</p>
 							</div>
-							<input class="cinput-1" id="ciancamenos" type="button" value="-" class="button-minus" onclick="criancaMenos()">
-							<input class="cinput-2" id="ciancanum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
-							<input class="cinput-3" id="ciancamais"type="button" value="+" class="button-plus" onclick="criancaMais()">
+							<input class="btick__input-1 button-minus" id="adultomenos" type="button" value="-" onclick="adultoMenos()">
+							<input class="btick__input-2 quantity-field" id="adultonum" type="number" step="1" max="" value=0 name="category_1738" readonly="">
+							<input class="btick__input-3 button-plus" id="adultomais" type="button" value="+" onclick="adultoMais()">
 						</div>
 
-						<div id="lugares_bebes">
-							<div id="lb-normal">
-								<span><p class="cpara-3">Crianças Grátis</p></a>
-								<span>(menos 3 anos)</a><a id="bebeSeatsNum"></a>
+						<div class="btick__kid" id="lugares_crianca">
+							<div class="btick__kidnormal" id="lc-normal">
+								<p class="btick__p-4">Crianças - 15,00 €</p>
+								<a class="btick__a-1">(dos 3 aos 10 anos)</a>
 							</div>
-							<input class="cinput-1" id="bebemenos" type="button" value="-" class="button-minus" onclick="bebeMenos()">
-							<input class="cinput-2" id="bebenum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
-							<input class="cinput-3" id="bebemais"type="button" value="+" class="button-plus" onclick="bebeMais()">
+							<div class="btick__kidexp" id="lc-express" style="display:none;">
+								<p class="btick__p-5">Criança - 12,5 €</p>
+								<a class="btick__a-2">(dos 3 aos 10 anos)</a>
+							</div>
+							<input class="btick__input-4 button-minus" id="ciancamenos" type="button" value="-" onclick="criancaMenos()">
+							<input class="btick__input-5 quantity-field" id="ciancanum" type="number" step="1" max="" value=0 name="category_1740" readonly="">
+							<input class="btick__input-6 button-plus" id="ciancamais"type="button" value="+" onclick="criancaMais()">
+						</div>
+
+						<div class="btick__baby" id="lugares_bebes">
+							<div class="btick__free" id="lb-normal">
+								<p class="btick__p-6">Crianças Grátis</p>
+								<a class="btick__a-3">(menos 3 anos)</a><a id="bebeSeatsNum"></a>
+							</div>
+							<input class="btick__input-7 button-minus" id="bebemenos" type="button" value="-" onclick="bebeMenos()">
+							<input class="btick__input-8 quantity-field" id="bebenum" type="number" step="1" max="" value=0 name="category_1740" readonly="">
+							<input class="btick__input-9 button-plus" id="bebemais"type="button" value="+" onclick="bebeMais()">
 						</div>
 
 					</div>
 
 				</div>	
 
-
-				<div id="book__name">
-					<h5 class="clabel-1">Nome<a id="required2" class="required">*</a></h5>
-					<input class="cinput-1" id="field1" type="text" name="field1" class="field-divided" placeholder="Primeiro" autocomplete="off"/> 
-					<input class="cinput-2" id="field2" type="text" name="field2" class="field-divided" placeholder="Último" autocomplete="off"/>
+				<div class="book__info">
+					<h5>INFORMAÇÕES DE CONTATO</h5>
 				</div>
 
-				<div id="book__email">
-					<h5 class="clabel-1">Email <a id="required3" class="required">*</a></h5>
-					<input class="cinput-1" id="field3" type="email" name="field3" class="field-long" autocomplete="off"/>
+				<div id="book__name" class="book__name">
+					<h5 class="bname__title">Nome <a id="required2" class="required">*</a></h5>
+					<input class="bname__input-1 field-divided" id="field1" type="text" name="field1" placeholder="Primeiro" autocomplete="off"/> 
+					<input class="bname__input-2 field-divided" id="field2" type="text" name="field2" placeholder="Último" autocomplete="off"/>
 				</div>
 
-				<div id="book__phone">
-					<h5 class="clabel-1">Telefone <a id="required4" class="required">*</a></h5>
-					<input class="cinput-1" id="field4" type="tel" name="field4" class="field-long" autocomplete="off"/>
+				<div id="book__email" class="book__email">
+					<h5 class="bemail__title">Email <a id="required3" class="required">*</a></h5>
+					<input class="bemail__input-1 field-long" id="field3" type="email" name="field3" autocomplete="off"/>
 				</div>
 
-				<div id="book__notes">
-					<h5 class="clabel-1">Observações (Não obrigátório): </h5>
+				<div id="book__phone" class="book__phone">
+					<h5 class="bphone__title">Telefone <a id="required4" class="required">*</a></h5>
+					<input class="bphone__input-1 field-long" id="field4" type="tel" name="field4" autocomplete="off"/>
+				</div>
+
+				<div id="book__notes" class="book__notes">
+					<h5 class="bnotes__title">Observações (Não obrigátório): </h5>
 					<textarea id="field5" name="field5" class="field-long field-textarea"></textarea id="field5">
 				</div>
 
-				<div id="book__code">
-					<h5 class="clabel-1">Código promocional (Não obrigátório):</h5>
-					<input class="cinput-1" id="promo-code" type="text" class="field-long" autocomplete="off"/>
+				<div id="book__code" class="book__code">
+					<h5 class="bcode__title">Código promocional (Não obrigátório):</h5>
+					<input class="bcode__input-1 field-long" id="promo-code" type="text" autocomplete="off"/>
 				</div>
 
-				<div id="book__button">
+				<div id="book__button" class="book__button">
 					<button onclick="reserva()" id="reservebutton">Comprar com cartão</button><br>
 				</div>
 
-			</ul>
+			</div>
 
-			<div class="outro__booking">
+			<div id="outro__booking" class="outro__booking">
 
 				<div class="cll__safety">
 				</div>
