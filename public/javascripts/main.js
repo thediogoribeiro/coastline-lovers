@@ -142,6 +142,7 @@ function reserva(){
 			image: "../assets/icon.png",
 			name: "Coastline Lovers",
 			locale: 'auto',
+			email: field3.value,
 			token: function(token) {
 				fetch('/PaidReservation', {
 					method: 'POST',
@@ -619,7 +620,7 @@ function textEnter(r){
         var fName = document.getElementById("fNameField").value;
         var lName = document.getElementById("lNameField").value;
         var email = document.getElementById("emailField").value.toLowerCase();
-        var tel = document.getElementById("telField").value;
+		var tel = document.getElementById("telField").value;
         showAllBookings(id,tour,date,fName,lName,email,tel);
     }
 }
@@ -682,12 +683,12 @@ async function showAllBookings(id,tour,date,fName,lName,email,tel,order){
 	const res = await fetch('/filterReservations', options);
     const data = await res.json();
 	sqlTable.innerHTML+="<tr><th class='dedo' onclick=\"order('id')\">"+arrow+" ID "+arrow+"</th><th>Nome</th><th>Email</th><th>Telefone</th><th class='dedo' onclick=\"order('tour')\">"+arrow+" Tour "+arrow+"</th><th>NºLugares</th>\
-	<th>NºBebes</th><th>observações</th><th class='dedo' onclick=\"order('data')\">"+arrow+" Data "+arrow+"</th><th>Hora</th><th>Preço</th><th>A Receber</th><th>A Pagar</th><th>Promotor</th><th>Código Promo</th><th>ID antigo</th></tr>";
+	<th>NºBebes</th><th>observações</th><th class='dedo' onclick=\"order('data')\">"+arrow+" Data "+arrow+"</th><th>Hora</th><th>Preço</th><th>A Receber</th><th>A Pagar</th><th>Promotor</th><th>Código Promo</th><th>Código Stripe</th><th>ID antigo</th></tr>";
 	for (var i = 0; i < data.bookings.length; i++){
         var date =data.bookings[i].data.replace("T00:00:00.000Z", "");
 		sqlTable.innerHTML+="<tr><td> "+data.bookings[i].ID+" </td><td> "+data.bookings[i].primeiroNome +" "+data.bookings[i].ultimoNome+" </td><td> "+data.bookings[i].email+" </td><td> "+data.bookings[i].telefone+"</td><td> "+data.bookings[i].tour+" </td>\
 		<td> "+data.bookings[i].lugares+" </td><td> "+data.bookings[i].bebes+" </td><td> "+data.bookings[i].observacoes+" </td><td> "+date+" </td><td> "+data.bookings[i].hora+"</td><td> "+data.bookings[i].preco+" </td><td> "+data.bookings[i].aPagar+" </td>\
-		<td> "+data.bookings[i].aReceber+" </td><td> "+data.bookings[i].promotor+" </td><td> "+data.bookings[i].codigoPromo+" </td><td> "+data.bookings[i].oldID+" </td></tr> "; 
+		<td> "+data.bookings[i].aReceber+" </td><td> "+data.bookings[i].promotor+" </td><td> "+data.bookings[i].codigoPromo+" </td><td> "+data.bookings[i].stripeID+" </td><td> "+data.bookings[i].oldID+" </td></tr> "; 
     }
     sqlr.innerHTML+="</table>";
 }

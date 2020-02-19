@@ -14,6 +14,12 @@ var adminUser ="admin";
 var adminPW ="55555";
 var promo = ["promo123", "promo000"];
 var BD;
+var SibApiV3Sdk = require('sib-api-v3-sdk');
+var defaultClient = SibApiV3Sdk.ApiClient.instance;
+var apiKey = defaultClient.authentications['api-key'];
+
+//oficial
+//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
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -21,6 +27,43 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use(express.json({limit:'1mb'}));
 
+function sendInBlue(pNome,uNome,mail,data, hora, tour, adultos, criancas, bebes, preco){
+    apiKey.apiKey = keys.sendinBlueAPIKey;
+    var smtpApiInstance = new SibApiV3Sdk.SMTPApi();
+    var contactsApiInstance = new SibApiV3Sdk.ContactsApi();
+    var createContact = new SibApiV3Sdk.CreateContact(); // CreateContact | Values to create a contact
+    createContact = {
+        email: mail,
+        updateEnabled: true,
+        attributes: {
+          FIRSTNAME: pNome,
+          LASTNAME: uNome,
+          EMAIL: mail
+        }
+    }
+    contactsApiInstance.createContact(createContact).then(function(data) {
+        console.log('contact added');}, function(error) {
+            console.error(error);});
+    const emailData = {
+        to: [{
+            name: pNome,
+            email: mail}],
+        templateId: 1,
+        params: {
+          NOME: pNome + ' ' + uNome,
+          DATA: data,
+          HORA: hora,
+          TOUR: tour,
+          ADULTOS: adultos,
+          CRIANCAS: criancas,
+          BEBES: bebes,
+          PRECO: preco
+        }        
+    };
+    smtpApiInstance.sendTransacEmail(emailData).then(function() {
+        console.log('email sent');}, function(error) {
+            console.error(error);});
+}
 
 function handleDisconnect() {
     BD = mysql.createConnection({
@@ -52,7 +95,8 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/views/index.html'));
 });
 
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 3000);
+
 
 app.get('/Administrador', function(request, response){
     response.sendFile(path.join(__dirname + '/public/views/admin.html'));
@@ -104,7 +148,12 @@ app.post('/FreeReservation',(req, res) => {
         if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
             var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `promotor`, `stripeID`, `codigoPromo` ) ";
             booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'FREE', ?)";
-            BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,req.body.code,req.body.promo], function(err,sqlRes) {if (err) console.log(err);});
+            BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,req.body.code,req.body.promo], function(err,sqlRes) {
+                if (err) console.log(err);
+                else{
+                    sendInBlue(pNome, uNome, mail, date, time, tour, adults, children, babys, price);
+                }
+            });
             if(adminPW==req.body.code) res.send({ code: "ADMIN" });
             else if(promo.includes(req.body.code)) res.send({ code: "PROMO" });
         }else{
@@ -144,27 +193,33 @@ app.post('/PaidReservation',(req, res) => {
         time="13h-14h;";
         seats = parseInt(adults, 10)+parseInt(children, 10);
     }
-    stripe.charges.create({
-        amount: price,
-        source: req.body.stripeTokenId,
-        currency: 'eur'
-      }).then(charge =>  {
+    BD.query(sqlStr,[time,date], function(err,sqlRes) {
+        if (err) console.log(err);
+        if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){   
+        stripe.charges.create({
+            amount: price,
+            source: req.body.stripeTokenId,
+            currency: 'eur'
+        }).then(charge =>  {
             price = price/100;
-            BD.query(sqlStr,[time,date], function(err,sqlRes) {
+            var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `stripeID`, `codigoPromo` ) ";
+            booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,charge.id,req.body.promo], function(err,sqlRes) {
                 if (err) console.log(err);
-                if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=10 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){
-                    var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `stripeID`, `codigoPromo` ) ";
-                    booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                    BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,charge.id,req.body.promo], function(err,sqlRes) {if (err) console.log(err);});
-                    res.send({ insert: "OK" });
-                }else{
-                    res.send({ insert: "ERROR" });
+                else{
+                    sendInBlue(pNome, uNome, mail, date, time, tour, adults, children, babys, price);
                 }
-        });
+            });
         }).catch(error => {
             console.log(error);
             res.status(500).end();
-        })
+        });
+            res.send({ insert: "OK" });
+        }else{
+            res.send({ insert: "ERROR" });
+        }
+    });
+
 });
 
 app.post('/paintCallendar',(req, res) => {
