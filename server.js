@@ -199,7 +199,8 @@ app.post('/PaidReservation',(req, res) => {
         stripe.charges.create({
             amount: price,
             source: req.body.stripeTokenId,
-            currency: 'eur'
+            currency: 'eur',
+            receipt_email: mail
         }).then(charge =>  {
             price = price/100;
             var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `stripeID`, `codigoPromo` ) ";
