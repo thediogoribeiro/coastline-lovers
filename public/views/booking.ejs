@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<title>Pagina Admin CoastLineLovers</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- CSS -->
+	<link rel="stylesheet" href="../stylesheets/style/style.css" />
+	<!-- Indicativo Telm -->
+	<link rel="stylesheet" href="../stylesheets/intlTelInput.css">
+	<!-- DatePicker -->
+	<link rel="stylesheet" href="../stylesheets/date_pick.css"/>
+	<!-- Stripe -->
+	<script src="https://checkout.stripe.com/checkout.js" defer></script>
+	<!-- JS -->
+	<script src="../javascripts/main.js" defer></script>
+	<!-- JS_all --> 
+	<script src="../javascripts/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="../javascripts/bootstrap.js" type="text/javascript"></script>
+	<script src="../javascripts/bootstrap-datepicker.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="../javascripts/intlTelInput.js"></script>
+	
+</head>
+<body id="">
+	<div id="insert_booking" class="booking-page">
+
+		<div id="" class="">
+
+			<div id="intro__booking" class="intro__booking">
+
+				<div class="cll__logo">
+					<img src="/assets/cll-color.png">
+				</div>
+
+				<div class="cll__title">
+					<h1>GRUTA BENAGIL TOUR</h1>
+				</div>
+
+				<div class="cll__photos">
+					<div class="carousel">
+						
+					</div>
+				</div>
+
+				<div class="cll__description">
+					<h4>Descrição</h4>
+					<p>Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão até à famosa Gruta de Benagil. Passará por paisagens maravilhosas como Carvoeiro e Ferragudo.</p>
+				</div>
+
+				<div class="staff">
+					<h4 class="">Chave secreta: </h4>
+					<input class="field-long" id="codeField" type="password" name="field2" placeholder="Reservado ao STAFF" autocomplete="off" onchange="changeButtonName()"/><br>
+				</div>
+
+			</div>
+
+			<%- include('partials/booking-partial'); -%>
+
+			<div id="outro__booking" class="outro__booking">
+
+				<div class="cll__safety">
+					<div class="safety__icon">
+						<i class="fas fa-exclamation-triangle fa-inverse fa-4x"></i>
+					</div>
+
+					<div class="safety__title">
+						<h2 class="">AVISOS IMPORTANTES</h2>
+					</div>
+
+					<ul class="safety__text">
+						<li>Será fornecido um colete salva-vidas.</li>
+						<li>O passeio será dirigido por um capitão experiente.</li>
+						<li>É aconselhável o uso de roupa adequada a estação do ano.</li>
+						<li>O check-in deverá ser feito <strong>30 minutos antes do passeio</strong>, no quiosque de venda de bilhetes, no <strong>Clube Naval De Portimão.</strong></li>
+						<li>Qualquer colaborador poderá pedir a identificação da criança para verificar a idade.</li>
+						<li>A empresa não se responsabiliza por bens perdidos no decorrer da tour.</li>
+						<li>O disparo do colete salva-vidas por negligência tem o custo de 30€.</li>
+						<li>A Coastline Lovers reserva o direito de cancelar o passeio se as condições atmosféricas não forem favoráveis.</li>
+						<li>Cancelamento gratuito até 24 horas antes do passeio.</li>
+					</ul>
+				</div>
+
+				<div class="cll__maps">
+				</div>
+
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$('.datepicker').datepicker({
+				weekStart:1,
+				color: 'blue'
+			});
+			var input = document.getElementById("field4");
+			var iti = window.intlTelInput(input);
+			function getFullPhoneNumber(){
+				return "(+" + iti.getSelectedCountryData().dialCode + ")" + input.value;
+			}
+		</script>
+	</div>
+
+	<%- include('partials/footer'); -%>

@@ -321,27 +321,6 @@ body {
       font-size: 26px;
       line-height: 42px; } }
 
-#safety ul {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-
-#safety li {
-  text-align: justify;
-  margin-top: 25px;
-  margin-left: 1.5em; }
-
-#safety li:before {
-  content: "\2022";
-  color: #0E3356;
-  font-weight: 900;
-  font-size: 26px;
-  display: inline-block;
-  width: 1em;
-  margin-left: -1.2em;
-  position: relative;
-  top: 4px; }
-
 #testimonials h3 {
   font-style: italic;
   font-weight: 500;
@@ -443,17 +422,17 @@ h2 {
       font-size: 46px;
       line-height: 54px; } }
 
-h3, li#safety {
+h3, li {
   font-family: 'roboto';
   font-weight: 500;
   letter-spacing: 0.1em;
   text-indent: 6px; }
   @media screen and (min-width: 320px) and (max-width: 767px) {
-    h3, li#safety {
+    h3, li {
       font-size: 16px;
       line-height: 21px; } }
   @media screen and (min-width: 768px) {
-    h3, li#safety {
+    h3, li {
       font-size: 20px;
       line-height: 23px; } }
 
@@ -536,6 +515,13 @@ p, input {
   line-height: 19px;
   letter-spacing: 0.1em; }
 
+.cll__safety li {
+  font-family: 'roboto';
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.1em; }
+
 .booking a {
   font-family: 'roboto';
   font-style: normal;
@@ -548,6 +534,13 @@ p, input {
   border: 1.25px solid #0E3356;
   border-radius: 10px;
   background-color: #0E3356; }
+
+.book-button {
+  background-color: #0E3356;
+  color: #CCA14B;
+  padding: 10px 30px;
+  text-align: center;
+  border: 1.25px solid #0E3356; }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   #header .button {
@@ -569,6 +562,7 @@ p, input {
     #gallery .button {
       padding: 15px 30px; } }
 
+/* REMOVE ARROW "UP & DOWN" ON BUTTONS */
 /* Chrome, Safari, Edge, Opera */
 .btick__input-2::-webkit-outer-spin-button, .btick__input-5::-webkit-outer-spin-button, .btick__input-8::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -579,10 +573,13 @@ p, input {
   margin: 0; }
 
 /* Firefox */
+.btick__input-2[type=number], .btick__input-5[type=number], .btick__input-8[type=number] {
+  -moz-appearance: textfield; }
+
 #easy-bar .fa-instagram, #easy-bar .fa-facebook-square, #easy-bar .fa-phone-alt, #easy-bar .fa-envelope {
   color: #FFFFFF; }
 
-#safety .fas {
+#safety .fas, .cll__safety .fas {
   color: #CCA14B; }
 
 #contacts .fa-phone-alt, #contacts .fa-envelope {
@@ -1693,26 +1690,26 @@ p, input {
     display: inline;
     margin-right: 10px; }
 
-#safety .safety__box {
+#safety .safety__box, .cll__safety .safety__box {
   display: grid;
   grid-template-columns: 1fr; }
   @media screen and (min-width: 320px) and (max-width: 1023px) {
-    #safety .safety__box {
+    #safety .safety__box, .cll__safety .safety__box {
       grid-template-rows: 1fr 1fr 4fr; } }
   @media screen and (min-width: 1024px) {
-    #safety .safety__box {
+    #safety .safety__box, .cll__safety .safety__box {
       grid-template-rows: 1fr 1fr 3fr; } }
   @media screen and (min-width: 1024px) and (max-width: 1279px) {
-    #safety .safety__box {
+    #safety .safety__box, .cll__safety .safety__box {
       padding: 0 60px; } }
   @media screen and (min-width: 1280px) and (max-width: 1439px) {
-    #safety .safety__box {
+    #safety .safety__box, .cll__safety .safety__box {
       padding: 0 80px; } }
   @media screen and (min-width: 1440px) {
-    #safety .safety__box {
+    #safety .safety__box, .cll__safety .safety__box {
       padding: 0 100px; } }
 
-#safety .safety__icon {
+#safety .safety__icon, .cll__safety .safety__icon {
   grid-row-start: 1;
   grid-row-end: 2;
   grid-column-start: 1;
@@ -1720,18 +1717,39 @@ p, input {
   align-self: center;
   text-align: center; }
 
-#safety .safety__title {
+#safety .safety__title, .cll__safety .safety__title {
   grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start: 1;
   grid-column-end: 2;
   align-self: center; }
 
-#safety .safety__text {
+#safety .safety__text, .cll__safety .safety__text {
   grid-row-start: 3;
   grid-row-end: 4;
   grid-column-start: 1;
   grid-column-end: 2; }
+
+#safety ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+#safety li {
+  text-align: justify;
+  margin-top: 25px;
+  margin-left: 1.5em; }
+
+#safety li:before {
+  content: "\2022";
+  color: #0E3356;
+  font-weight: 900;
+  font-size: 26px;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1.2em;
+  position: relative;
+  top: 4px; }
 
 #testimonials {
   display: grid;
@@ -1966,7 +1984,8 @@ th.dedo {
       margin: 20px 0 10px 0; } }
 
 #booking {
-  background-color: rgba(204, 161, 75, 0.2); }
+  background-color: rgba(204, 161, 75, 0.2);
+  padding-bottom: 1px; }
   #booking h5 {
     margin: 0;
     padding: 0; }
@@ -2052,14 +2071,54 @@ th.dedo {
   border-color: #0E3356; }
 
 .book__name, .book__email, .book__phone, .book__notes, .book__code, .book__button {
-  padding: 0 0 0 20px; }
+  padding: 0 20px 0 20px;
+  margin: 40px 0; }
 
 .bname__input-1, .bname__input-2, .bemail__input-1, .bphone__input-1, .bcode__input-1 {
-  margin-top: 20px;
   padding: 7px 0;
-  width: 60%;
+  width: 85%;
   text-align: left;
   font-size: 18px;
   background-color: transparent;
   border: 0;
   border-bottom: 1.75px solid #0E3356; }
+
+.bname__input-2 {
+  margin-top: 15px; }
+
+.bname__input-1, .bemail__input-1, .iti, .bnotes__input-1, .bcode__input-1 {
+  margin-top: 5px; }
+
+.bnotes__input-1 {
+  width: 98%;
+  max-width: 100%;
+  height: 100px;
+  background-color: rgba(204, 161, 75, 0.2);
+  border: 1.75px solid #0E3356; }
+
+.book__button {
+  text-align: center; }
+
+#outro__booking {
+  margin: 35px 0; }
+
+.cll__safety ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.cll__safety li {
+  text-align: justify;
+  margin-top: 14px;
+  margin-left: 1em; }
+
+.cll__safety li:before {
+  content: "\2022";
+  color: #0E3356;
+  font-weight: 900;
+  font-size: 24px;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1.2em;
+  position: relative;
+  top: 4px; }

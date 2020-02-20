@@ -98,79 +98,9 @@
 		<div id="sqlresult"></div>
 	</div>
 	<div id="insert_booking" style="display:none;">
-		<div>
-			<ul class="form-style-1">
-				<li>
-					<label>Selecione a data: <span id="required6" class="required">*</span></label>
-					<input id="date_Field" type="text" name="birthdate" class="datepicker" autocomplete="off" />
-				</li>
-				<li>			
-					<p><label>Selecione a tour:</label></p>
-					<input type="radio" name="tour" value="1" onclick="radioClick('1');"checked> Benagil Normal<br>
-					<input type="radio" name="tour" value="2" onclick="radioClick('2');"> Benagil Private (Compra todos lugares)<br>
-					<input type="radio" name="tour" value="3" onclick="radioClick('3');"> Benagil Express<br>  
-				</li>
-				<li>
-					<div id="normaltour">
-						<p><label>Selecione a hora:<span id="required1" class="required"></span></label></p>
-						<input id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');" checked> 9h-11h<span id="cb1Text"></span><br>
-						<input id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');"> 11h-13h<span id="cb2Text"></span><br>
-						<input id="cb3" type="radio" name="hora" value="3" onclick="cbClick('3');"> 14h-16h<span id="cb3Text"></span><br>
-						<input id="cb4" type="radio" name="hora" value="2" onclick="cbClick('4');"> 16h-18h<span id="cb4Text"></span><br>
-						<input id="cb5" type="radio" name="hora" value="3" onclick="cbClick('5');"> 18h-20h<span id="cb5Text"></span><br>  
-					</div>
-					<div id="privatetour" style="display:none;">
-						<input id="cbprivate" type="radio" name="h1" value="18" checked> 18h-20h<span id="rPrivateText"></span><br><br>
-					</div>
-					<div id="expresstour" style="display:none;">
-						<input id="cbexpress" type="radio" name="h1" value="13" checked>13h-14h <span id="rExpressText"><span><br><br>
-					</div>
-				</li>
-				<li><div id="lugares" class="lugares">
-					<label>Número de lugares:<span id="required5" class="required">*</span></label><div id="privatetourdiv" style="display:none"> 300,00 € </div>
-					<div id="lugares_adulto">
-						<div id="la-normal"><span style="font-size: 150%;">Normal </span><span> 30,00 €</span></div><div id="la-express" style="display:none;"><span style="font-size: 150%;">Normal </span><span> 20,00 €</span></div>
-						<input id="adultomenos" type="button" value="-" class="button-minus" onclick="adultoMenos()">
-						<input id="adultonum" type="number" step="1" max="" value=0 name="category_1738" class="quantity-field" readonly="">
-						<input id="adultomais" type="button" value="+" class="button-plus" onclick="adultoMais()">
-					</div>
-					<div id="lugares_crianca">
-						<div id="lc-normal"><span style="font-size: 150%;">Crianças (dos 3 aos 10 anos) </span><span> 15,00 €</span></div><div id="lc-express" style="display:none;"><span style="font-size: 150%;">Criança (dos 3 aos 10 anos)</span><span>12,5 €</span></div>
-						<input id="ciancamenos" type="button" value="-" class="button-minus" onclick="criancaMenos()">
-						<input id="ciancanum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
-						<input id="ciancamais"type="button" value="+" class="button-plus" onclick="criancaMais()">
-					</div>
-					<div id="lugares_bebes">
-						<div id="lb-normal"><span style="font-size: 150%;">Crianças (menos 3 anos) </span><span> Grátis</span><br><span id="bebeSeatsNum"></span></div>
-						<input id="bebemenos" type="button" value="-" class="button-minus" onclick="bebeMenos()">
-						<input id="bebenum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
-						<input id="bebemais"type="button" value="+" class="button-plus" onclick="bebeMais()">
-					</div>
-				</li>			
-				<li><label>Nome <span id="required2" class="required">*</span></label>
-					<input id="field1" type="text" name="field1" class="field-divided" placeholder="Primeiro"/> 
-					<input id="field2" type="text" name="field2" class="field-divided" placeholder="Último"/></li>
-				<li>
-					<label>Email <span id="required3" class="required">*</span></label>
-					<input id="field3" type="email" name="field3" class="field-long" />
-				</li>
-				<li>
-					<label>Telefone <span id="required4" class="required">*</span></label>
-					<input id="field4" type="tel" name="field4" class="field-long" />
-				</li>
-				<li>
-					<label>Observações (Não obrigátório) </label>
-					<textarea id="field5" name="field5" class="field-long field-textarea"></textarea id="field5">
-				</li>
-				<li>
-					<label>Código promocional:</label>
-					<input id="promo-code" type="text" class="field-long"/>
-				</li>
-				<li>					
-					<button onclick="reserva()"> Reservar como Administrador</button><br>
-				</li>
-			</ul>
-		</div>
+
+		<%- include('partials/booking-partial'); -%>
+
 		<script type="text/javascript">
 			$('.datepicker').datepicker({
 				weekStart:1,

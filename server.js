@@ -19,6 +19,7 @@ var promo = ["promo123", "promo000"];
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json({limit:'1mb'}));
 
@@ -50,13 +51,22 @@ function handleDisconnect() {
 handleDisconnect();
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/public/views/index.html'));
+    //res.sendFile(path.join(__dirname + '/public/views/index'));
+    res.render(__dirname + '/public/views/index');
 });
+
+
+app.get('/views/booking', function (req, res) {
+    //res.sendFile(path.join(__dirname + '/public/views/index'));
+    res.render(__dirname + '/public/views/booking');
+});
+
 
 app.listen(process.env.PORT || 3000)
 
-app.get('/Administrador', function(request, response){
-    response.sendFile(path.join(__dirname + '/public/views/admin.html'));
+app.get('/Administrador', function(req, res){
+    //response.sendFile(path.join(__dirname + '/public/views/admin'));
+    res.render(__dirname + '/public/views/admin');
 });
 
 app.post('/checkAdmin',(req, res) => {
