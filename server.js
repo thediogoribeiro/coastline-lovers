@@ -72,9 +72,9 @@ function handleDisconnect() {
         password : 'a192f195', //root
         //port : '8889',
         database : 'heroku_3a464d27dbd82c7'
-    });  // Recreate the connection, since the old one cannot be reused.
-    BD.connect( function onConnect(err) {   // The server is either down
-        if (err) {                                  // or restarting (takes a while sometimes).
+    });  
+    BD.connect( function onConnect(err) {  
+        if (err) {                                 
             console.log('error when connecting to db:', err);
             setTimeout(handleDisconnect, 10000);    
         }

@@ -17,6 +17,7 @@
  * limitations under the License.
  * ========================================================= */
  var color = '';
+ 
 !function( $ ) {
 	
 	// Picker object
@@ -89,7 +90,6 @@
 	
 	Datepicker.prototype = {
 		constructor: Datepicker,
-		
 		show: function(e) {
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
@@ -317,6 +317,9 @@
 								month += 1;
 							}
 							var year = this.viewDate.getFullYear();
+							const currDate = new Date();
+							const selDate = new Date(year,month,day,19,59,59,0);
+							if(currDate>selDate) return;
 							this.date = new Date(year, month, day,0,0,0,0);
 							this.viewDate = new Date(year, month, Math.min(28, day),0,0,0,0);
 							this.fill();
@@ -332,12 +335,10 @@
 			}
 			dateSelected(e);
 		},
-		
 		mousedown: function(e){
 			e.stopPropagation();
 			e.preventDefault();
 		},
-		
 		showMode: function(dir) {
 			if (dir) {
 				this.viewMode = Math.max(this.minViewMode, Math.min(2, this.viewMode + dir));
@@ -363,6 +364,7 @@
 			return '';
 		}
 	};
+	
 	$.fn.datepicker.Constructor = Datepicker;	
 	var DPGlobal = {
 		modes: [
@@ -484,5 +486,4 @@
 								'</table>'+
 							'</div>'+
 						'</div>';
-
 }( window.jQuery );
