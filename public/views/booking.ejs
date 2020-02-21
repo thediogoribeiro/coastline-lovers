@@ -25,68 +25,80 @@
 <body id="">
 	<div id="insert_booking" class="booking-page">
 
-		<div id="" class="">
+		<div id="intro__booking" class="intro__booking">
 
-			<div id="intro__booking" class="intro__booking">
-
-				<div class="cll__logo">
-					<img src="/assets/cll-color.png">
-				</div>
-
-				<div class="cll__title">
-					<h1>GRUTA BENAGIL TOUR</h1>
-				</div>
-
-				<div class="cll__photos">
-					<div class="carousel">
-						
-					</div>
-				</div>
-
-				<div class="cll__description">
-					<h4>Descrição</h4>
-					<p>Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão até à famosa Gruta de Benagil. Passará por paisagens maravilhosas como Carvoeiro e Ferragudo.</p>
-				</div>
-
-				<div class="staff">
-					<h4 class="">Chave secreta: </h4>
-					<input class="field-long" id="codeField" type="password" name="field2" placeholder="Reservado ao STAFF" autocomplete="off" onchange="changeButtonName()"/><br>
-				</div>
-
+			<div class="cll__logo">
+				<img src="/assets/cll-color.png">
 			</div>
 
-			<%- include('partials/booking-partial'); -%>
-
-			<div id="outro__booking" class="outro__booking">
-
-				<div class="cll__safety">
-					<div class="safety__icon">
-						<i class="fas fa-exclamation-triangle fa-inverse fa-4x"></i>
-					</div>
-
-					<div class="safety__title">
-						<h2 class="">AVISOS IMPORTANTES</h2>
-					</div>
-
-					<ul class="safety__text">
-						<li>Será fornecido um colete salva-vidas.</li>
-						<li>O passeio será dirigido por um capitão experiente.</li>
-						<li>É aconselhável o uso de roupa adequada a estação do ano.</li>
-						<li>O check-in deverá ser feito <strong>30 minutos antes do passeio</strong>, no quiosque de venda de bilhetes, no <strong>Clube Naval De Portimão.</strong></li>
-						<li>Qualquer colaborador poderá pedir a identificação da criança para verificar a idade.</li>
-						<li>A empresa não se responsabiliza por bens perdidos no decorrer da tour.</li>
-						<li>O disparo do colete salva-vidas por negligência tem o custo de 30€.</li>
-						<li>A Coastline Lovers reserva o direito de cancelar o passeio se as condições atmosféricas não forem favoráveis.</li>
-						<li>Cancelamento gratuito até 24 horas antes do passeio.</li>
-					</ul>
-				</div>
-
-				<div class="cll__maps">
-				</div>
-
+			<div class="cll__title">
+				<h1>GRUTA BENAGIL TOUR</h1>
 			</div>
+
+			<div class="cll__photos">
+				<div class="carousel">
+					
+				</div>
+			</div>
+
+			<div class="cll__description">
+				<h4>Descrição</h4>
+				<p>Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão até à famosa Gruta de Benagil. Passará por paisagens maravilhosas como Carvoeiro e Ferragudo.</p>
+			</div>
+
+			<div class="staff">
+				<h4 class="">Chave secreta: </h4>
+				<input class="field-long" id="codeField" type="password" name="field2" placeholder="Reservado ao STAFF" autocomplete="off" onchange="changeButtonName()"/><br>
+			</div>
+
 		</div>
 
+		<%- include('partials/booking-partial'); -%>
+
+		<div id="outro__booking" class="outro__booking">
+
+			<div class="cll__safety">
+
+				<div class="safety__icon">
+					<i class="fas fa-exclamation-triangle fa-inverse fa-4x"></i>
+				</div>
+
+				<div class="safety__title">
+					<h2 class="">AVISOS IMPORTANTES</h2>
+				</div>
+
+				<ul class="safety__text">
+					<li>Será fornecido um colete salva-vidas.</li>
+					<li>O passeio será dirigido por um capitão experiente.</li>
+					<li>É aconselhável o uso de roupa adequada a estação do ano.</li>
+					<li>O check-in deverá ser feito <strong>30 minutos antes do passeio</strong>, no quiosque de venda de bilhetes, no <strong>Clube Naval De Portimão.</strong></li>
+					<li>Qualquer colaborador poderá pedir a identificação da criança para verificar a idade.</li>
+					<li>A empresa não se responsabiliza por bens perdidos no decorrer da tour.</li>
+					<li>O disparo do colete salva-vidas por negligência tem o custo de 30€.</li>
+					<li>A Coastline Lovers reserva o direito de cancelar o passeio se as condições atmosféricas não forem favoráveis.</li>
+					<li>Cancelamento gratuito até 24 horas antes do passeio.</li>
+				</ul>
+
+			</div>
+
+			<div class="cll__maps">
+
+				<div class="maps__icon">
+					<i class="fas fa-map-marker-alt fa-4x"></i>
+				</div>
+
+				<div class="maps__title">
+					<h2 class="">PONTO DE ENCONTRO</h2>
+				</div>
+
+				<div class="maps__map" id="maps__map">
+					<!-- <iframe class="maps__frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3180.8778970300236!2d-8.536312285050174!3d37.13181987988162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1b28f12edfff31%3A0x8eef681329792461!2sClube%20Naval%20De%20Portim%C3%A3o!5e0!3m2!1sen!2spt!4v1582288089963!5m2!1sen!2spt" allowfullscreen=""></iframe> -->
+
+				</div>
+
+			</div>
+
+		</div>
 		<script type="text/javascript">
 			$('.datepicker').datepicker({
 				weekStart:1,
@@ -96,7 +108,26 @@
 			var iti = window.intlTelInput(input);
 			function getFullPhoneNumber(){
 				return "(+" + iti.getSelectedCountryData().dialCode + ")" + input.value;
-			}
+			};
+		</script>
+		<script>
+			function initMap() {
+			  // The location of CoastLineLovers
+			  var cll = {
+			  	lat: 37.132059, lng: -8.534113
+			  };
+			  // The map, centered at Uluru
+			  var map = new google.maps.Map(document.getElementById('maps__map'), {
+			  	zoom: 4, center: cll
+			  });
+			  // The marker, positioned at Uluru
+			  var marker = new google.maps.Marker({
+			  	position: cll, map: map
+			  });
+			};
+		</script>
+		<script async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVP1WgmhP6p277yYP5fOB2u1eg-0uAaxE&callback=initMap">
 		</script>
 	</div>
 
