@@ -265,7 +265,7 @@ body {
 
 @media screen and (min-width: 1280px) and (max-width: 1439px) {
   .booking-page {
-    padding: 5em 8.5em 0em 8.5em; } }
+    padding: 5em 6.5em 0em 6.5em; } }
 
 @media screen and (min-width: 1440px) {
   .booking-page {
@@ -538,6 +538,13 @@ p, input {
 .book-button {
   background-color: #0E3356;
   color: #CCA14B;
+  padding: 10px 30px;
+  text-align: center;
+  border: 1.25px solid #0E3356; }
+
+.book-button:hover {
+  background-color: #CCA14B;
+  color: #0E3356;
   padding: 10px 30px;
   text-align: center;
   border: 1.25px solid #0E3356; }
@@ -1933,38 +1940,64 @@ th.dedo {
   cursor: pointer; }
 
 #intro__booking {
-  display: grid;
-  grid-template-rows: 2fr 1fr 2.5fr 1.9fr 1fr; }
+  display: grid; }
   @media screen and (min-width: 320px) and (max-width: 767px) {
     #intro__booking {
-      grid-template-columns: 1fr; } }
-  @media screen and (min-width: 768px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr 1fr 2.5fr 1.9fr 1fr; } }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
     #intro__booking {
-      grid-template-columns: 1fr 1fr 1fr; } }
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 0.5fr 1fr 0.5fr 0.5fr; } }
+  @media screen and (min-width: 1024px) {
+    #intro__booking {
+      grid-template-columns: 1.5fr 4fr;
+      grid-template-rows: 1fr 2fr 1fr 1fr; } }
 
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .cll__logo {
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-end: 2; } }
-
-.cll__logo img {
-  max-width: 100%;
-  height: auto; }
+.cll__logo {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  text-align: center;
+  align-self: center; }
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .cll__logo img {
+      max-width: 100%;
+      height: auto; } }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .cll__logo img {
+      width: 80%;
+      height: auto; } }
+  @media screen and (min-width: 1024px) {
+    .cll__logo img {
+      max-width: 100%;
+      height: auto;
+      margin-left: -70px; } }
 
 .cll__title {
   color: #0E3356; }
-  @media screen and (min-width: 320px) and (max-width: 767px) {
+  .cll__title h1 {
+    margin: 0; }
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
     .cll__title {
       grid-row-start: 2;
       grid-row-end: 3;
       grid-column-start: 1;
       grid-column-end: 2; } }
-  .cll__title h1 {
-    margin: 0; }
+  @media screen and (min-width: 1024px) {
+    .cll__title {
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column-start: 2;
+      grid-column-end: 3;
+      align-self: center; }
+      .cll__title h1 {
+        text-align: left;
+        font-size: 40px; } }
 
 .cll__photos {
+  align-self: center;
   /* Slideshow container */
   /* Hide the images by default */
   /* Next & previous buttons */
@@ -1973,26 +2006,64 @@ th.dedo {
   /* Caption text */
   /* The dots/bullets/indicators */
   /* Fading animation */ }
-  @media screen and (min-width: 320px) and (max-width: 767px) {
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
     .cll__photos {
       grid-row-start: 3;
       grid-row-end: 4;
       grid-column-start: 1;
-      grid-column-end: 2;
-      align-self: center; } }
+      grid-column-end: 2; } }
+  @media screen and (min-width: 1024px) {
+    .cll__photos {
+      grid-row-start: 2;
+      grid-row-end: 3;
+      grid-column-start: 1;
+      grid-column-end: 3; } }
   .cll__photos .slideshow-container div {
     box-sizing: border-box; }
   .cll__photos .slideshow-container {
-    max-width: 1000px;
+    max-width: 100%;
     position: relative;
     margin: auto; }
   .cll__photos .mySlides {
-    display: none; }
+    display: none;
+    overflow: hidden; }
+    @media screen and (min-width: 320px) and (max-width: 767px) {
+      .cll__photos .mySlides {
+        height: 275px; } }
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      .cll__photos .mySlides {
+        height: 325px; } }
+    @media screen and (min-width: 1024px) and (max-width: 1279px) {
+      .cll__photos .mySlides {
+        height: 375px; } }
+    @media screen and (min-width: 1280px) and (max-width: 1439px) {
+      .cll__photos .mySlides {
+        height: 425px; } }
+    @media screen and (min-width: 1440px) {
+      .cll__photos .mySlides {
+        height: 575px; } }
     .cll__photos .mySlides img {
-      position: relative;
-      height: 275px;
-      max-width: 100%;
-      width: auto; }
+      position: relative; }
+      @media screen and (min-width: 320px) and (max-width: 767px) {
+        .cll__photos .mySlides img {
+          width: auto;
+          height: 100%;
+          top: 0px; } }
+      @media screen and (min-width: 768px) and (max-width: 1023px) {
+        .cll__photos .mySlides img {
+          width: 100%;
+          height: auto;
+          top: -70px; } }
+      @media screen and (min-width: 1024px) and (max-width: 1439px) {
+        .cll__photos .mySlides img {
+          width: 100%;
+          height: auto;
+          top: -120px; } }
+      @media screen and (min-width: 1440px) {
+        .cll__photos .mySlides img {
+          width: 100%;
+          height: auto;
+          top: -200px; } }
   .cll__photos .prev, .cll__photos .next {
     cursor: pointer;
     position: absolute;
@@ -2044,36 +2115,58 @@ th.dedo {
   to {
     opacity: 1; } }
 
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .cll__description {
-    grid-row-start: 4;
-    grid-row-end: 5;
-    grid-column-start: 1;
-    grid-column-end: 2; }
-    .cll__description h4 {
-      text-align: center; } }
+.cll__description {
+  align-self: center; }
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
+    .cll__description {
+      grid-row-start: 4;
+      grid-row-end: 5;
+      grid-column-start: 1;
+      grid-column-end: 2; }
+      .cll__description h4 {
+        text-align: center; } }
+  @media screen and (min-width: 1024px) {
+    .cll__description {
+      grid-row-start: 3;
+      grid-row-end: 4;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      margin-top: 30px; }
+      .cll__description h4, .cll__description p {
+        text-align: left; } }
 
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .staff {
-    grid-row-start: 5;
-    grid-row-end: 6;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    text-align: center; }
-    .staff .staff__input {
+.staff {
+  align-self: center; }
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
+    .staff {
+      grid-row-start: 5;
+      grid-row-end: 6;
+      grid-column-start: 1;
+      grid-column-end: 2;
       text-align: center; } }
-    @media screen and (min-width: 320px) and (max-width: 767px) and (min-width: 320px) and (max-width: 767px) {
+  @media screen and (min-width: 1024px) {
+    .staff {
+      grid-row-start: 4;
+      grid-row-end: 5;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      text-align: center; }
       .staff .staff__input {
+        text-align: center;
         margin-top: 20px;
-        padding: 7px 10px;
-        width: 60%;
         font-size: 16px;
+        padding: 7px 10px;
         border-color: #0E3356; } }
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-    .staff h4 {
-      color: #0E3356;
-      margin: 20px 0 10px 0; } }
+    @media screen and (min-width: 1024px) and (min-width: 320px) and (max-width: 1023px) {
+      .staff .staff__input {
+        width: 60%; } }
+    @media screen and (min-width: 1024px) and (min-width: 1024px) {
+      .staff .staff__input {
+        width: 40%; } }
+  @media screen and (min-width: 1024px) {
+      .staff h4 {
+        color: #0E3356;
+        margin: 20px 0 10px 0; } }
 
 #booking {
   background-color: rgba(204, 161, 75, 0.2);
@@ -2113,16 +2206,32 @@ th.dedo {
     background-color: rgba(204, 161, 75, 0.2);
     border-color: #0E3356; }
 
-.book__tour {
-  text-align: left; }
-  .book__tour .btour__input-1, .book__tour .btour__input-2, .book__tour .btour__input-3 {
-    display: inline;
-    margin: 20px 0 10px 40px;
-    text-align: center;
-    height: 18px;
-    width: 6%; }
-  .book__tour .btour__p-1, .book__tour .btour__p-2, .book__tour .btour__p-3 {
-    display: inline; }
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+  .book__tour {
+    text-align: left; } }
+
+@media screen and (min-width: 1024px) {
+  .book__tour {
+    text-align: center; } }
+
+@media screen and (min-width: 1024px) {
+  .book__tour .btour__input-1, .book__tour .btour__input-3, .book__tour .btour__p-1, .book__tour .btour__p-3, .book__tour .btour__a-1 {
+    position: relative;
+    left: -30px; } }
+
+.book__tour .btour__input-1, .book__tour .btour__input-2, .book__tour .btour__input-3 {
+  display: inline;
+  margin: 20px 0 10px 40px;
+  text-align: center;
+  height: 18px;
+  width: 6%; }
+
+.book__tour .btour__p-1, .book__tour .btour__p-2, .book__tour .btour__p-3 {
+  display: inline; }
+
+@media screen and (min-width: 1024px) {
+  .book__schedule {
+    text-align: center; } }
 
 .book__schedule .bsch__input-1, .book__schedule .bsch__input-2, .book__schedule .bsch__input-3, .book__schedule .bsch__input-4, .book__schedule .bsch__input-5, .book__schedule .bsch__input-6, .book__schedule .bsch__input-7 {
   display: inline;
@@ -2130,6 +2239,11 @@ th.dedo {
   text-align: center;
   height: 18px;
   width: 6%; }
+
+@media screen and (min-width: 1024px) {
+  .book__schedule .bsch__input-1, .book__schedule .bsch__p-1, .book__schedule .bsch__a-1 {
+    position: relative;
+    left: -6px; } }
 
 .book__schedule .bsch__p-1, .book__schedule .bsch__p-2, .book__schedule .bsch__p-3, .book__schedule .bsch__p-4, .book__schedule .bsch__p-5, .book__schedule .bsch__p-6, .book__schedule .bsch__p-7 {
   display: inline;
@@ -2190,6 +2304,50 @@ th.dedo {
   background-color: rgba(204, 161, 75, 0.2);
   border: 1.75px solid #0E3356; }
 
+@media screen and (min-width: 1280px) {
+  .book__xlview__grid {
+    display: grid;
+    grid-template-rows: 1.25fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr; } }
+
+@media screen and (min-width: 1280px) {
+  .book__xlview__grid .book__name {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2; } }
+
+@media screen and (min-width: 1280px) {
+  .book__xlview__grid .book__email {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2; } }
+
+@media screen and (min-width: 1280px) {
+  .book__xlview__grid .book__phone {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 2; } }
+
+@media screen and (min-width: 1280px) {
+  .book__xlview__grid .book__notes {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 3; }
+    .book__xlview__grid .book__notes .bnotes__input-1 {
+      height: 90%; } }
+
+@media screen and (min-width: 1280px) {
+  .book__code {
+    text-align: center; }
+    .book__code .bcode__title {
+      text-align: center; }
+    .book__code .bcode__input-1 {
+      width: 50%; } }
+
 .book__button {
   text-align: center; }
 
@@ -2241,6 +2399,9 @@ th.dedo {
     grid-column-end: 2;
     text-align: center;
     color: #CCA14B; }
+    @media screen and (min-width: 1024px) {
+      .cll__maps .maps__icon {
+        align-self: center; } }
   .cll__maps .maps__title {
     grid-row-start: 2;
     grid-row-end: 3;
@@ -2266,10 +2427,11 @@ th.dedo {
         margin: 0 -5.5em; } }
     @media screen and (min-width: 1280px) and (max-width: 1439px) {
       .cll__maps .maps__map {
-        margin: 0 -8.5em; } }
+        margin: 0 -6.5em; } }
     @media screen and (min-width: 1440px) {
       .cll__maps .maps__map {
-        margin: 0 -13.5em; } }
+        margin: 0 -13.5em;
+        height: 475px; } }
     .cll__maps .maps__map .maps__frame {
       border: 0;
       width: 100%;

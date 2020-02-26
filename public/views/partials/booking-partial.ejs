@@ -11,24 +11,24 @@
 
 	<div id="book__tour" class="book__tour">			
 		<h5 class="btour__title">Selecione a tour:</h5>
-		<input class="btour__input-1" type="radio" name="tour" value="1" onclick="radioClick('1');"checked><p class="btour__p-1"> Benagil Normal</p><a> (2 horas)</a><br>
-		<input class="btour__input-2" type="radio" name="tour" value="2" onclick="radioClick('2');"><p class="btour__p-2"> Benagil Private</p><a> (todos os lugares)</a><br>
-		<input class="btour__input-3" type="radio" name="tour" value="3" onclick="radioClick('3');"><p class="btour__p-3"> Benagil Express<a> (1 hora)</a></p><br>  
+		<input class="btour__input-1" type="radio" name="tour" value="1" onclick="radioClick('1');"checked><p class="btour__p-1"> Benagil Normal</p><a class="btour__a-1"> (2 horas)</a><br>
+		<input class="btour__input-2" type="radio" name="tour" value="2" onclick="radioClick('2');"><p class="btour__p-2"> Benagil Private</p><a class="btour__a-2"> (todos os lugares)</a><br>
+		<input class="btour__input-3" type="radio" name="tour" value="3" onclick="radioClick('3');"><p class="btour__p-3"> Benagil Express<a class="btour__a-3"> (1 hora)</a></p><br>  
 	</div>
 
 	<div id="book__schedule" class="book__schedule">
 
 		<div id="normaltour">
 			<h5 class="bsch__title">Escolha a hora:<a id="required1" class="required"></a></h5>
-			<input class="bsch__input-1" id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');" checked><p class="bsch__p-1">9h-11h</p><a id="cb1Text"></a>
+			<input class="bsch__input-1" id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');" checked><p class="bsch__p-1">9h-11h</p><a class="bsch__a-1" id="cb1Text"></a>
 			<br>
-			<input class="bsch__input-2" id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');"><p class="bsch__p-2">11h-13h</p><a id="cb2Text"></a>
+			<input class="bsch__input-2" id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');"><p class="bsch__p-2">11h-13h</p><a class="bsch__a-2" id="cb2Text"></a>
 			<br>
-			<input class="bsch__input-3" id="cb3" type="radio" name="hora" value="3" onclick="cbClick('3');"><p class="bsch__p-3">14h-16h</p><a id="cb3Text"></a>
+			<input class="bsch__input-3" id="cb3" type="radio" name="hora" value="3" onclick="cbClick('3');"><p class="bsch__p-3">14h-16h</p><a class="bsch__a-3" id="cb3Text"></a>
 			<br>
-			<input class="bsch__input-4" id="cb4" type="radio" name="hora" value="2" onclick="cbClick('4');"><p class="bsch__p-4">16h-18h</p><a id="cb4Text"></a>
+			<input class="bsch__input-4" id="cb4" type="radio" name="hora" value="2" onclick="cbClick('4');"><p class="bsch__p-4">16h-18h</p><a class="bsch__a-4" id="cb4Text"></a>
 			<br>
-			<input class="bsch__input-5" id="cb5" type="radio" name="hora" value="3" onclick="cbClick('5');"><p class="bsch__p-5">18h-20h</p><a id="cb5Text"></a>
+			<input class="bsch__input-5" id="cb5" type="radio" name="hora" value="3" onclick="cbClick('5');"><p class="bsch__p-5">18h-20h</p><a class="bsch__a-5" id="cb5Text"></a>
 			<br>  
 		</div>
 		<div id="privatetour" style="display:none;">
@@ -102,26 +102,32 @@
 		<h5>INFORMAÇÕES DE CONTATO</h5>
 	</div>
 
-	<div id="book__name" class="book__name">
-		<h5 class="bname__title">Nome <a id="required2" class="required">*</a></h5>
-		<input class="bname__input-1 field-divided" id="field1" type="text" name="field1" autocomplete="off"/> 
-		<input class="bname__input-2 field-divided" id="field2" type="text" name="field2" autocomplete="off"/>
-	</div>
+	<div class="book__xlview__grid">
+		
+		<div id="book__name" class="book__name">
+			<h5 class="bname__title">Nome <a id="required2" class="required">*</a></h5>
+			<input class="bname__input-1 field-divided" id="field1" type="text" name="field1" autocomplete="off"/> 
+			<input class="bname__input-2 field-divided" id="field2" type="text" name="field2" autocomplete="off"/>
+		</div>
 
-	<div id="book__email" class="book__email">
-		<h5 class="bemail__title">Email <a id="required3" class="required">*</a></h5>
-		<input class="bemail__input-1 field-long" id="field3" type="email" name="field3" autocomplete="off"/>
-	</div>
+		<div id="book__email" class="book__email">
+			<h5 class="bemail__title">Email <a id="required3" class="required">*</a></h5>
+			<input class="bemail__input-1 field-long" id="field3" type="email" name="field3" autocomplete="off"/>
+		</div>
 
-	<div id="book__phone" class="book__phone">
-		<h5 class="bphone__title">Telefone <a id="required4" class="required">*</a></h5>
-		<input class="bphone__input-1 field-long" id="field4" type="tel" name="field4" autocomplete="off"/>
-	</div>
+		<div id="book__phone" class="book__phone">
+			<h5 class="bphone__title">Telefone <a id="required4" class="required">*</a></h5>
+			<input class="bphone__input-1 field-long" id="field4" type="tel" name="field4" autocomplete="off"/>
+		</div>
 
-	<div id="book__notes" class="book__notes">
-		<h5 class="bnotes__title">Observações <a>(Não obrigátório):</a></h5>
-		<textarea class="bnotes__input-1 field-long field-textarea" id="field5" name="field5"></textarea id="field5">
+		<div id="book__notes" class="book__notes">
+			<h5 class="bnotes__title">Observações <a>(Não obrigátório):</a></h5>
+			<textarea class="bnotes__input-1 field-long field-textarea" id="field5" name="field5"></textarea id="field5">
+		</div>
+
+
 	</div>
+	
 
 	<div id="book__code" class="book__code">
 		<h5 class="bcode__title">Código promocional <a>(Não obrigátório):</a></h5>

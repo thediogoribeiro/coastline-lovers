@@ -1,58 +1,108 @@
 #intro__booking
 	display: grid
-	grid-template-rows: 2fr 1fr 2.5fr 1.9fr 1fr
 	@media screen and (min-width: $xs) and (max-width: $md - 1)
 		grid-template-columns: 1fr
-	@media screen and (min-width: $md)
-		grid-template-columns: 1fr 1fr 1fr
+		grid-template-rows: 2fr 1fr 2.5fr 1.9fr 1fr
+	@media screen and (min-width: $md) and (max-width: $lg - 1)
+		grid-template-columns: 1fr
+		grid-template-rows: 1fr 0.5fr 1fr 0.5fr 0.5fr
+	@media screen and (min-width: $lg)
+		grid-template-columns: 1.5fr 4fr
+		grid-template-rows: 1fr 2fr 1fr 1fr
 
 .cll__logo
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
-		grid-row-start: 1
-		grid-row-end: 2
-		grid-column-start: 1
-		grid-column-end: 2
+	grid-row-start: 1
+	grid-row-end: 2
+	grid-column-start: 1
+	grid-column-end: 2
+	text-align: center
+	align-self: center
 	img
-		max-width: 100%
-		height: auto
+		@media screen and (min-width: $xs) and (max-width: $md - 1)
+			max-width: 100%
+			height: auto
+		@media screen and (min-width: $md) and (max-width: $lg - 1)
+			width: 80%
+			height: auto
+		@media screen and (min-width: $lg)
+			max-width: 100%
+			height: auto
+			margin-left: -70px
 
 .cll__title
 	color: $dark-blue
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
+	h1
+		margin: 0
+	@media screen and (min-width: $xs) and (max-width: $lg - 1)
 		grid-row-start: 2
 		grid-row-end: 3
 		grid-column-start: 1
 		grid-column-end: 2
-	h1
-		margin: 0
+	@media screen and (min-width: $lg)
+		grid-row-start: 1
+		grid-row-end: 2
+		grid-column-start: 2
+		grid-column-end: 3
+		align-self: center
+		h1
+			text-align: left
+			font-size: 40px
 
 
 .cll__photos
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
+	align-self: center
+	@media screen and (min-width: $xs) and (max-width: $lg - 1)
 		grid-row-start: 3
 		grid-row-end: 4
 		grid-column-start: 1
 		grid-column-end: 2
-		align-self: center 
+	@media screen and (min-width: $lg)
+		grid-row-start: 2
+		grid-row-end: 3
+		grid-column-start: 1
+		grid-column-end: 3
 
 	.slideshow-container div
 		box-sizing: border-box
 
 	/* Slideshow container */
 	.slideshow-container
-	  max-width: 1000px
+	  max-width: 100%
 	  position: relative
 	  margin: auto
 
 	/* Hide the images by default */
 	.mySlides
 	  display: none
+	  overflow: hidden
+	  @media screen and (min-width: $xs) and (max-width: $md - 1)
+	  	height: 275px
+	  @media screen and (min-width: $md) and (max-width: $lg - 1)
+	  	height: 325px
+	  @media screen and (min-width: $lg) and (max-width: $xl - 1)
+  		height: 375px
+  	@media screen and (min-width: $xl) and (max-width: $xxl - 1)
+  		height: 425px
+  	@media screen and (min-width: $xxl)
+  		height: 575px
 	  img
 	  	position: relative
-	  	height: 275px
-	  	max-width: 100%
-	  	width: auto
-	  	
+	  	@media screen and (min-width: $xs) and (max-width: $md - 1)
+		  	width: auto
+	  		height: 100%
+		  	top: 0px
+		  @media screen and (min-width: $md) and (max-width: $lg - 1)
+			  width: 100%
+		  	height: auto
+		  	top: -70px
+		  @media screen and (min-width: $lg) and (max-width: $xxl - 1)
+		  	width: 100%
+	  		height: auto
+	  		top: -120px
+	  	@media screen and (min-width: $xxl)
+		  	width: 100%
+	  		height: auto
+	  		top: -200px
 
 	/* Next & previous buttons */
 	.prev, .next
@@ -127,30 +177,49 @@
 	  	opacity: 1
 
 .cll__description
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
+	align-self: center
+	@media screen and (min-width: $xs) and (max-width: $lg - 1)
 		grid-row-start: 4
 		grid-row-end: 5
 		grid-column-start: 1
 		grid-column-end: 2
 		h4
 			text-align: center
+	@media screen and (min-width: $lg)
+		grid-row-start: 3
+		grid-row-end: 4
+		grid-column-start: 1
+		grid-column-end: 3
+		margin-top: 30px
+		h4, p
+			text-align: left
+	
 
 .staff
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
+	align-self: center
+	@media screen and (min-width: $xs) and (max-width: $lg - 1)
 		grid-row-start: 5
 		grid-row-end: 6
 		grid-column-start: 1
 		grid-column-end: 2
 		text-align: center
+	@media screen and (min-width: $lg)
+		grid-row-start: 4
+		grid-row-end: 5
+		grid-column-start: 1
+		grid-column-end: 3
+		text-align: center
 
 		.staff__input
 			text-align: center
-			@media screen and (min-width: $xs) and (max-width: $md - 1)
-				margin-top: 20px
-				padding: 7px 10px
+			margin-top: 20px
+			font-size: 16px
+			padding: 7px 10px
+			border-color: $dark-blue
+			@media screen and (min-width: $xs) and (max-width: $lg - 1)
 				width: 60%
-				font-size: 16px
-				border-color: $dark-blue
+			@media screen and (min-width: $lg)
+				width: 40%
 
 		h4
 			color: $dark-blue

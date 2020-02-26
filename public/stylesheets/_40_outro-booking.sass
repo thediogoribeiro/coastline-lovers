@@ -48,6 +48,9 @@
 		grid-column-end: 2
 		text-align: center
 		color: $gold
+		@media screen and (min-width: $lg)
+			align-self: center
+
 
 	.maps__title
 		grid-row-start: 2
@@ -71,10 +74,10 @@
 		@media screen and (min-width: $lg) and (max-width: $xl - 1)
 			margin: 0 -5.5em
 		@media screen and (min-width: $xl) and (max-width: $xxl - 1)
-			margin: 0 -8.5em
+			margin: 0 -6.5em
 		@media screen and (min-width: $xxl)
 			margin: 0 -13.5em
-
+			height: 475px
 
 		.maps__frame
 			border: 0

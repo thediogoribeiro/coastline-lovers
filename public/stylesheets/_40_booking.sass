@@ -40,7 +40,15 @@
 		border-color: $dark-blue
 
 .book__tour
-	text-align: left
+	@media screen and (min-width: $xs) and (max-width: $lg - 1)
+		text-align: left
+	@media screen and (min-width: $lg)
+		text-align: center
+
+	.btour__input-1, .btour__input-3, .btour__p-1, .btour__p-3, .btour__a-1
+		@media screen and (min-width: $lg)
+			position: relative
+			left: -30px
 
 	.btour__input-1, .btour__input-2, .btour__input-3
 		display: inline 
@@ -54,6 +62,8 @@
 
 
 .book__schedule
+	@media screen and (min-width: $lg)
+		text-align: center
 
 	.bsch__input-1, .bsch__input-2, .bsch__input-3, .bsch__input-4, .bsch__input-5, .bsch__input-6, .bsch__input-7
 		display: inline 
@@ -61,6 +71,11 @@
 		text-align: center
 		height: 18px
 		width: 6%
+
+	.bsch__input-1, .bsch__p-1, .bsch__a-1
+		@media screen and (min-width: $lg)
+			position: relative
+			left: -6px
 
 	.bsch__p-1, .bsch__p-2, .bsch__p-3, .bsch__p-4, .bsch__p-5, .bsch__p-6, .bsch__p-7
 		display: inline
@@ -127,6 +142,53 @@
 	height: 100px
 	background-color: $light-gold
 	border: 1.75px solid $dark-blue
+
+
+.book__xlview__grid
+	@media screen and (min-width: $xl)
+		display: grid
+		grid-template-rows: 1.25fr 1fr 1fr 
+		grid-template-columns: 1fr 1fr
+
+	.book__name
+		@media screen and (min-width: $xl)
+			grid-row-start: 1
+			grid-row-end: 2
+			grid-column-start: 1
+			grid-column-end: 2
+
+	.book__email
+		@media screen and (min-width: $xl)
+			grid-row-start: 2
+			grid-row-end: 3
+			grid-column-start: 1
+			grid-column-end: 2
+
+	.book__phone
+		@media screen and (min-width: $xl)
+			grid-row-start: 3
+			grid-row-end: 4
+			grid-column-start: 1
+			grid-column-end: 2
+
+	.book__notes
+		@media screen and (min-width: $xl)
+			grid-row-start: 1
+			grid-row-end: 4
+			grid-column-start: 2
+			grid-column-end: 3
+			.bnotes__input-1
+				height: 90%
+
+.book__code
+	@media screen and (min-width: $xl)
+		text-align: center
+
+		.bcode__title 
+			text-align: center
+
+		.bcode__input-1
+			width: 50%	
 
 .book__button
 	text-align: center
