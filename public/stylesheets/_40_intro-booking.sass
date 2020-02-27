@@ -31,6 +31,7 @@
 
 .cll__title
 	color: $dark-blue
+	align-self: center
 	h1
 		margin: 0
 	@media screen and (min-width: $xs) and (max-width: $lg - 1)
@@ -43,7 +44,6 @@
 		grid-row-end: 2
 		grid-column-start: 2
 		grid-column-end: 3
-		align-self: center
 		h1
 			text-align: left
 			font-size: 40px
@@ -210,20 +210,22 @@
 		grid-column-end: 3
 		text-align: center
 
-		.staff__input
-			text-align: center
-			margin-top: 20px
-			font-size: 16px
-			padding: 7px 10px
-			border-color: $dark-blue
-			@media screen and (min-width: $xs) and (max-width: $lg - 1)
-				width: 60%
-			@media screen and (min-width: $lg)
-				width: 40%
+	.staff__input
+		text-align: center
+		margin-top: 20px
+		font-size: 16px
+		padding: 7px 10px
+		border-color: $dark-blue
+		@media screen and (min-width: $xs) and (max-width: $smp - 1)
+			width: 65%
+		@media screen and (min-width: $smp) and (max-width: $lg - 1)
+			width: 50%
+		@media screen and (min-width: $lg)
+			width: 25%
 
-		h4
-			color: $dark-blue
-			margin: 20px 0 10px 0
+	h4
+		color: $dark-blue
+		margin: 20px 0 10px 0
 
 
 

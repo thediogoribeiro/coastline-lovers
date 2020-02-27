@@ -204,8 +204,6 @@
 			grid-column-end: 2
 			align-self: center
 			text-align: center
-			background-color: rgba(204, 161, 77, 0.7)
-
 			@media screen and (min-width: $xs) and (max-width: $md - 1)
 				margin: 0 -1em // Sair da box
 			@media screen and (min-width: $md) and (max-width: $lg - 1)
@@ -216,7 +214,15 @@
 			grid-column-start: 2
 			grid-column-end: 3 
 
-
+	.rents__text-1, .rents__text-4
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			background-color: rgba(14,51,86, 0.6)
+	.rents__text-2, .rents__text-5
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			background-color: rgba(0,85,163, 0.6)
+	.rents__text-3, .rents__text-6
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			background-color: rgba(108,189,234, 0.6)
 
 	/* Grid */
 
@@ -227,6 +233,8 @@
 			grid-template-columns: 1fr
 
 	.elem-11, .elem-21, .elem-31, .elem-41, .elem-51, .elem-61
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			margin-bottom: -25px
 		@media screen and (min-width: $lg)
 			grid-row-start: 1
 			grid-row-end: 2
@@ -259,7 +267,17 @@
 		margin-right: 10px
 
 
-
+	.elem-12, .elem-22, .elem-32, .elem-42, .elem-52, .elem-62
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			margin-left: 0
+			padding: 10px 0 5px 0
+			position: relative
+			bottom: -81px
+			color: $dark-blue
+			background-color: rgba(255, 255, 255, 0.8)
+			p, i
+				position: relative
+				left: 30px
 
 
 

@@ -1431,13 +1431,25 @@ p, input {
     align-self: center;
     margin-top: -3%; } }
 
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+  #tours .tours__text-1 {
+    background-color: rgba(14, 51, 86, 0.6); } }
+
 @media screen and (min-width: 1024px) {
   #tours .tours__text-1 {
     background-color: #0E3356; } }
 
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+  #tours .tours__text-2 {
+    background-color: rgba(0, 85, 163, 0.6); } }
+
 @media screen and (min-width: 1024px) {
   #tours .tours__text-2 {
     background-color: #0055A3; } }
+
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+  #tours .tours__text-3 {
+    background-color: rgba(108, 189, 234, 0.6); } }
 
 @media screen and (min-width: 1024px) {
   #tours .tours__text-3 {
@@ -1665,8 +1677,7 @@ p, input {
       grid-column-start: 1;
       grid-column-end: 2;
       align-self: center;
-      text-align: center;
-      background-color: rgba(204, 161, 77, 0.7); } }
+      text-align: center; } }
   @media screen and (min-width: 320px) and (max-width: 1023px) and (min-width: 320px) and (max-width: 767px) {
     #rents .rents__text-1, #rents .rents__text-2, #rents .rents__text-3, #rents .rents__text-4, #rents .rents__text-5, #rents .rents__text-6 {
       margin: 0 -1em; } }
@@ -1679,11 +1690,23 @@ p, input {
       grid-row-end: 2;
       grid-column-start: 2;
       grid-column-end: 3; } }
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
+    #rents .rents__text-1, #rents .rents__text-4 {
+      background-color: rgba(14, 51, 86, 0.6); } }
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
+    #rents .rents__text-2, #rents .rents__text-5 {
+      background-color: rgba(0, 85, 163, 0.6); } }
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
+    #rents .rents__text-3, #rents .rents__text-6 {
+      background-color: rgba(108, 189, 234, 0.6); } }
   @media screen and (min-width: 1024px) {
     #rents .rents__text-1, #rents .rents__text-2, #rents .rents__text-3, #rents .rents__text-4, #rents .rents__text-5, #rents .rents__text-6 {
       display: grid;
       grid-template-rows: 1fr 1fr 3fr;
       grid-template-columns: 1fr; } }
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
+    #rents .elem-11, #rents .elem-21, #rents .elem-31, #rents .elem-41, #rents .elem-51, #rents .elem-61 {
+      margin-bottom: -25px; } }
   @media screen and (min-width: 1024px) {
     #rents .elem-11, #rents .elem-21, #rents .elem-31, #rents .elem-41, #rents .elem-51, #rents .elem-61 {
       grid-row-start: 1;
@@ -1712,6 +1735,17 @@ p, input {
   #rents .elem-121, #rents .elem-122, #rents .elem-221, #rents .elem-222, #rents .elem-321, #rents .elem-322, #rents .elem-421, #rents .elem-422, #rents .elem-521, #rents .elem-522, #rents .elem-621, #rents .elem-622 {
     display: inline;
     margin-right: 10px; }
+  @media screen and (min-width: 320px) and (max-width: 1023px) {
+    #rents .elem-12, #rents .elem-22, #rents .elem-32, #rents .elem-42, #rents .elem-52, #rents .elem-62 {
+      margin-left: 0;
+      padding: 10px 0 5px 0;
+      position: relative;
+      bottom: -81px;
+      color: #0E3356;
+      background-color: rgba(255, 255, 255, 0.8); }
+      #rents .elem-12 p, #rents .elem-12 i, #rents .elem-22 p, #rents .elem-22 i, #rents .elem-32 p, #rents .elem-32 i, #rents .elem-42 p, #rents .elem-42 i, #rents .elem-52 p, #rents .elem-52 i, #rents .elem-62 p, #rents .elem-62 i {
+        position: relative;
+        left: 30px; } }
 
 #safety .safety__box, .cll__safety .safety__box {
   display: grid;
@@ -1976,7 +2010,8 @@ th.dedo {
       margin-left: -70px; } }
 
 .cll__title {
-  color: #0E3356; }
+  color: #0E3356;
+  align-self: center; }
   .cll__title h1 {
     margin: 0; }
   @media screen and (min-width: 320px) and (max-width: 1023px) {
@@ -1990,8 +2025,7 @@ th.dedo {
       grid-row-start: 1;
       grid-row-end: 2;
       grid-column-start: 2;
-      grid-column-end: 3;
-      align-self: center; }
+      grid-column-end: 3; }
       .cll__title h1 {
         text-align: left;
         font-size: 40px; } }
@@ -2150,23 +2184,25 @@ th.dedo {
       grid-row-end: 5;
       grid-column-start: 1;
       grid-column-end: 3;
-      text-align: center; }
+      text-align: center; } }
+  .staff .staff__input {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 7px 10px;
+    border-color: #0E3356; }
+    @media screen and (min-width: 320px) and (max-width: 410px) {
       .staff .staff__input {
-        text-align: center;
-        margin-top: 20px;
-        font-size: 16px;
-        padding: 7px 10px;
-        border-color: #0E3356; } }
-    @media screen and (min-width: 1024px) and (min-width: 320px) and (max-width: 1023px) {
+        width: 65%; } }
+    @media screen and (min-width: 411px) and (max-width: 1023px) {
       .staff .staff__input {
-        width: 60%; } }
-    @media screen and (min-width: 1024px) and (min-width: 1024px) {
+        width: 50%; } }
+    @media screen and (min-width: 1024px) {
       .staff .staff__input {
-        width: 40%; } }
-  @media screen and (min-width: 1024px) {
-      .staff h4 {
-        color: #0E3356;
-        margin: 20px 0 10px 0; } }
+        width: 25%; } }
+  .staff h4 {
+    color: #0E3356;
+    margin: 20px 0 10px 0; }
 
 #booking {
   background-color: rgba(204, 161, 75, 0.2);
