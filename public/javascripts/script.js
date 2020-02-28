@@ -1,6 +1,6 @@
 // MENU hamburger
-function showBurger() {
-  var x = document.getElementById("menu__links");
+function showBurger(clas) {
+  var x = document.getElementById(clas);
   if (x.style.display === "block") {
     x.style.display = "none";
   } else {
@@ -8,27 +8,28 @@ function showBurger() {
   }
 }
 
-/*
-var feed = new Instafeed({
-	get: '',
-	tagName: '',
-	clientId: 'eab7077abfb342b29a99b363f0e003a4'
-});
-feed.run();
-*/
+function openBooking(txt) {
+  console.log(txt)
+  document.getElementsById(txt).checked = true;
 
-/*
-window.onload = function() {
-	var novaLargura = document.getElementById("rents__photo-2");
-
-	document.getElementById("photo-1").height = (novaLargura.offsetWidth)/1.56;
-	document.getElementById("photo-2").height = (novaLargura.offsetWidth)/1.56;
-	document.getElementById("photo-3").height = (novaLargura.offsetWidth)/1.56;
-	document.getElementById("photo-4").height = (novaLargura.offsetWidth)/1.56;
-	document.getElementById("photo-5").height = (novaLargura.offsetWidth)/1.56;
-	document.getElementById("photo-6").height = (novaLargura.offsetWidth)/1.56;
 }
-*/
+
+window.onscroll = function () {
+  //console.log(this.scrollY);
+  const nav = document.getElementById('icon__effect');
+  if(this.scrollY <= 800){
+    //console.log('branco');
+    nav.style.color = '#FFFFFF';
+    nav.style.borderColor = '#FFFFFF'; 
+  }else{
+    //console.log('azul');
+    nav.style.color = '#0E3356';
+    nav.style.borderColor = '#0E3356';
+  }
+}
+
+
+//------- CAROUSEL BOOKING PAGE --------//
 
 var slideIndex = 1;
 showSlides(slideIndex);
@@ -55,9 +56,10 @@ function showSlides(n) {
   for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
   }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
 }
+
 
 
 

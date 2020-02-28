@@ -20,13 +20,25 @@
 			<a class="easy__item-2 hover__effect" href="https://www.facebook.com/coastlinelovers/?ref=br_rs">
 				<i class="fab fa-facebook-square"></i>
 			</a>
-			<a class="easy__item-3 hover__effect" href="tel:+351969999999">
+			<a class="easy__item-3 hover__effect" href="tel:+351938856548">
 				<i class="fas fa-phone-alt"></i>
-				<p class="easy__phone hide__s">+351 969 999 999</p>
+				<p class="easy__phone hide__s">+351 938 856 548</p>
 			</a>
-			<a class="easy__item-4 hover__effect" href="mailto:booking@coastlinelovers.com">
+			<a class="easy__item-4 hover__effect" href="mailto:info@coastlinelovers.com">
 				<i class="far fa-envelope"></i>
-				<p class="easy__mail hide__s">booking@coastlinelovers.com</p>
+				<p class="easy__mail hide__s">info@coastlinelovers.com</p>
+			</a>
+			<a class="easy__item-5 hover__effect" onclick="showBurger('easy__dropdown-content')">
+				<div class="easy__dropdown">
+					<img class="easy__dropbtn" src="../assets/uk.png">
+					<i class="fas fa-sort-down"></i>
+				  <div class="easy__dropdown-content" id="easy__dropdown-content">
+				    <img class="easy__flag-1" src="../assets/france.png">
+				    <img class="easy__flag-2" src="../assets/germany.png">
+				    <img class="easy__flag-3" src="../assets/portugal.png">
+				    <img class="easy__flag-4" src="../assets/spain.png">
+				  </div>
+				</div>
 			</a>
 		</div>
 	</div>
@@ -58,7 +70,7 @@
 
 			<div class="nav__menu hide__lg">
 				<a id="icon" class="icon"> 
-			  	<i class="fas fa-bars fa-2x" onclick="showBurger()"></i>
+			  	<i id="icon__effect" class="fas fa-bars fa-2x" onclick="showBurger('menu__links')"></i>
 			  </a>
 				<div id="menu__links" class="menu__links hide__sm">
 					<a href="#about">SOBRE NÓS</a>
@@ -126,8 +138,8 @@
 					<img src="../assets/Kayak-tour.jpg">
 				</div>
 				<div class="tours__text-1">
-					<a href="/views/booking.html">
-						<h3 class="hover__effect">KAYAK TOUR</h3>
+					<a href="/views/booking">
+						<h3 class="hover__effect">PASSEIO BENAGIL</h3>
 					</a>
 				</div>
 			</div>
@@ -137,8 +149,8 @@
 					<img src="../assets/gruta-tour.jpg">
 				</div>
 				<div class="tours__text-2">
-					<a href="/views/booking.html">
-						<h3 class="hover__effect">GRUTA DE BENAGIL</h3>
+					<a href="/views/booking">
+						<h3 class="hover__effect">PASSEIO PRIVADO</h3>
 					</a>
 				</div>
 			</div>
@@ -148,8 +160,8 @@
 					<img src="../assets/express-tour.jpg">
 				</div>
 				<div class="tours__text-3">
-					<a href="/views/booking.html">
-						<h3 class="hover__effect">EXPRESS TOUR</h3>
+					<a href="/views/booking">
+						<h3 class="hover__effect">PASSEIO EXPRESSO</h3>
 					</a>
 				</div>
 			</div>
@@ -290,7 +302,7 @@
 		<div class="testimonials__box container">
 
 			<div class="testimonials__text">
-				<h3>“Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão.</h3>
+				<h3>"Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão."</h3>
 				<h3>Fernando Sousa, Porto</h3>
 			</div>
 
@@ -322,12 +334,12 @@
 				<h2>FALE CONNOSCO</h2>
 			</div>
 
-			<a class="contacts__icon-1" href="tel:+351969999999">
+			<a class="contacts__icon-1" href="tel:+351938856548">
 				<i class="fas fa-phone-alt fa-2x"></i>
 				<div class="icon__circle-1"></div>
 			</a>
 
-			<a class="contacts__icon-2" href="mailto:booking@coastlinelovers.com">
+			<a class="contacts__icon-2" href="mailto:info@coastlinelovers.com">
 				<i class="far fa-envelope fa-2x"></i>
 				<div class="icon__circle-2"></div>
 			</a>

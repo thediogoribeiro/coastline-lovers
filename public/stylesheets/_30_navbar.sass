@@ -1,18 +1,15 @@
 #easy-bar
 	background-color: $dark-blue
-	padding: 7px 0 2px 0
-	@media screen and (min-width: $xs) and (max-width: $md - 1)
-		display: none
 
 	.easy-bar
 		display: grid
 		grid-template-rows: 1fr
 		@media screen and (min-width: $xs) and (max-width: $md - 1)
-			grid-template-columns: 1fr 1fr 1fr 1fr
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr
 		@media screen and (min-width: $md) and (max-width: $lg - 1)
-			grid-template-columns: 1fr 2fr 3fr
+			grid-template-columns: 0.5fr 0.5fr 2fr 3fr 1fr
 		@media screen and (min-width: $lg)
-			grid-template-columns: 1fr 2fr 3fr 6fr
+			grid-template-columns: 1fr 3fr 3fr 5fr
 
 		.easy__item-1
 			grid-row-start: 1
@@ -21,13 +18,16 @@
 				grid-column-start: 1
 				grid-column-end: 2
 				justify-self: center
-			@media screen and (min-width: $md)
+			@media screen and (min-width: $md) and (max-width: $lg - 1)
 				grid-column-start: 1
 				grid-column-end: 2
-				justify-self: center
-				@media screen and (min-width: $lg)
-					i
-						display: none
+				justify-self: right
+			@media screen and (min-width: $lg)
+				grid-column-start: 1
+				grid-column-end: 2
+				justify-self: left
+					//i
+						//display: none
 
 		.easy__item-2
 			grid-row-start: 1
@@ -37,18 +37,16 @@
 				grid-column-end: 3
 				justify-self: center
 			@media screen and (min-width: $md) and (max-width: $lg - 1)
-				grid-column-start: 1
-				grid-column-end: 2
-				justify-self: center
-				.fa-facebook-square
-					margin-left: 80px 
+				grid-column-start: 2
+				grid-column-end: 3
+				justify-self: right 
 			@media screen and (min-width: $lg)
 				grid-column-start: 1
 				grid-column-end: 2
-				justify-self: end
-				@media screen and (min-width: $lg)   
-					i
-						display: none
+				justify-self: center
+				//@media screen and (min-width: $lg)   
+					//i
+						//display: none
 
 		.easy__item-3
 			grid-row-start: 1
@@ -58,16 +56,21 @@
 				grid-column-end: 4
 				justify-self: center
 			@media screen and (min-width: $md) and (max-width: $lg - 1)
+				grid-column-start: 3
+				grid-column-end: 4
+				justify-self: center				
+			@media screen and (min-width: $lg)
 				grid-column-start: 2
 				grid-column-end: 3
-				justify-self: center
+				justify-self: left
 			.fa-phone-alt
 				display: inline
 			.easy__phone
-				display: inline
-				margin-left: 10px
-			@media screen and (min-width: $lg)
-				justify-self: left
+				@media screen and (min-width: $xs) and (max-width: $md - 1)
+					display: none
+				@media screen and (min-width: $md)
+					display: inline
+					margin-left: 10px
 
 		.easy__item-4
 			grid-row-start: 1
@@ -75,20 +78,81 @@
 			@media screen and (min-width: $xs) and (max-width: $md - 1)
 				grid-column-start: 4
 				grid-column-end: 5
-				justify-self: center
+				justify-self: center					
 			@media screen and (min-width: $md) and (max-width: $lg - 1)
+				grid-column-start: 4
+				grid-column-end: 5
+				justify-self: center
+				align-self: center
+			@media screen and (min-width: $lg)
 				grid-column-start: 3
 				grid-column-end: 4
 				justify-self: center
-				align-self: center
 			.fa-envelope
 				display: inline
 			.easy__mail
-				display: inline
-				margin-left: 10px
+				@media screen and (min-width: $xs) and (max-width: $md - 1)
+					display: none
+				@media screen and (min-width: $md)
+					display: inline
+					margin-left: 10px
+		
+		.easy__item-5
+			grid-row-start: 1
+			grid-row-end: 2
+			align-self: start
+			@media screen and (min-width: $xs) and (max-width: $md - 1)
+				grid-column-start: 5
+				grid-column-end: 6
+				justify-self: center
+			@media screen and (min-width: $md) and (max-width: $lg - 1)
+				grid-column-start: 5
+				grid-column-end: 6
+				justify-self: center				
 			@media screen and (min-width: $lg)
-				justify-self: left
-					
+				grid-column-start: 4
+				grid-column-end: 5
+				justify-self: right
+
+			.easy__dropdown
+			  display: grid
+			  grid-template-rows: 1fr
+			  grid-template-columns: 1fr 1fr
+			  margin-top: -2px
+
+			.easy__dropbtn
+				grid-row-start: 1
+				grid-row-end: 2
+				grid-column-start: 1
+				grid-column-end: 2
+				align-self: start
+				display: inline
+				margin-right: 5px
+
+			.fa-sort-down
+				grid-row-start: 1
+				grid-row-end: 2
+				grid-column-start: 2
+				grid-column-end: 3
+				align-self: start
+				color: $white
+
+			.easy__dropdown-content
+				text-align: left
+				display: none
+				position: absolute
+				z-index: 100
+				right: -14px
+				width: 180px
+				margin-top: 30px
+				.easy__flag-1, .easy__flag-2, .easy__flag-3, .easy__flag-4
+					display: inline
+					padding-right: 15px
+
+			img
+		  	width: auto
+		  	height: 20px
+
 		.easy__item-1:hover, .easy__item-2:hover, .easy__item-3:hover, .easy__item-4:hover
 			color: $light-blue
 						
@@ -196,31 +260,31 @@
 
 	.nav__menu
 		overflow: hidden
-	  position: relative
-	  z-index: 100
-		margin-top: 5%
+		position: fixed
+		z-index: 50
 		@media screen and (min-width: $xs) and (max-width: $xl - 1)
-			grid-row-start: 1
-			grid-row-end: 2
-			grid-column-start: 2
-			grid-column-end: 3
+			//grid-row-start: 1
+			//grid-row-end: 2
+			//grid-column-start: 2
+			//grid-column-end: 3
 			text-align: right
 			justify-self: right
-	
-	.fas
-		color: $white
+			margin-top: 5%
+			right: 10%
 
 	.menu__links
 		text-align: right
 		display: none
-		background-color: rgba(0, 0, 0, 0.4)
+		background-color: $dark-blue //$white //rgba(0, 0, 0, 0.4)
 		border: 1px solid $white
-		padding: 10px 5px 0 5px
+		border-radius: 10px
+		padding: 25px 10px 0 100px
 		a
-			margin-bottom: 10px
+			margin-bottom: 25px
+			font-size: 18px
 
 	.nav__menu a
-	  color: $white
+	  color: $white //$dark-blue
 	  text-decoration: none
 	  display: block
 
