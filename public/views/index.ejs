@@ -4,6 +4,11 @@
 	<title>Coastline Lovers</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+	<link rel="manifest" href="assets/site.webmanifest">
 	<!-- CSS -->
   <link rel="stylesheet" href="/stylesheets/style/style.css">
   <!-- ANIMATE ONSCROLL CSS -->
@@ -12,9 +17,15 @@
 	<script type="text/javascript" src="javascripts/instafeed.min.js"></script>
 	<!-- JS -->
 	<script type="text/javascript" src="javascripts/script.js"></script>
+	<script type="text/javascript" src="javascripts/translateIndex.js"></script>
 </head>
 <body id="landing-page" onresize="hamburgerChange()">
 	<script>AOS.init();</script>
+	<a href="#pt" onclick="changeLang('pt')">Português</a>
+	<a href="#eng" onclick="changeLang('eng')">English</a>
+	<a href="#es" onclick="changeLang('es')">Español</a>
+	<a href="#fr" onclick="changeLang('fr')">Fr</a>
+	<a href="#de" onclick="changeLang('de')">Deutsch</a>
 	<div id="easy-bar">
 		<div class="easy-bar">
 			<a class="easy__item-1 hover__effect" href="https://www.instagram.com/coastlinelovers/">
@@ -76,13 +87,13 @@
 			  	<i id="icon__effect" class="fas fa-bars fa-2x" onclick="showBurger('menu__links')"></i>
 			  </a>
 				<div id="menu__links" class="menu__links hide__sm">
-					<a href="#about">SOBRE NÓS</a>
-					<a href="#tours">TOURS</a>
-					<a href="#rents">RENTS</a>
-					<a href="#safety">SAFETY</a>
-					<a href="#testimonials">TESTEMUNHOS</a>
-					<a href="#gallery">GALERIA</a>
-					<a href="#contacts">CONTACTOS</a>
+					<a href="#about" id="m1m">SOBRE NÓS</a>
+					<a href="#tours" id="m2m">PASSEIOS</a>
+					<a href="#rents" id="m3m">ALUGUERES</a>
+					<a href="#safety" id="m4m">AVISOS</a>
+					<a href="#testimonials" id="m5m">TESTEMUNHOS</a>
+					<a href="#gallery" id="m6m">GALERIA</a>
+					<a href="#contacts" id="m7m">CONTACTOS</a>
 				</div>
 			</div>
 
@@ -91,34 +102,28 @@
 
 	<div id="header" class="">
 		<div class="head__box container">
-
 			<div class="head__title" data-aos="fade-up">
-				<h1 class="">GRUTAS DE BENAGIL</h1>
+				<h1 class="" id="ht1">GRUTAS DE BENAGIL</h1>
 			</div>
-
 			<div class="head__text">
-				<h3 class="" data-aos="fade-up">Conheça as grutas mais famosos da costa algarvia.</h3>
-				<h3 class="" data-aos="fade-up">Uma experiência verdadeiramente incrível!</h3>
+				<h3 class="" id="htxt1" data-aos="fade-up">Conheça as grutas mais famosos da costa algarvia.</h3>
+				<h3 class="" id="htxt2" data-aos="fade-up">Uma experiência verdadeiramente incrível!</h3>
 			</div>
-
 			<div class="head__button">
-				<a class="button hover__effect" href="/views/booking" target="_self">RESERVE JÁ</a>
+				<a class="button hover__effect" id="hb1" href="/views/booking" target="_self">RESERVE JÁ</a>
 			</div>
-
 		</div>
 	</div>
 
 	<div id="about" class="container"> <!-- hide__md hide__s -->
 		<div class="about__box row">
-
 			<div class="about__title" data-aos="fade-up">
-				<h2 class="">SOBRE NÓS</h2>
+				<h2 class="" id="at1">SOBRE NÓS</h2>
 			</div>
 
 			<div class="about__text" data-aos="fade-up">
-				<h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Lobortis feugiat vivamus at augue. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Facilisi nullam vehicula ipsum a arcu. Enim eu turpis egestas pretium. Scelerisque in dictum non consectetur a erat.</h5>
+				<h5 id="atxt1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Lobortis feugiat vivamus at augue. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Facilisi nullam vehicula ipsum a arcu. Enim eu turpis egestas pretium. Scelerisque in dictum non consectetur a erat.</h5>
 			</div>
-
 		</div>
 	</div>
 
@@ -126,14 +131,14 @@
 		<div class="tours__box row">
 
 			<div class="tours__title" data-aos="fade-up">
-				<h2 class="">PASSEIOS</h2>
+				<h2 class="" id="tt1">PASSEIOS</h2>
 			</div>
 
 			<div class="tours__text ">
-				<h5 class="tours__paragraph" data-aos="fade-up">Venha experienciar uma das melhores atividades para realizar com amigos ou família! Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão, até à famosa Gruta de Benagil!</h5>
-				<h5 class="tours__paragraph" style="font-family: 'roboto-bold'" data-aos="fade-up">Faça já a sua reserva online ou entre em contacto conosco via email ou telemóvel.</h5>
-				<h5 class="tours__paragraph" data-aos="fade-up">Ponto de partida de todos os nossos tours, Clube Naval de Portimão.</h5>
-				<h5 class="tours__paragraph" style="font-family: 'roboto-bold'" data-aos="fade-up">Clube Naval de Portimão</h5>
+				<h5 class="tours__paragraph" id="ttxt1" data-aos="fade-up">Venha experienciar uma das melhores atividades para realizar com amigos ou família! Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão, até à famosa Gruta de Benagil!</h5>
+				<h5 class="tours__paragraph" id="ttxt2" style="font-family: 'roboto-bold'" data-aos="fade-up">Faça já a sua reserva online ou entre em contacto conosco via email ou telemóvel.</h5>
+				<h5 class="tours__paragraph" id="ttxt3" data-aos="fade-up">Ponto de partida de todos os nossos tours, Clube Naval de Portimão.</h5>
+				<h5 class="tours__paragraph" id="ttxt4" style="font-family: 'roboto-bold'" data-aos="fade-up">Clube Naval de Portimão</h5>
 			</div>
 
 			<div class="tours-1" data-aos="fade-up">
@@ -142,7 +147,7 @@
 				</div>
 				<div class="tours__text-1">
 					<a href="/views/booking">
-						<h3 class="hover__effect">PASSEIO BENAGIL</h3>
+						<h3 class="hover__effect" id="ttxt5">PASSEIO BENAGIL</h3>
 					</a>
 				</div>
 			</div>
@@ -153,7 +158,7 @@
 				</div>
 				<div class="tours__text-2">
 					<a href="/views/booking">
-						<h3 class="hover__effect">PASSEIO PRIVADO</h3>
+						<h3 class="hover__effect" id="ttxt6">PASSEIO PRIVADO</h3>
 					</a>
 				</div>
 			</div>
@@ -164,7 +169,7 @@
 				</div>
 				<div class="tours__text-3">
 					<a href="/views/booking">
-						<h3 class="hover__effect">PASSEIO EXPRESSO</h3>
+						<h3 class="hover__effect" id="ttxt7">PASSEIO EXPRESSO</h3>
 					</a>
 				</div>
 			</div>
@@ -174,16 +179,15 @@
 
 	<div id="rents" class="container">
 		<div class="rents__box row">
-
 			<div class="rents__title" data-aos="fade-up">
-				<h2 class="">ALUGUERES</h2>
+				<h2 class="" id="rt1">ALUGUERES</h2>
 			</div>
 
 			<div class="rents__text">
-				<h5 data-aos="fade-up">Além dos passeios, também pode encontrar inúmeras atividades aquáticas para realizar com os seus amigos ou família.</h5>
-				<h5 style="font-family: 'roboto-bold'" data-aos="fade-up">Encontra os nossos alugueres em:</h5>
-				<h5 data-aos="fade-up">Praia da Nª Senhora da Rocha | Porches - Algarve 38° 05′ 45″ N, 8° 23′ 10″ O</h5>
-				<h5 class="rents__slogan" data-aos="fade-up">Atreves-te a experimentar?</h5>
+				<h5 id="rtxt1" data-aos="fade-up">Além dos passeios, também pode encontrar inúmeras atividades aquáticas para realizar com os seus amigos ou família.</h5>
+				<h5 id="rtxt2" style="font-family: 'roboto-bold'" data-aos="fade-up">Encontra os nossos alugueres em:</h5>
+				<h5 id="rtxt3" data-aos="fade-up">Praia da Nª Senhora da Rocha | Porches - Algarve 38° 05′ 45″ N, 8° 23′ 10″ O</h5>
+				<h5 id="rtxt4" class="rents__slogan" data-aos="fade-up">Atreves-te a experimentar?</h5>
 			</div>
 
 			<div class="rents-1" data-aos="fade-up">
@@ -191,12 +195,12 @@
 					<img id="photo-1" src="../assets/jetski.jpg">
 				</div>
 				<div class="rents__text-1">
-					<h3 class="elem-11">JET SKI</h3>
+					<h3 id="rtxt5" class="elem-11">JET SKI</h3>
 					<div class="elem-12">
 						<i class=" elem-121 far fa-clock"></i>
-						<p class="elem-122">15 minutos (mínimo)</p>
+						<p  id="rtxt6" class="elem-122">15 minutos (mínimo)</p>
 					</div>
-					<p class="elem-13 hide__sm">Prepara-te para uma experiência inesquecivél ao conduzir uma das nossas motas de água, sozinho ou acompanhado! Garantia de adrenalina e diversão!</p>
+					<p  id="rtxt7" class="elem-13 hide__sm">Prepara-te para uma experiência inesquecivél ao conduzir uma das nossas motas de água, sozinho ou acompanhado! Garantia de adrenalina e diversão!</p>
 				</div>
 			</div>
 
@@ -205,12 +209,12 @@
 					<img id="photo-2" src="../assets/gaivota.jpg">
 				</div>
 				<div class="rents__text-2">
-					<h3 class="elem-21">GAIVOTA</h3>
+					<h3 id="rtxt8" class="elem-21">GAIVOTA</h3>
 					<div class="elem-22">
 						<i class="elem-221 far fa-clock"></i>
-						<p class="elem-222">60 minutos (mínimo)</p>
+						<p  id="rtxt9" class="elem-222">60 minutos (mínimo)</p>
 					</div>
-					<p class="elem-23 hide__sm">Junta a tua família e/ou os teus amigos e disfruta de um passeio de gaivota com escorrega para a água! Ótimo para crianças.</p>
+					<p  id="rtxt10" class="elem-23 hide__sm">Junta a tua família e/ou os teus amigos e disfruta de um passeio de gaivota com escorrega para a água! Ótimo para crianças.</p>
 				</div>
 			</div>
 
@@ -219,12 +223,12 @@
 					<img id="photo-3" src="../assets/kayak.jpg">
 				</div>
 				<div class="rents__text-3">
-					<h3 class="elem-31">KAYAK</h3>
+					<h3 id="rtxt11" class="elem-31">KAYAK</h3>
 					<div class="elem-32">
 						<i class="elem-321 far fa-clock"></i>
-						<p class="elem-322">60 minutos (mínimo)</p>
+						<p  id="rtxt12" class="elem-322">60 minutos (mínimo)</p>
 					</div>
-					<p class="elem-33 hide__sm">Descubra sítios mágicos através de uma experiência no nossos kayaks, sozinho ou acompanhado. Aproveite para fazer um treino físico e de equilíbrio.</p>
+					<p id="rtxt13"  class="elem-33 hide__sm">Descubra sítios mágicos através de uma experiência no nossos kayaks, sozinho ou acompanhado. Aproveite para fazer um treino físico e de equilíbrio.</p>
 				</div>
 			</div>
 
@@ -233,12 +237,12 @@
 					<img id="photo-4" src="../assets/paddle.jpg">
 				</div>
 				<div class="rents__text-4">
-					<h3 class="elem-41">PADDLE</h3>
+					<h3 id="rtxt14" class="elem-41">PADDLE</h3>
 					<div class="elem-42">
 						<i class="elem-421 far fa-clock"></i>
-						<p class="elem-422">60 minutos (mínimo)</p>
+						<p  id="rtxt15" class="elem-422">60 minutos (mínimo)</p>
 					</div>
-					<p class="elem-43 hide__sm">Deslize sobre a água numa das nossas pranchas de paddle. Explore por si, ou vá numa das nossas tours até às grutas!</p>
+					<p  id="rtxt16" class="elem-43 hide__sm">Deslize sobre a água numa das nossas pranchas de paddle. Explore por si, ou vá numa das nossas tours até às grutas!</p>
 				</div>
 			</div>
 
@@ -247,12 +251,12 @@
 					<img id="photo-5" src="../assets/banana.jpg">
 				</div>
 				<div class="rents__text-5">
-					<h3 class="elem-51">BANANA BOAT</h3>
+					<h3 id="rtxt17" class="elem-51">BANANA BOAT</h3>
 					<div class="elem-52">
 						<i class="elem-521 far fa-clock"></i>
-						<p class="elem-522">15 minutos (mínimo)</p>
+						<p  id="rtxt18" class="elem-522">15 minutos (mínimo)</p>
 					</div>
-					<p class="elem-53 hide__sm">A Banana é uma experiência espetacular para família e/ou amigos. Será que tens o que é preciso para não cair à àgua nenhuma vez? Venha experimentar!</p>
+					<p  id="rtxt19" class="elem-53 hide__sm">A Banana é uma experiência espetacular para família e/ou amigos. Será que tens o que é preciso para não cair à àgua nenhuma vez? Venha experimentar!</p>
 				</div>
 			</div>
 
@@ -261,12 +265,12 @@
 					<img id="photo-6" src="../assets/crazy-sofa.jpg">
 				</div>
 				<div class="rents__text-6">
-					<h3 class="elem-61">CRAZY SOFA</h3>
+					<h3 id="rtxt20" class="elem-61">CRAZY SOFA</h3>
 					<div class="elem-62">
 						<i class="elem-621 far fa-clock"></i>
-						<p class="elem-622">15 minutos (mínimo)</p>
+						<p  id="rtxt21" class="elem-622">15 minutos (mínimo)</p>
 					</div>
-					<p class="elem-63 hide__sm">Puxado por um dos nossos barcos, o mítico crazy sofa atinge velocidades que te vão deixar louco! Uma aventura cheia de adrenalina!</p>
+					<p  id="rtxt22" class="elem-63 hide__sm">Puxado por um dos nossos barcos, o mítico crazy sofa atinge velocidades que te vão deixar louco! Uma aventura cheia de adrenalina!</p>
 				</div>
 			</div>
 
@@ -281,16 +285,17 @@
 				<i class="fas fa-exclamation-triangle fa-inverse fa-4x"></i>
 			</div>
 
+<<<<<<< HEAD:public/views/index.ejs
 			<div class="safety__title" data-aos="fade-up">
-				<h2 class="">AVISOS IMPORTANTES</h2>
+				<h2 id="st1" class="">AVISOS IMPORTANTES</h2>
 			</div>
 
 			<ul class="safety__text">
-				<li data-aos="fade-up">Será fornecido um colete salva-vidas a todos os participantes.</li>
-				<li data-aos="fade-up">A empresa não se responsabiliza por afins perdidos.</li>
-				<li data-aos="fade-up">A perda do colete salva-vidas tem um custo de 30€.</li>
-				<li data-aos="fade-up">A empresa reserva o direito de cancelar qualquer atividade derivado às condições atmosféricas.</li>
-				<li data-aos="fade-up">A empresa tem o direito de terminar com qualquer atividade por uso inapropriado ou caso não sejam cumpridas as ordens dadas pelos colaboradores.</li>
+				<li id="stxt1" data-aos="fade-up">Será fornecido um colete salva-vidas a todos os participantes.</li>
+				<li id="stxt2" data-aos="fade-up">A empresa não se responsabiliza por afins perdidos.</li>
+				<li id="stxt3" data-aos="fade-up">A perda do colete salva-vidas tem um custo de 30€.</li>
+				<li id="stxt4" data-aos="fade-up">A empresa reserva o direito de cancelar qualquer atividade derivado às condições atmosféricas.</li>
+				<li id="stxt5" data-aos="fade-up">A empresa tem o direito de terminar com qualquer atividade por uso inapropriado ou caso não sejam cumpridas as ordens dadas pelos colaboradores.</li>
 			</ul>
 
 		</div>
@@ -299,14 +304,14 @@
 	<div id="testimonials" class="">
 
 		<div class="testimonials__title" data-aos="fade-up">
-			<h2 class="">O QUE DIZEM OS NOSSOS CLIENTES</h2>
+			<h2 id="test1" class="">O QUE DIZEM OS NOSSOS CLIENTES</h2>
 		</div>
 
 		<div class="testimonials__box container">
 
 			<div class="testimonials__text" data-aos="fade-up">
-				<h3 data-aos="fade-up">"Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão."</h3>
-				<h3 data-aos="fade-up">Fernando Sousa, Porto</h3>
+				<h3 id="testxt1" data-aos="fade-up">"Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão."</h3>
+				<h3 id="testxt2" data-aos="fade-up">Fernando Sousa, Porto</h3>
 			</div>
 
 		</div>
@@ -316,12 +321,12 @@
 		<div class="gallery__box row">
 
 			<div class="gallery__text">
-				<h4 data-aos="fade-up">Vê algumas das nossas experiências no nosso instagram:</h4>
+				<h4 id="gtxt1" data-aos="fade-up">Vê algumas das nossas experiências no nosso instagram:</h4>
 				<h4 data-aos="fade-up">@coastlinelovers</h4>
 			</div>
 
 			<div class="gallery__follow" data-aos="fade-up">
-				<a class="button hover__effect" href="https://www.instagram.com/coastlinelovers/" target="_blank">Seguir o instagram</a>
+				<a id="gf1" class="button hover__effect" href="https://www.instagram.com/coastlinelovers/" target="_blank">Seguir o instagram</a>
 			</div>
 
 			<div class="gallery__insta__api instafeed" data-aos="fade-up">
@@ -334,7 +339,7 @@
 		<div class="contacts__box row">
 
 			<div class="contacts__title">
-				<h2>FALE CONNOSCO</h2>
+				<h2 id="ct1">FALE CONNOSCO</h2>
 			</div>
 
 			<a class="contacts__icon-1" href="tel:+351938856548">
@@ -351,7 +356,4 @@
 	</div>
 	-->
 	<%- include('partials/footer'); -%>
-
-
-
 
