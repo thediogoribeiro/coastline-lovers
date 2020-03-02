@@ -6,12 +6,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- CSS -->
   <link rel="stylesheet" href="/stylesheets/style/style.css">
+  <!-- ANIMATE ONSCROLL CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <!-- INSTAFEED -->
 	<script type="text/javascript" src="javascripts/instafeed.min.js"></script>
 	<!-- JS -->
 	<script type="text/javascript" src="javascripts/script.js"></script>
 </head>
 <body id="landing-page" onresize="hamburgerChange()">
+	<script>AOS.init();</script>
 	<div id="easy-bar">
 		<div class="easy-bar">
 			<a class="easy__item-1 hover__effect" href="https://www.instagram.com/coastlinelovers/">
@@ -30,10 +33,8 @@
 			</a>
 			<a class="easy__item-5">
 				<div class="easy__dropdown">
-					<div onclick="showBurger('easy__dropdown-content')">
-						<img class="easy__dropbtn hover__effect" src="../assets/uk.png">
-						<i class="fas fa-sort-down"></i>
-					</div>
+					<img class="easy__dropbtn hover__effect" src="../assets/uk.png" onclick="showBurger('easy__dropdown-content')">
+					<i class="fas fa-sort-down" onclick="showBurger('easy__dropdown-content')"></i>
 				  <div class="easy__dropdown-content" id="easy__dropdown-content">
 				    <img class="easy__flag-1 hover__effect" src="../assets/france.png">
 				    <img class="easy__flag-2 hover__effect" src="../assets/germany.png">
@@ -47,32 +48,32 @@
 	<div id="navbar" class="">
 		<div class="nav__box container">
 
-			<div class="nav__logo" id="top">
+			<div class="nav__logo" id="top" data-aos="fade-up">
 				<img src="/assets/cll-white.png">
 			</div>
-			<a class="nav__about hide__sm" href="#about">
+			<a class="nav__about hide__sm " href="#about" data-aos="fade-up">
 				<h3 class="hover__effect">SOBRE NÓS</h3>
 			</a>
-			<a class="nav__tours hide__sm" href="#tours">
+			<a class="nav__tours hide__sm " href="#tours" data-aos="fade-up">
 				<h3 class="hover__effect">PASSEIOS</h3>
 			</a>
-			<a class="nav__rents hide__sm" href="#rents">
+			<a class="nav__rents hide__sm " href="#rents" data-aos="fade-up">
 				<h3 class="hover__effect">ALUGUERES</h3>
 			</a>
-			<a class="nav__safety hide__sm" href="#safety">
+			<a class="nav__safety hide__sm " href="#safety" data-aos="fade-up">
 				<h3 class="hover__effect">AVISOS</h3>
 			</a>
-			<a class="nav__testimonials hide__sm" href="#testimonials">
+			<a class="nav__testimonials hide__sm " href="#testimonials" data-aos="fade-up">
 				<h3 class="hover__effect">TESTEMUNHOS</h3>
 			</a>
-			<a class="nav__gallery hide__sm" href="#gallery">
+			<a class="nav__gallery hide__sm " href="#gallery" data-aos="fade-up">
 				<h3 class="hover__effect">GALERIA</h3>
 			</a>
 			<!-- <a class="nav__contacts hide__sm" href="#contacts"><h3>CONTACTOS</h3></a> -->
 
-			<div class="nav__menu hide__lg">
+			<div class="nav__menu hide__lg " data-aos="fade-up">
 				<a id="icon" class="icon"> 
-			  	<i id="icon__effect" class="fas fa-bars fa-3x" onclick="showBurger('menu__links')"></i>
+			  	<i id="icon__effect" class="fas fa-bars fa-2x" onclick="showBurger('menu__links')"></i>
 			  </a>
 				<div id="menu__links" class="menu__links hide__sm">
 					<a href="#about">SOBRE NÓS</a>
@@ -91,13 +92,13 @@
 	<div id="header" class="">
 		<div class="head__box container">
 
-			<div class="head__title">
+			<div class="head__title" data-aos="fade-up">
 				<h1 class="">GRUTAS DE BENAGIL</h1>
 			</div>
 
 			<div class="head__text">
-				<h3>Conheça as grutas mais famosos da costa algarvia.</h3>
-				<h3>Uma experiência verdadeiramente incrível!</h3>
+				<h3 class="" data-aos="fade-up">Conheça as grutas mais famosos da costa algarvia.</h3>
+				<h3 class="" data-aos="fade-up">Uma experiência verdadeiramente incrível!</h3>
 			</div>
 
 			<div class="head__button">
@@ -110,11 +111,11 @@
 	<div id="about" class="container"> <!-- hide__md hide__s -->
 		<div class="about__box row">
 
-			<div class="about__title">
+			<div class="about__title" data-aos="fade-up">
 				<h2 class="">SOBRE NÓS</h2>
 			</div>
 
-			<div class="about__text">
+			<div class="about__text" data-aos="fade-up">
 				<h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Lobortis feugiat vivamus at augue. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Facilisi nullam vehicula ipsum a arcu. Enim eu turpis egestas pretium. Scelerisque in dictum non consectetur a erat.</h5>
 			</div>
 
@@ -124,18 +125,18 @@
 	<div id="tours" class="container">
 		<div class="tours__box row">
 
-			<div class="tours__title">
+			<div class="tours__title" data-aos="fade-up">
 				<h2 class="">PASSEIOS</h2>
 			</div>
 
-			<div class="tours__text">
-				<h5 class="tours__paragraph">Venha experienciar uma das melhores atividades para realizar com amigos ou família! Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão, até à famosa Gruta de Benagil!</h5>
-				<h5 class="tours__paragraph" style="font-family: 'roboto-bold'">Faça já a sua reserva online ou entre em contacto conosco via email ou telemóvel.</h5>
-				<h5 class="tours__paragraph">Ponto de partida de todos os nossos tours, Clube Naval de Portimão.</h5>
-				<h5 class="tours__paragraph" style="font-family: 'roboto-bold'">Clube Naval de Portimão</h5>
+			<div class="tours__text ">
+				<h5 class="tours__paragraph" data-aos="fade-up">Venha experienciar uma das melhores atividades para realizar com amigos ou família! Desfrute de um belo passeio de barco a partir do Clube Naval de Portimão, até à famosa Gruta de Benagil!</h5>
+				<h5 class="tours__paragraph" style="font-family: 'roboto-bold'" data-aos="fade-up">Faça já a sua reserva online ou entre em contacto conosco via email ou telemóvel.</h5>
+				<h5 class="tours__paragraph" data-aos="fade-up">Ponto de partida de todos os nossos tours, Clube Naval de Portimão.</h5>
+				<h5 class="tours__paragraph" style="font-family: 'roboto-bold'" data-aos="fade-up">Clube Naval de Portimão</h5>
 			</div>
 
-			<div class="tours-1">
+			<div class="tours-1" data-aos="fade-up">
 				<div class="tours__photo-1">
 					<img src="../assets/Kayak-tour.jpg">
 				</div>
@@ -146,7 +147,7 @@
 				</div>
 			</div>
 
-			<div class="tours-2">
+			<div class="tours-2" data-aos="fade-up">
 				<div class="tours__photo-2">
 					<img src="../assets/gruta-tour.jpg">
 				</div>
@@ -157,7 +158,7 @@
 				</div>
 			</div>
 
-			<div class="tours-3">
+			<div class="tours-3" data-aos="fade-up">
 				<div class="tours__photo-3">
 					<img src="../assets/express-tour.jpg">
 				</div>
@@ -174,18 +175,18 @@
 	<div id="rents" class="container">
 		<div class="rents__box row">
 
-			<div class="rents__title">
+			<div class="rents__title" data-aos="fade-up">
 				<h2 class="">ALUGUERES</h2>
 			</div>
 
 			<div class="rents__text">
-				<h5>Além dos passeios, também pode encontrar inúmeras atividades aquáticas para realizar com os seus amigos ou família.</h5>
-				<h5 style="font-family: 'roboto-bold'">Encontra os nossos alugueres em:</h5>
-				<h5>Praia da Nª Senhora da Rocha | Porches - Algarve 38° 05′ 45″ N, 8° 23′ 10″ O</h5>
-				<h5 class="rents__slogan">Atreves-te a experimentar?</h5>
+				<h5 data-aos="fade-up">Além dos passeios, também pode encontrar inúmeras atividades aquáticas para realizar com os seus amigos ou família.</h5>
+				<h5 style="font-family: 'roboto-bold'" data-aos="fade-up">Encontra os nossos alugueres em:</h5>
+				<h5 data-aos="fade-up">Praia da Nª Senhora da Rocha | Porches - Algarve 38° 05′ 45″ N, 8° 23′ 10″ O</h5>
+				<h5 class="rents__slogan" data-aos="fade-up">Atreves-te a experimentar?</h5>
 			</div>
 
-			<div class="rents-1">
+			<div class="rents-1" data-aos="fade-up">
 				<div id="rents__photo-1" class="rents__photo-1">
 					<img id="photo-1" src="../assets/jetski.jpg">
 				</div>
@@ -199,7 +200,7 @@
 				</div>
 			</div>
 
-			<div class="rents-2">
+			<div class="rents-2" data-aos="fade-up">
 				<div id="rents__photo-2" class="rents__photo-2">
 					<img id="photo-2" src="../assets/gaivota.jpg">
 				</div>
@@ -213,7 +214,7 @@
 				</div>
 			</div>
 
-			<div class="rents-3">
+			<div class="rents-3" data-aos="fade-up">
 				<div id="rents__photo-3" class="rents__photo-3">
 					<img id="photo-3" src="../assets/kayak.jpg">
 				</div>
@@ -227,7 +228,7 @@
 				</div>
 			</div>
 
-			<div class="rents-4">
+			<div class="rents-4" data-aos="fade-up">
 				<div id="rents__photo-4" class="rents__photo-4">
 					<img id="photo-4" src="../assets/paddle.jpg">
 				</div>
@@ -241,7 +242,7 @@
 				</div>
 			</div>
 
-			<div class="rents-5">
+			<div class="rents-5" data-aos="fade-up">
 				<div id="rents__photo-5" class="rents__photo-5">
 					<img id="photo-5" src="../assets/banana.jpg">
 				</div>
@@ -255,7 +256,7 @@
 				</div>
 			</div>
 
-			<div class="rents-6">
+			<div class="rents-6" data-aos="fade-up">
 				<div id="rents__photo-6" class="rents__photo-6">
 					<img id="photo-6" src="../assets/crazy-sofa.jpg">
 				</div>
@@ -276,20 +277,20 @@
 
 		<div class="safety__box container">
 
-			<div class="safety__icon">
+			<div class="safety__icon" data-aos="fade-up">
 				<i class="fas fa-exclamation-triangle fa-inverse fa-4x"></i>
 			</div>
 
-			<div class="safety__title">
+			<div class="safety__title" data-aos="fade-up">
 				<h2 class="">AVISOS IMPORTANTES</h2>
 			</div>
 
 			<ul class="safety__text">
-				<li>Será fornecido um colete salva-vidas a todos os participantes.</li>
-				<li>A empresa não se responsabiliza por afins perdidos.</li>
-				<li>A perda do colete salva-vidas tem um custo de 30€.</li>
-				<li>A empresa reserva o direito de cancelar qualquer atividade derivado às condições atmosféricas.</li>
-				<li>A empresa tem o direito de terminar com qualquer atividade por uso inapropriado ou caso não sejam cumpridas as ordens dadas pelos colaboradores.</li>
+				<li data-aos="fade-up">Será fornecido um colete salva-vidas a todos os participantes.</li>
+				<li data-aos="fade-up">A empresa não se responsabiliza por afins perdidos.</li>
+				<li data-aos="fade-up">A perda do colete salva-vidas tem um custo de 30€.</li>
+				<li data-aos="fade-up">A empresa reserva o direito de cancelar qualquer atividade derivado às condições atmosféricas.</li>
+				<li data-aos="fade-up">A empresa tem o direito de terminar com qualquer atividade por uso inapropriado ou caso não sejam cumpridas as ordens dadas pelos colaboradores.</li>
 			</ul>
 
 		</div>
@@ -297,15 +298,15 @@
 
 	<div id="testimonials" class="">
 
-		<div class="testimonials__title">
+		<div class="testimonials__title" data-aos="fade-up">
 			<h2 class="">O QUE DIZEM OS NOSSOS CLIENTES</h2>
 		</div>
 
 		<div class="testimonials__box container">
 
-			<div class="testimonials__text">
-				<h3>"Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão."</h3>
-				<h3>Fernando Sousa, Porto</h3>
+			<div class="testimonials__text" data-aos="fade-up">
+				<h3 data-aos="fade-up">"Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão."</h3>
+				<h3 data-aos="fade-up">Fernando Sousa, Porto</h3>
 			</div>
 
 		</div>
@@ -315,20 +316,20 @@
 		<div class="gallery__box row">
 
 			<div class="gallery__text">
-				<h4>Vê algumas das nossas experiências no nosso instagram:</h4>
-				<h4>@coastlinelovers</h4>
+				<h4 data-aos="fade-up">Vê algumas das nossas experiências no nosso instagram:</h4>
+				<h4 data-aos="fade-up">@coastlinelovers</h4>
 			</div>
 
-			<div class="gallery__follow">
+			<div class="gallery__follow" data-aos="fade-up">
 				<a class="button hover__effect" href="https://www.instagram.com/coastlinelovers/" target="_blank">Seguir o instagram</a>
 			</div>
 
-			<div class="gallery__insta__api instafeed">
+			<div class="gallery__insta__api instafeed" data-aos="fade-up">
 			</div>
 
 		</div>
 	</div>
-
+	<!-- 
 	<div id="contacts" class="container hide__md">
 		<div class="contacts__box row">
 
@@ -348,7 +349,7 @@
 
 		</div>
 	</div>
-
+	-->
 	<%- include('partials/footer'); -%>
 
 

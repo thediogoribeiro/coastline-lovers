@@ -1,45 +1,45 @@
 	<div id="footer" class="container">
 		<div class="footer__box container">
 
-			<div class="footer__logo" href="#top">
+			<div class="footer__logo" href="#top" data-aos="fade-up">
 				<img class="footer__image" src="/assets/cll-white.png">
 			</div>
 
 			<div class="footer__info">
-				<div class="footer__maisinfo">
+				<div class="footer__maisinfo" data-aos="fade-up">
 					<h4>MAIS INFORMAÇÔES</h4>
 				</div>
-				<a class="footer__phone" href="tel:+351969999999">
+				<a class="footer__phone" href="tel:+351969999999" data-aos="fade-up">
 					<p class="hover__effect">+351969999999</p>
 				</a>
-				<a class="footer__email" href="mailto:booking@coastlinelovers.com">
+				<a class="footer__email" href="mailto:booking@coastlinelovers.com" data-aos="fade-up">
 					<p class="hover__effect">booking@coastlinelovers.com</p>
 				</a>
-				<a class="footer__street" href="geo:37.132068,-8.534177">
+				<a class="footer__street" href="geo:37.132068,-8.534177" data-aos="fade-up">
 					<p class="hover__effect">Clube Naval de Portimão, Portimão 8500</p>
 				</a>
 			</div>
 			
 			<div class="footer__nav">
-				<div class="footer__menu" href="#top">
+				<div class="footer__menu" href="#top" data-aos="fade-up">
 					<h4>MENU</h4>
 				</div>
-				<div class="footer__about" href="#about">
+				<div class="footer__about" href="#about" data-aos="fade-up">
 					<p class="hover__effect">SOBRE NÓS</p>
 				</div>
-				<div class="footer__tours" href="#tours">
+				<div class="footer__tours" href="#tours" data-aos="fade-up">
 					<p class="hover__effect">TOURS</p>
 				</div>
-				<div class="footer__rents" href="#rents">
+				<div class="footer__rents" href="#rents" data-aos="fade-up">
 					<p class="hover__effect">RENTS</p>
 				</div>
-				<div class="footer__testimonials" href="#testimonials">
+				<div class="footer__testimonials" href="#testimonials" data-aos="fade-up">
 					<p class="hover__effect">TESTEMUNHOS</p>
 				</div>
-				<div class="footer__gallery" href="#gallery">
+				<div class="footer__gallery" href="#gallery" data-aos="fade-up">
 					<p class="hover__effect">GALERIA</p>
 				</div>
-				<div class="footer__contacts" href="#contacts">
+				<div class="footer__contacts" href="#contacts" data-aos="fade-up">
 					<p class="hover__effect">FALE CONNOSCO</p>
 				</div>
 			</div>
@@ -75,7 +75,29 @@
 	
 	<!-- FONT AWESOME -->
 	<script src="https://kit.fontawesome.com/a1645ab757.js" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>AOS.init({
+  // Global settings:
+  disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+  startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
+  initClassName: 'aos-init', // class applied after initialization
+  animatedClassName: 'aos-animate', // class applied on animation
+  useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
+  disableMutationObserver: false, // disables automatic mutations' detections (advanced)
+  debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
+  throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
+  
 
+  // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+  offset: 120, // offset (in px) from the original trigger point
+  delay: 0, // values from 0 to 3000, with step 50ms
+  duration: 800, // values from 0 to 3000, with step 50ms
+  easing: 'ease', // default easing for AOS animations
+  once: false, // whether animation should happen only once - while scrolling down
+  mirror: false, // whether elements should animate out while scrolling past them
+  anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
+
+});</script>
 </body>
 </html>
 

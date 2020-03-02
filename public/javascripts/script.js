@@ -17,13 +17,14 @@ function hamburgerChange(){
   };
 }
 
-
+// BOOKING pre selected
 function openBooking(txt) {
   console.log(txt)
   document.getElementsById(txt).checked = true;
 
 }
 
+// Hamburger color change
 window.onscroll = function () {
   //console.log(this.scrollY);
   const nav = document.getElementById('icon__effect');
@@ -37,7 +38,3 @@ window.onscroll = function () {
     nav.style.borderColor = '#0E3356';
   }
 }
-
-
-
-
