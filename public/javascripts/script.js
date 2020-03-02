@@ -7,6 +7,18 @@ function showBurger() {
     x.style.display = "block";
   }
 }
+/*
+window.onscroll = function () {
+	console.log(this.scrollY);
+	const nav = document.getElementById('my_nav_menu');
+	if(this.scrollY <= 500){
+		console.log('blue');
+		nav.style.color ="blue";  
+	}else{
+		console.log('red');
+		nav.style.color ="red";
+	}
+}*/
 
 /*
 var feed = new Instafeed({
@@ -27,6 +39,6 @@ window.onload = function() {
 	document.getElementById("photo-4").height = (novaLargura.offsetWidth)/1.56;
 	document.getElementById("photo-5").height = (novaLargura.offsetWidth)/1.56;
 	document.getElementById("photo-6").height = (novaLargura.offsetWidth)/1.56;
-}
-*/
+	
+}*/
 

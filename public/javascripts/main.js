@@ -1,3 +1,4 @@
+const MaxCapacity = 9;
 var currDay, currMonth, currYear, selectedDay, selectedMonth, selectedYear, date;
 var newOrder, oldOrder;
 var lugaresMax = [10,10,10,10,10];
@@ -9,7 +10,7 @@ var bAdultoN = 3000;
 var bCriancaN = 1500;
 var bAdultoE = 2000;
 var bCriancaE = 1250;
-var maxSeats = 10;
+var maxSeats = 9;
 var bebeMaxSeats = 3;
 var tour="normal";
 var conditions = ["09h-11h", "11h-13h", "14h-16h", "16h-18h", "18h-20h"];
@@ -25,7 +26,7 @@ window.onload = function() {
 	let year = date.getFullYear();
 	currDay = day;
 	currMonth = month;
-	currYear = year;	
+	currYear = year;
 	selectedDay = day;
 	selectedMonth = month+1;
 	selectedYear = year;
@@ -88,54 +89,54 @@ function reserva(){
 	if (tour=="private") hora=18;
 	else if(tour=="express") hora=13;
 	if (tour=="normal" && !cb1.checked && !cb2.checked && !cb3.checked && !cb4.checked && !cb5.checked){
-		document.getElementById('required1').innerHTML = "Selecione pelo menos uma hora";
+		document.getElementById('required1').innerHTML = jstranslations[0];
 		flag=1;
 	}else{
 		document.getElementById('required1').innerHTML = "*";
 	}
 	if (field1.value=="" || field2.value==""){
-		document.getElementById('required2').innerHTML = "Preencha ambos os campos do seu nome";
+		document.getElementById('required2').innerHTML = jstranslations[1];
 		flag=1;
 	}else if (strangeChars.some(el => field2.value.includes(el)) || strangeChars.some(el => field1.value.includes(el))){
-		document.getElementById('required2').innerHTML = "Nome inválido";
+		document.getElementById('required2').innerHTML = jstranslations[2];
 		flag=1;
 	}else{
 		document.getElementById('required2').innerHTML = "*";
 	}
 	if (field3.value==""){
-		document.getElementById('required3').innerHTML = "Insira o seu 'Email'";
+		document.getElementById('required3').innerHTML = jstranslations[3];
 		flag=1;
 	}else if (!isEmail(field3.value)){
-		document.getElementById('required3').innerHTML = "Email inválido";
+		document.getElementById('required3').innerHTML = jstranslations[4];
 		flag=1;
 	}else{
 		document.getElementById('required3').innerHTML = "*";
 	}
 	if (field4.value==""){
-		document.getElementById('required4').innerHTML = "Insira o seu 'Telefone'";
+		document.getElementById('required4').innerHTML = jstranslations[5];
 		flag=1;
 	}else if (!onlyDigit(field4.value)){
-		document.getElementById('required4').innerHTML = "Telefone inválido";
+		document.getElementById('required4').innerHTML = jstranslations[6];
 		flag=1;
 	}else{
 		document.getElementById('required4').innerHTML = "*";
 	}
 	if(adultCount==0 && criancaCount==0 && tour!="private"){
-		document.getElementById('required5').innerHTML = "Selecione o número de bilhetes";
+		document.getElementById('required5').innerHTML = jstranslations[7];
 		flag=1;
 	}else if(tour=="private" && maxSeats==0){
-		document.getElementById('required5').innerHTML = "Esta 'tour' já está reservada";
+		document.getElementById('required5').innerHTML = jstranslations[8];
 		flag=1;
 	}else{
 		document.getElementById('required5').innerHTML = "*";
 	}if(currDate>selDate){
-		document.getElementById('required6').innerHTML = "Data ou hora inválida";
-		document.getElementById('required1').innerHTML = "Data ou hora inválida";
+		document.getElementById('required6').innerHTML = jstranslations[9];
+		document.getElementById('required1').innerHTML = jstranslations[9];
 		flag=1;
 	}else{
 		document.getElementById('required6').innerHTML = "*";
 	}
-	if (flag==0){	
+	if (flag==0){
 		var date = selectedYear+"-"+selectedMonth+"-"+selectedDay;
 		var stripeHandler = StripeCheckout.configure({
 			key: stripePublicKey,
@@ -175,18 +176,18 @@ function reserva(){
 		}).then(function(data) {
 			if(data.code=="ADMIN" || data.code=="PROMO"){
 				getSeatsFromDate();
-				swal("Sucesso!", "Reservado com sucesso!", "success");
+				swal(jsTranslations[10],jsTranslations[11], "success");
 				return;
 			} else if(data.code=="NO"){
 				selDate = new Date(selectedYear,(selectedMonth-1),selectedDay,hora,0,0,0);
 				if (currDate>=selDate){
-					swal("Cancelado", "Essa tour já partiu", "error");
+					swal(jsTranslations[12], jsTranslations[13], "error");
 					return;
 				}
 				purchaseClicked(stripeHandler);
 			}
-			if (data.code=="PROMO") code=""
-			if (data.code=="FULL") swal("Cancelado", "Tente novamente", "error");
+			if (data.code=="PROMO") code="";
+			 swal(jsTranslations[12],jsTranslations[14], "error");
 		}).catch(function(error) {
 			console.error(error)
 		})
@@ -196,7 +197,7 @@ function reserva(){
 function purchaseClicked(stripeHandler) {
 	var price = 0;
 	if (tour=="normal") price = ((parseInt(adultCount, 10)*bAdultoN)+(parseInt(criancaCount, 10)*bCriancaN));
-    else if (tour=="private") {price = 30000;adultCount=10}
+    else if (tour=="private") {price = 30000;adultCount=MaxCapacity}
     else if(tour=="express") price = ((parseInt(adultCount, 10)*bAdultoE)+(parseInt(criancaCount, 10)*bCriancaE));
     stripeHandler.open({ amount: price })
 }
@@ -205,8 +206,8 @@ function changeButtonName() {
 	var sPath = window.location.pathname;
 	var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
 	if(sPage == "booking.html"){
-		if(document.getElementById('codeField').value=="") document.getElementById('reservebutton').innerHTML = "Comprar com cartão";
-		else document.getElementById('reservebutton').innerHTML = "Reservar como promotor";
+		if(document.getElementById('codeField').value=="") document.getElementById('reservebutton').innerHTML = jsTranslations[16];
+		else document.getElementById('reservebutton').innerHTML = jsTranslations[17];
 	}
 }
 
@@ -242,7 +243,7 @@ async function adminCheck(){
 async function getSeatsFromDate(){
 	paintCallendar();
 	resetValues();
-	lugaresMax = [10,10,10,10,10];
+	lugaresMax = [MaxCapacity,MaxCapacity,MaxCapacity,MaxCapacity,MaxCapacity];
 	bebeLugaresMax = [3,3,3,3,3];
 	var finaldate = selectedYear+'-'+selectedMonth+'-'+selectedDay;
 	const options = {
@@ -255,71 +256,71 @@ async function getSeatsFromDate(){
 	if(tour=="normal"){
 		document.getElementById("cb1").checked = true;
 		if(data.bookings[0]==null){
-			document.getElementById("cb1Text").innerHTML = " (10 lugares livres)";
-			document.getElementById("cb2Text").innerHTML = " (10 lugares livres)";
-			document.getElementById("cb3Text").innerHTML = " (10 lugares livres)";
-			document.getElementById("cb4Text").innerHTML = " (10 lugares livres)";
-			document.getElementById("cb5Text").innerHTML = " (10 lugares livres)";
-			document.getElementById("bebeSeatsNum").innerHTML = " (3 lugares livres)";
+			document.getElementById("cb1Text").innerHTML = " ("+MaxCapacity+ jsTranslations[18]+")";
+			document.getElementById("cb2Text").innerHTML = " ("+MaxCapacity+jsTranslations[18]+")";
+			document.getElementById("cb3Text").innerHTML = " ("+MaxCapacity+jsTranslations[18]+")";
+			document.getElementById("cb4Text").innerHTML = " ("+MaxCapacity+jsTranslations[18]+")";
+			document.getElementById("cb5Text").innerHTML = " ("+MaxCapacity+jsTranslations[18]+")";
+			document.getElementById("bebeSeatsNum").innerHTML = " (3"+ jsTranslations[18]+")";
 		}
 		for(var i = 0; i < data.bookings.length; i++){
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("09h-11h")){
-				lugaresMax[0] = (10-data.bookings[i]["SUM(lugares)"]); 
+				lugaresMax[0] = (MaxCapacity-data.bookings[i]["SUM(lugares)"]);
 				bebeLugaresMax[0] = (3-data.bookings[i]["SUM(bebes)"]);
 				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb1').disabled = true;
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("11h-13h")){
-				lugaresMax[1] = (10-data.bookings[i]["SUM(lugares)"]);
+				lugaresMax[1] = (MaxCapacity-data.bookings[i]["SUM(lugares)"]);
 				bebeLugaresMax[1] = (3-data.bookings[i]["SUM(bebes)"]);
 				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb2').disabled = true;
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("14h-16h")){
-				lugaresMax[2] = (10-data.bookings[i]["SUM(lugares)"]);
+				lugaresMax[2] = (MaxCapacity-data.bookings[i]["SUM(lugares)"]);
 				bebeLugaresMax[2] = (3-data.bookings[i]["SUM(bebes)"]);
 				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb3').disabled = true;
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("16h-18h")){
-				lugaresMax[3] = (10-data.bookings[i]["SUM(lugares)"]);
+				lugaresMax[3] = (MaxCapacity-data.bookings[i]["SUM(lugares)"]);
 				bebeLugaresMax[3] = (3-data.bookings[i]["SUM(bebes)"]);
 				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb4').disabled = true;
 			}
 			if (data.bookings[i]["GROUP_CONCAT(hora SEPARATOR '; ')"].includes("18h-20h")){
-				lugaresMax[4] = (10-data.bookings[i]["SUM(lugares)"]);
+				lugaresMax[4] = (MaxCapacity-data.bookings[i]["SUM(lugares)"]);
 				bebeLugaresMax[4] = (3-data.bookings[i]["SUM(bebes)"]);
 				if (data.bookings[i]["SUM(lugares)"]>9)	document.getElementById('cb5').disabled = true;
-			}			
-			document.getElementById("cb1Text").innerHTML = " ("+ lugaresMax[0] + " lugares livres)";
-			document.getElementById("cb2Text").innerHTML = " ("+ lugaresMax[1] + " lugares livres)";
-			document.getElementById("cb3Text").innerHTML = " ("+ lugaresMax[2] + " lugares livres)";
-			document.getElementById("cb4Text").innerHTML = " ("+ lugaresMax[3] + " lugares livres)";
-			document.getElementById("cb5Text").innerHTML = " ("+ lugaresMax[4] + " lugares livres)";
-			document.getElementById("bebeSeatsNum").innerHTML = " ("+ bebeLugaresMax[0] + " lugares livres)";
+			}
+			document.getElementById("cb1Text").innerHTML = " ("+ lugaresMax[0] + jsTranslations[18]+")";
+			document.getElementById("cb2Text").innerHTML = " ("+ lugaresMax[1] + jsTranslations[18]+")";
+			document.getElementById("cb3Text").innerHTML = " ("+ lugaresMax[2] + jsTranslations[18]+")";
+			document.getElementById("cb4Text").innerHTML = " ("+ lugaresMax[3] + jsTranslations[18]+")";
+			document.getElementById("cb5Text").innerHTML = " ("+ lugaresMax[4] + jsTranslations[18]+")";
+			document.getElementById("bebeSeatsNum").innerHTML = " ("+ bebeLugaresMax[0] + jsTranslations[18]+")";
 		}
 		maxSeats = lugaresMax[0];
 		bebeMaxSeats = bebeLugaresMax[0];
 	}else if(tour=="private"){
 		document.getElementById("cbprivate").checked = true;
 		if(data.bookings[0]==null) {
-			maxSeats=10;	
+			maxSeats=MaxCapacity;
 			bebeMaxSeats=3;
 			document.getElementById("cbprivate").disabled = false;
-			document.getElementById("rPrivateText").innerHTML = " (Livre)"
+			document.getElementById("rPrivateText").innerHTML =jsTranslations[19];
 		}else {
 			maxSeats = 0;
 			bebeMaxSeats=0;
 			document.getElementById("cbprivate").disabled = true;
-			document.getElementById("rPrivateText").innerHTML = " (Cheio)"
+			document.getElementById("rPrivateText").innerHTML = jsTranslations[20];
 		}
 	}else if(tour=="express"){
 		document.getElementById("cbexpress").checked = true;
-		maxSeats=10;
+		maxSeats=MaxCapacity;
 		if (data.bookings[0]!=null) {
-			maxSeats = (10-data.bookings[0]["SUM(lugares)"]);
+			maxSeats = (MaxCapacity-data.bookings[0]["SUM(lugares)"]);
 			bebeLugaresMax[0] = (3-data.bookings[0]["SUM(bebes)"]);
 			bebeMaxSeats = bebeLugaresMax[0];
-			document.getElementById("bebeSeatsNum").innerHTML = "(" + bebeMaxSeats +" lugares livres)"
+			document.getElementById("bebeSeatsNum").innerHTML = "(" + bebeMaxSeats +jsTranslations[18]+")";
 		}
-		document.getElementById("rExpressText").innerHTML = " ("+ maxSeats + " lugares livres)";
+		document.getElementById("rExpressText").innerHTML = " ("+ maxSeats + jsTranslations[18]+")";
 	}
 }
 
@@ -383,12 +384,12 @@ async function paintCallendar(){
 		var mes =str.substring(0,index);
 		var dia = str.substring(index+1);
 		finaldate = dia+" / "+mes+" / "+ano;
-		var dayDiv = document.getElementsByClassName("day "+finaldate);		
-		if(tour=="normal" && dayDiv.length!=0 && data.bookings[i]['SUM(lugares)']>=50) {
+		var dayDiv = document.getElementsByClassName("day "+finaldate);
+		if(tour=="normal" && dayDiv.length!=0 && data.bookings[i]['SUM(lugares)']>=(MaxCapacity*5)) {
 			dayDiv[0].className += " full red";
 		}else if(tour=="private" && dayDiv.length!=0){
 			dayDiv[0].className += " full red";
-		}else if(tour=="express" && dayDiv.length!=0 && data.bookings[i].lugares>=10){
+		}else if(tour=="express" && dayDiv.length!=0 && data.bookings[i].lugares>=MaxCapacity){
 			dayDiv[0].className += " full red";
 		}
 	}
@@ -403,17 +404,17 @@ function adultoMenos(){
 		document.getElementById("ciancanum").value = 0;
 		document.getElementById("bebenum").value = 0;
 	}
-	document.getElementById("adultonum").value=adultCount;	
+	document.getElementById("adultonum").value=adultCount;
 }
 function adultoMais(){
 	if((adultCount + criancaCount) > (maxSeats-1)) return
 	adultCount++;
-	document.getElementById("adultonum").value=adultCount;	
+	document.getElementById("adultonum").value=adultCount;
 }
 function criancaMenos(){
 	if(criancaCount == 0) return
 	criancaCount--;
-	document.getElementById("ciancanum").value=criancaCount;	
+	document.getElementById("ciancanum").value=criancaCount;
 }
 function criancaMais(){
 	if(adultCount==0) return;
@@ -424,7 +425,7 @@ function criancaMais(){
 function bebeMenos(){
 	if(bebeCount == 0) return
 	bebeCount--;
-	document.getElementById("bebenum").value=bebeCount;	
+	document.getElementById("bebenum").value=bebeCount;
 }
 function bebeMais(){
 	if((bebeCount > (bebeMaxSeats-1)) || adultCount==0) return
@@ -469,7 +470,7 @@ function radioClick(radio){
 		document.getElementById("la-express").style.display = "block";
 		document.getElementById("lc-normal").style.display = "none";
 		document.getElementById("lc-express").style.display = "block";
-	}	
+	}
 	getSeatsFromDate();
 }
 
@@ -481,7 +482,7 @@ function cbClick(cb){
 	adultCount=0;
 	criancaCount=0;
 	bebeCount=0;
-	document.getElementById("bebeSeatsNum").innerHTML = "(" + bebeMaxSeats +" lugares livres)"
+	document.getElementById("bebeSeatsNum").innerHTML = "(" + bebeMaxSeats +jsTranslations[18]+")";
 	document.getElementById("adultonum").value=0;
 	document.getElementById("ciancanum").value=0;
 	document.getElementById("bebenum").value=0;
@@ -558,7 +559,7 @@ async function modReservas(){
 		swal("ERRO", "Data ", "error");
 		return;
 	}
-    if(parseInt(adultos, 10)+parseInt(criancas, 10)>10) {
+    if(parseInt(adultos, 10)+parseInt(criancas, 10)>MaxCapacity) {
         swal("ERRO", "Demasiados lugares", "error");
         return;
     }
@@ -577,7 +578,7 @@ async function modReservas(){
     if(tour=="private" && hora!="18h-20h;"){
         swal("ERRO", "Hora inválida para essa tour", "error");
         return;
-    }   
+    }
     if(fName=="" && lName=="" && tel=="" && email=="" && obs=="" && receber=="" && pagar=="" && tour=="same" && adultos=="" && criancas=="" && bebes=="" && date=="" && hora=="same;") {
         swal("ERRO", "Todos os campos a modificar vazios", "error");
         return;
@@ -616,7 +617,7 @@ function textEnter(r){
 		if(date.includes("/")){
 			date = convertDateFromat(date);
 			date= date.y+"-"+date.m+"-"+date.d;
-		} 
+		}
         var fName = document.getElementById("fNameField").value;
         var lName = document.getElementById("lNameField").value;
         var email = document.getElementById("emailField").value.toLowerCase();
@@ -668,7 +669,7 @@ function adminrChange(rb){
         document.getElementById("deleteBookings").style.display = "none";
         document.getElementById("modBookings").style.display = "none";
     }
-    
+
 }
 
 async function showAllBookings(id,tour,date,fName,lName,email,tel,order){
@@ -688,7 +689,7 @@ async function showAllBookings(id,tour,date,fName,lName,email,tel,order){
         var date =data.bookings[i].data.replace("T00:00:00.000Z", "");
 		sqlTable.innerHTML+="<tr><td> "+data.bookings[i].ID+" </td><td> "+data.bookings[i].primeiroNome +" "+data.bookings[i].ultimoNome+" </td><td> "+data.bookings[i].email+" </td><td> "+data.bookings[i].telefone+"</td><td> "+data.bookings[i].tour+" </td>\
 		<td> "+data.bookings[i].lugares+" </td><td> "+data.bookings[i].bebes+" </td><td> "+data.bookings[i].observacoes+" </td><td> "+date+" </td><td> "+data.bookings[i].hora+"</td><td> "+data.bookings[i].preco+" </td><td> "+data.bookings[i].aPagar+" </td>\
-		<td> "+data.bookings[i].aReceber+" </td><td> "+data.bookings[i].promotor+" </td><td> "+data.bookings[i].codigoPromo+" </td><td> "+data.bookings[i].stripeID+" </td><td> "+data.bookings[i].oldID+" </td></tr> "; 
+		<td> "+data.bookings[i].aReceber+" </td><td> "+data.bookings[i].promotor+" </td><td> "+data.bookings[i].codigoPromo+" </td><td> "+data.bookings[i].stripeID+" </td><td> "+data.bookings[i].oldID+" </td></tr> ";
     }
     sqlr.innerHTML+="</table>";
 }
@@ -702,7 +703,7 @@ function order(o){
 		arrow = "&darr;";
 	}
     showAllBookings("",0,"","","","","",o);
-    oldOrder=o;    
+    oldOrder=o;
 }
 
 function tourChange(){

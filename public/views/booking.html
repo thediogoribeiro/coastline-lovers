@@ -14,34 +14,36 @@
 	<!-- Stripe -->
 	<script src="https://checkout.stripe.com/checkout.js" defer></script>
 	<!-- JS -->
+	<script type="text/javascript" src="../javascripts/script.js"></script>
 	<script src="../javascripts/main.js" defer></script>
 	<!-- JS_all --> 
 	<script src="../javascripts/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="../javascripts/bootstrap-datepicker.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="../javascripts/intlTelInput.js"></script>
+	<script type="text/javascript" src="../javascripts/translateBooking.js"></script>
 </head>
 <body>
 	<div id="insert_booking" >
 		<div>
 			<ul class="form-style-1">
 				<li>
-					<label>Chave secreta: </label>
+					<label id="sk-txt">Chave secreta: </label>
 					<input id="codeField" type="password" name="field2" class="field-long" placeholder="Reservado ao STAFF" autocomplete="off" onkeydown="changeButtonName()"/><br>
 				</li>
 				<li>
-					<label>Selecione a data: <span id="required6" class="required">*</span></label>
+					<label id="select-date-txt">Selecione a data: <span id="required6" class="required">*</span></label>
 					<input id="date_Field" type="text" name="birthdate" class="datepicker" autocomplete="off" readonly="" />
 				</li>
 				<li>			
-					<p><label>Selecione a tour:</label></p>
+					<p><label id="select-tour-txt">Selecione a tour:<span id="required" class="required">*</span></label></p>
 					<input type="radio" name="tour" value="1" onclick="radioClick('1');"checked> Benagil Normal<br>
 					<input type="radio" name="tour" value="2" onclick="radioClick('2');"> Benagil Private (Compra todos lugares)<br>
 					<input type="radio" name="tour" value="3" onclick="radioClick('3');"> Benagil Express<br>  
 				</li>
 				<li>
-					<div id="normaltour">
-						<p><label>Selecione a hora:<span id="required1" class="required"></span></label></p>
+					<p><label id="select-time-txt">Selecione a hora:<span id="required1" class="required">*</span></label></p>
+					<div id="normaltour">						
 						<input id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');"> 9h-11h<span id="cb1Text"></span><br>
 						<input id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');"> 11h-13h<span id="cb2Text"></span><br>
 						<input id="cb3" type="radio" name="hora" value="3" onclick="cbClick('3');"> 14h-16h<span id="cb3Text"></span><br>
@@ -56,43 +58,45 @@
 					</div>
 				</li>
 				<li><div id="lugares" class="lugares">
-					<label>Número de lugares:<span id="required5" class="required">*</span></label><div id="privatetourdiv" style="display:none"> 300,00 € </div>
+					<label id="select-seats-txt">Número de lugares:<span id="required5" class="required">*</span></label><div id="privatetourdiv" style="display:none"> 300,00 € </div>
 					<div id="lugares_adulto">
-						<div id="la-normal"><span style="font-size: 150%;">Normal </span><span> 30,00 €</span></div><div id="la-express" style="display:none;"><span style="font-size: 150%;">Normal </span><span> 20,00 €</span></div>
+						<div id="la-normal"><span style="font-size: 150%;">Normal </span><span> 30,00 €</span></div>
+						<div id="la-express" style="display:none;"><span style="font-size: 150%;">Normal </span><span> 20,00 €</span></div>
 						<input id="adultomenos" type="button" value="-" class="button-minus" onclick="adultoMenos()">
 						<input id="adultonum" type="number" step="1" max="" value=0 name="category_1738" class="quantity-field" readonly="">
 						<input id="adultomais" type="button" value="+" class="button-plus" onclick="adultoMais()">
 					</div>
 					<div id="lugares_crianca">
-						<div id="lc-normal"><span style="font-size: 150%;">Crianças (dos 3 aos 10 anos) </span><span> 15,00 €</span></div><div id="lc-express" style="display:none;"><span style="font-size: 150%;">Criança (dos 3 aos 10 anos)</span><span>12,5 €</span></div>
+						<div id="lc-normal"><span id="children-txt" style="font-size: 150%;">Crianças (dos 3 aos 10 anos) </span><span> 15,00 €</span></div>
+						<div id="lc-express" style="display:none;"><span id="children-txtEx" style="font-size: 150%;">Criança (dos 3 aos 10 anos)</span><span>12,5 €</span></div>
 						<input id="ciancamenos" type="button" value="-" class="button-minus" onclick="criancaMenos()">
 						<input id="ciancanum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
 						<input id="ciancamais"type="button" value="+" class="button-plus" onclick="criancaMais()">
 					</div>
 					<div id="lugares_bebes">
-						<div id="lb-normal"><span style="font-size: 150%;">Crianças (menos 3 anos) </span><span> Grátis</span><br><span id="bebeSeatsNum"></span></div>
+						<div id="lb-normal"><span id="baby-txt" style="font-size: 150%;">Crianças (menos 3 anos) </span><span id="free-txt"> Grátis</span><br><span id="bebeSeatsNum"></span></div>
 						<input id="bebemenos" type="button" value="-" class="button-minus" onclick="bebeMenos()">
 						<input id="bebenum" type="number" step="1" max="" value=0 name="category_1740" class="quantity-field" readonly="">
 						<input id="bebemais"type="button" value="+" class="button-plus" onclick="bebeMais()">
 					</div>
 				</li>			
-				<li><label>Nome <span id="required2" class="required">*</span></label>
+				<li><label id="select-name-txt">Nome <span id="required2" class="required">*</span></label>
 					<input id="field1" type="text" name="field1" class="field-divided" placeholder="Primeiro" autocomplete="off"/> 
 					<input id="field2" type="text" name="field2" class="field-divided" placeholder="Último" autocomplete="off"/></li>
 				<li>
-					<label>Email <span id="required3" class="required">*</span></label>
+					<label id="select-email-txt">Email <span id="required3" class="required">*</span></label>
 					<input id="field3" type="email" name="field3" class="field-long" autocomplete="off"/>
 				</li>
 				<li>
-					<label>Telefone <span id="required4" class="required">*</span></label>
+					<label id="select-tel-txt">Telefone <span id="required4" class="required">*</span></label>
 					<input id="field4" type="tel" name="field4" class="field-long" autocomplete="off"/>
 				</li>
 				<li>
-					<label>Observações (Não obrigátório): </label>
+					<label id="select-obs-txt">Observações (Não obrigátório): </label>
 					<textarea id="field5" name="field5" class="field-long field-textarea"></textarea id="field5">
 				</li>
 				<li>
-					<label>Código promocional (Não obrigátório):</label>
+					<label id="select-promo-txt">Código promocional (Não obrigátório):</label>
 					<input id="promo-code" type="text" class="field-long" autocomplete="off"/>
 				</li>
 				<li>
