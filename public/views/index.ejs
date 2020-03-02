@@ -11,7 +11,7 @@
 	<!-- JS -->
 	<script type="text/javascript" src="javascripts/script.js"></script>
 </head>
-<body id="landing-page">
+<body id="landing-page" onresize="hamburgerChange()">
 	<div id="easy-bar">
 		<div class="easy-bar">
 			<a class="easy__item-1 hover__effect" href="https://www.instagram.com/coastlinelovers/">
@@ -28,15 +28,17 @@
 				<i class="far fa-envelope"></i>
 				<p class="easy__mail hide__s">info@coastlinelovers.com</p>
 			</a>
-			<a class="easy__item-5 hover__effect" onclick="showBurger('easy__dropdown-content')">
+			<a class="easy__item-5">
 				<div class="easy__dropdown">
-					<img class="easy__dropbtn" src="../assets/uk.png">
-					<i class="fas fa-sort-down"></i>
+					<div onclick="showBurger('easy__dropdown-content')">
+						<img class="easy__dropbtn hover__effect" src="../assets/uk.png">
+						<i class="fas fa-sort-down"></i>
+					</div>
 				  <div class="easy__dropdown-content" id="easy__dropdown-content">
-				    <img class="easy__flag-1" src="../assets/france.png">
-				    <img class="easy__flag-2" src="../assets/germany.png">
-				    <img class="easy__flag-3" src="../assets/portugal.png">
-				    <img class="easy__flag-4" src="../assets/spain.png">
+				    <img class="easy__flag-1 hover__effect" src="../assets/france.png">
+				    <img class="easy__flag-2 hover__effect" src="../assets/germany.png">
+				    <img class="easy__flag-3 hover__effect" src="../assets/portugal.png">
+				    <img class="easy__flag-4 hover__effect" src="../assets/spain.png">
 				  </div>
 				</div>
 			</a>
@@ -70,7 +72,7 @@
 
 			<div class="nav__menu hide__lg">
 				<a id="icon" class="icon"> 
-			  	<i id="icon__effect" class="fas fa-bars fa-2x" onclick="showBurger('menu__links')"></i>
+			  	<i id="icon__effect" class="fas fa-bars fa-3x" onclick="showBurger('menu__links')"></i>
 			  </a>
 				<div id="menu__links" class="menu__links hide__sm">
 					<a href="#about">SOBRE NÓS</a>
