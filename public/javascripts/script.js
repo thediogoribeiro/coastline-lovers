@@ -22,6 +22,8 @@ function openBooking(txt) {
   console.log(txt)
   document.getElementsById(txt).checked = true;
 
+}
+
 // Hamburger color change
 window.onscroll = function () {
   //console.log(this.scrollY);
@@ -36,3 +38,4 @@ window.onscroll = function () {
     nav.style.borderColor = '#0E3356';
   }
 }
+

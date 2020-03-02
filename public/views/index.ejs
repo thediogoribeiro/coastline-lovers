@@ -21,11 +21,6 @@
 </head>
 <body id="landing-page" onresize="hamburgerChange()">
 	<script>AOS.init();</script>
-	<a href="#pt" onclick="changeLang('pt')">Português</a>
-	<a href="#eng" onclick="changeLang('eng')">English</a>
-	<a href="#es" onclick="changeLang('es')">Español</a>
-	<a href="#fr" onclick="changeLang('fr')">Fr</a>
-	<a href="#de" onclick="changeLang('de')">Deutsch</a>
 	<div id="easy-bar">
 		<div class="easy-bar">
 			<a class="easy__item-1 hover__effect" href="https://www.instagram.com/coastlinelovers/">
@@ -44,13 +39,14 @@
 			</a>
 			<a class="easy__item-5">
 				<div class="easy__dropdown">
-					<img class="easy__dropbtn hover__effect" src="../assets/uk.png" onclick="showBurger('easy__dropdown-content')">
-					<i class="fas fa-sort-down" onclick="showBurger('easy__dropdown-content')"></i>
+					<img class="easy__dropbtn hover__effect" src="../assets/uk.png" href="#eng" onclick="showBurger('easy__dropdown-content'); changeLang('eng');">
+					<i class="fas fa-sort-down" onclick="showBurger('easy__dropdown-content')"></i> 
 				  <div class="easy__dropdown-content" id="easy__dropdown-content">
-				    <img class="easy__flag-1 hover__effect" src="../assets/france.png">
-				    <img class="easy__flag-2 hover__effect" src="../assets/germany.png">
-				    <img class="easy__flag-3 hover__effect" src="../assets/portugal.png">
-				    <img class="easy__flag-4 hover__effect" src="../assets/spain.png">
+				  	<!-- changeLang('eng'); -->
+				    <img class="easy__flag-1 hover__effect" src="../assets/france.png" href="#fr" onclick="changeLang('fr')">
+				    <img class="easy__flag-2 hover__effect" src="../assets/germany.png" href="#de" onclick="changeLang('de')">
+				    <img class="easy__flag-3 hover__effect" src="../assets/portugal.png" href="#pt" onclick="changeLang('pt')">
+				    <img class="easy__flag-4 hover__effect" src="../assets/spain.png" href="#es" onclick="changeLang('es')">
 				  </div>
 				</div>
 			</a>
@@ -63,22 +59,22 @@
 				<img src="/assets/cll-white.png">
 			</div>
 			<a class="nav__about hide__sm " href="#about" data-aos="fade-up">
-				<h3 class="hover__effect">SOBRE NÓS</h3>
+				<h3 class="hover__effect" id="m1d">SOBRE NÓS</h3>
 			</a>
 			<a class="nav__tours hide__sm " href="#tours" data-aos="fade-up">
-				<h3 class="hover__effect">PASSEIOS</h3>
+				<h3 class="hover__effect" id="m2d">PASSEIOS</h3>
 			</a>
 			<a class="nav__rents hide__sm " href="#rents" data-aos="fade-up">
-				<h3 class="hover__effect">ALUGUERES</h3>
+				<h3 class="hover__effect" id="m3d">ALUGUERES</h3>
 			</a>
 			<a class="nav__safety hide__sm " href="#safety" data-aos="fade-up">
-				<h3 class="hover__effect">AVISOS</h3>
+				<h3 class="hover__effect" id="m4d">AVISOS</h3>
 			</a>
 			<a class="nav__testimonials hide__sm " href="#testimonials" data-aos="fade-up">
-				<h3 class="hover__effect">TESTEMUNHOS</h3>
+				<h3 class="hover__effect" id="m5d">TESTEMUNHOS</h3>
 			</a>
 			<a class="nav__gallery hide__sm " href="#gallery" data-aos="fade-up">
-				<h3 class="hover__effect">GALERIA</h3>
+				<h3 class="hover__effect" id="m6d">GALERIA</h3>
 			</a>
 			<!-- <a class="nav__contacts hide__sm" href="#contacts"><h3>CONTACTOS</h3></a> -->
 

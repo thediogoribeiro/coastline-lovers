@@ -145,13 +145,13 @@ const language = {
 
     },
     fr:{
-        menu1Desktop:"À propos de nous",
+        menu1Desktop:"À PROPOS",
         menu2Desktop:"EXCURSIONS",
         menu3Desktop:"LOCATIONS ",
         menu4Desktop:"AVISOS",
         menu5Desktop:"TÉMOIGNAGES ",
         menu6Desktop:"GALLERIES PHOTOS",
-        menu1mobile:"À propos de nous",
+        menu1mobile:"À PROPOS",
         menu2mobile:"EXCURSIONS",
         menu3mobile:"LOCATIONS ",
         menu4mobile:"AVISOS",
@@ -162,7 +162,7 @@ const language = {
         headText1:"Découvrez les grottes les plus célèbres de la côte de l'Algarve !",
         headText2:"Uma experiência verdadeiramente incrível!",
         headButton1:"RESERVE JÁ",
-        aboutTitle:"À propos de nous",
+        aboutTitle:"À PROPOS DE NOUS",
         aboutText1:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Lobortis feugiat vivamus at augue. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Facilisi nullam vehicula ipsum a arcu. Enim eu turpis egestas pretium. Scelerisque in dictum non consectetur a erat.",
         toursTitle:"EXCURSIONS",
         toursText1:"Venez découvrir les meilleures activités à faire entre amis ou en famille ! Profitez d'une belle promenade à bord du bateau du Club Naval de Portimão destination la célèbre grotte de Benagil.",
@@ -208,7 +208,7 @@ const language = {
         contactsTitle:"FALE CONNOSCO",
         footerInfo1:"MAIS INFORMAÇÔES",
         footerMenu:"MENU",
-        footerAbout:"À propos de nous",
+        footerAbout:"À PROPOS",
         footerTours:"EXCURSIONS",
         footerRents:"LOCATIONS ",
         footerTest:"TÉMOIGNAGES ",
@@ -283,7 +283,6 @@ function changeLang(lang){
         document.getElementById('testxt2').innerHTML = language.pt.testText2;
         document.getElementById('gtxt1').innerHTML = language.pt.galleryText1;
         document.getElementById('gf1').innerHTML = language.pt.galleryFollow1;
-        document.getElementById('ct1').innerHTML = language.pt.contactsTitle;
         document.getElementById('fi1').innerHTML = language.pt.footerInfo1;
         document.getElementById('fm1').innerHTML = language.pt.footerMenu;
         document.getElementById('fa1').innerHTML = language.pt.footerAbout;
@@ -354,7 +353,6 @@ function changeLang(lang){
         document.getElementById('testxt2').innerHTML = language.eng.testText2;
         document.getElementById('gtxt1').innerHTML = language.eng.galleryText1;
         document.getElementById('gf1').innerHTML = language.eng.galleryFollow1;
-        document.getElementById('ct1').innerHTML = language.eng.contactsTitle;
         document.getElementById('fi1').innerHTML = language.eng.footerInfo1;
         document.getElementById('fm1').innerHTML = language.eng.footerMenu;
         document.getElementById('fa1').innerHTML = language.eng.footerAbout;
@@ -427,7 +425,6 @@ function changeLang(lang){
         document.getElementById('testxt2').innerHTML = language.fr.testText2;
         document.getElementById('gtxt1').innerHTML = language.fr.galleryText1;
         document.getElementById('gf1').innerHTML = language.fr.galleryFollow1;
-        document.getElementById('ct1').innerHTML = language.fr.contactsTitle;
         document.getElementById('fi1').innerHTML = language.fr.footerInfo1;
         document.getElementById('fm1').innerHTML = language.fr.footerMenu;
         document.getElementById('fa1').innerHTML = language.fr.footerAbout;
