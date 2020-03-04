@@ -18,9 +18,6 @@ var SibApiV3Sdk = require('sib-api-v3-sdk');
 var defaultClient = SibApiV3Sdk.ApiClient.instance;
 var apiKey = defaultClient.authentications['api-key'];
 
-//oficial
-//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
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -32,7 +29,7 @@ function sendInBlue(pNome,uNome,mail,data, hora, tour, adultos, criancas, bebes,
     apiKey.apiKey = keys.sendinBlueAPIKey;
     var smtpApiInstance = new SibApiV3Sdk.SMTPApi();
     var contactsApiInstance = new SibApiV3Sdk.ContactsApi();
-    var createContact = new SibApiV3Sdk.CreateContact(); // CreateContact | Values to create a contact
+    var createContact = new SibApiV3Sdk.CreateContact(); 
     createContact = {
         email: mail,
         updateEnabled: true,
@@ -93,12 +90,10 @@ function handleDisconnect() {
 handleDisconnect();
 
 app.get('/', function (req, res) {
-    //res.sendFile(path.join(__dirname + '/public/views/index'));
     res.render(__dirname + '/public/views/index');
 });
 
 app.get('/views/booking', function (req, res) {
-    //res.sendFile(path.join(__dirname + '/public/views/index'));
     res.render(__dirname + '/public/views/booking');
 });
 
@@ -106,7 +101,6 @@ app.get('/views/booking', function (req, res) {
 app.listen(process.env.PORT || 3000)
 
 app.get('/Administrador', function(req, res){
-    //response.sendFile(path.join(__dirname + '/public/views/admin'));
     res.render(__dirname + '/public/views/admin');
 });
 
@@ -133,10 +127,10 @@ app.post('/FreeReservation',(req, res) => {
     var uNome = req.body.lName;
     var tel = req.body.tel;
     var date = req.body.date;
+    seats = parseInt(adults, 10)+parseInt(children, 10);
     if (tour=="normal") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='normal' OR tour='private') AND hora= ? AND data= ? GROUP BY hora;";
         price = (parseInt(adults, 10)*bAdultoN)+(parseInt(children, 10)*bCriancaN);
-        seats = parseInt(adults, 10)+parseInt(children, 10);
     }
     else if (tour=="private") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
@@ -148,7 +142,6 @@ app.post('/FreeReservation',(req, res) => {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
         price = (parseInt(adults, 10)*bAdultoE)+(parseInt(children, 10)*bCriancaE);
         time="13h-14h;";
-        seats = parseInt(adults, 10)+parseInt(children, 10);
     }
     price = price/100;
     BD.query(sqlStr,[time,date], function(err,sqlRes) {
@@ -158,9 +151,7 @@ app.post('/FreeReservation',(req, res) => {
             booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'FREE', ?)";
             BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,req.body.code,req.body.promo], function(err,sqlRes) {
                 if (err) console.log(err);
-                else{
-                    sendInBlue(pNome, uNome, mail, date, time, tour, adults, children, babys, price);
-                }
+                else sendInBlue(pNome, uNome, mail, date, time, tour, adults, children, babys, price);
             });
             if(adminPW==req.body.code) res.send({ code: "ADMIN" });
             else if(promo.includes(req.body.code)) res.send({ code: "PROMO" });
@@ -184,45 +175,42 @@ app.post('/PaidReservation',(req, res) => {
     var uNome = req.body.lName;
     var tel = req.body.tel;
     var date = req.body.date;
+    seats = parseInt(adults, 10)+parseInt(children, 10);
     if (tour=="normal") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE (tour='normal' OR tour='private') AND hora= ? AND data= ? GROUP BY hora;";
         price = (parseInt(adults, 10)*bAdultoN)+(parseInt(children, 10)*bCriancaN);
-        seats = parseInt(adults, 10)+parseInt(children, 10);
     }
     else if (tour=="private") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
         seats=9;
-        price = (3000*9);
+        price = 30000;
         time="18h-20h;";
     }
     else if(tour=="express") {
         sqlStr = "SELECT SUM(lugares), SUM(bebes), data, GROUP_CONCAT(hora SEPARATOR '; ') FROM `bookings` WHERE tour="+mysql.escape(tour)+" AND hora= ? AND data= ? GROUP BY hora;";
         price = (parseInt(adults, 10)*bAdultoE)+(parseInt(children, 10)*bCriancaE);
         time="13h-14h;";
-        seats = parseInt(adults, 10)+parseInt(children, 10);
     }
     BD.query(sqlStr,[time,date], function(err,sqlRes) {
         if (err) console.log(err);
         if (sqlRes[0]==null || (sqlRes[0]['SUM(lugares)']+parseInt(seats, 10)<=9 && sqlRes[0]['SUM(bebes)']+parseInt(babys, 10)<=3)){   
-        stripe.charges.create({
-            amount: price,
-            source: req.body.stripeTokenId,
-            currency: 'eur',
-            receipt_email: mail
-        }).then(charge =>  {
-            price = price/100;
-            var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `stripeID`, `codigoPromo` ) ";
-            booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,charge.id,req.body.promo], function(err,sqlRes) {
-                if (err) console.log(err);
-                else{
-                    sendInBlue(pNome, uNome, mail, date, time, tour, adults, children, babys, price);
-                }
+            stripe.charges.create({
+                amount: price,
+                source: req.body.stripeTokenId,
+                currency: 'eur',
+                receipt_email: mail
+            }).then(charge =>  {
+                price = price/100;
+                var booking = "INSERT INTO bookings (`primeiroNome`,  `ultimoNome`, `email`, `telefone`, `tour`, `lugares`, `bebes`, `observacoes`, `data`, `hora`, `preco`, `stripeID`, `codigoPromo` ) ";
+                booking += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                BD.query(booking, [pNome,uNome,mail,tel,tour,seats,babys,text,date,time,price,charge.id,req.body.promo], function(err,sqlRes) {
+                    if (err) console.log(err);
+                    else sendInBlue(pNome, uNome, mail, date, time, tour, adults, children, babys, price);
+                });
+            }).catch(error => {
+                console.log(error);
+                res.status(500).end();
             });
-        }).catch(error => {
-            console.log(error);
-            res.status(500).end();
-        });
             res.send({ insert: "OK" });
         }else{
             res.send({ insert: "ERROR" });
@@ -313,9 +301,7 @@ app.post('/deleteANDinsertReservation',(req, res) => {
             date =date.replace("T00:00:00.000Z", "");
             date =date.replace('"', '');
             date =date.replace('"', '');
-        }else{
-            date = req.body.date;
-        }
+        }else{date = req.body.date;}
         var pNome= req.body.fName;
         var uNome= req.body.lName;
         var mail= req.body.email; 
@@ -357,7 +343,7 @@ app.post('/deleteANDinsertReservation',(req, res) => {
             }
             else if (tour=="private") {
                 lugares=9;
-                price = (30*9);
+                price = 300;
             }
             else if(tour=="express") {
                 price = (((parseInt(adults)*bAdultoE)+(parseInt(children)*bCriancaE))/100);

@@ -20,6 +20,8 @@ var code ="";
 var arrow="&uarr;";
 
 window.onload = function() {
+	checkAndChangeTour();
+	translateBooking();
 	date = new Date();
 	let day = date.getDate();
 	let month = date.getMonth();
@@ -33,6 +35,26 @@ window.onload = function() {
 	getSeatsFromDate();
 	document.getElementById('date_Field').value = selectedDay + "/"+ selectedMonth +"/"+selectedYear;
 };
+
+function checkAndChangeTour(){
+	if(window.location.href.includes("#normal")){
+		document.getElementById('rb-normal').checked=true;
+		document.getElementById('txt-normal').style.display = "block";
+		document.getElementById('txt-private').style.display = "none";
+		document.getElementById('txt-express').style.display = "none";
+	}else if(window.location.href.includes("#private")){
+		document.getElementById('rb-private').checked=true;
+		document.getElementById('txt-normal').style.display = "none";
+		document.getElementById('txt-private').style.display = "block";
+		document.getElementById('txt-express').style.display = "none";
+	}else if(window.location.href.includes("#express")){
+		document.getElementById('rb-express').checked=true;
+		document.getElementById('txt-normal').style.display = "none";
+		document.getElementById('txt-private').style.display = "none";
+		document.getElementById('txt-express').style.display = "block";
+	}
+
+}
 
 function convertDateFromat(str){
 	var index = str.indexOf("/");
@@ -473,8 +495,6 @@ function radioClick(radio){
 	}
 	getSeatsFromDate();
 }
-
-
 
 function cbClick(cb){
 	maxSeats = (lugaresMax[cb-1]);

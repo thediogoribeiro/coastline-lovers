@@ -17,23 +17,18 @@ function hamburgerChange(){
   };
 }
 
-// BOOKING pre selected
-function openBooking(txt) {
-  console.log(txt)
-  document.getElementsById(txt).checked = true;
-
+function linkWithTour(tour){
+  window.open("/views/booking#"+gLang+"#"+tour,'_self');
 }
 
 // Hamburger color change
 window.onscroll = function () {
-  //console.log(this.scrollY);
   const nav = document.getElementById('icon__effect');
-  if(this.scrollY <= 800){
-    //console.log('branco');
+  const about = document.getElementById('about');
+  if(about.getBoundingClientRect().top>=90){
     nav.style.color = '#FFFFFF';
     nav.style.borderColor = '#FFFFFF'; 
   }else{
-    //console.log('azul');
     nav.style.color = '#0E3356';
     nav.style.borderColor = '#0E3356';
   }

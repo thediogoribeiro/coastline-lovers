@@ -20,7 +20,6 @@
 	<script type="text/javascript" src="javascripts/translateIndex.js"></script>
 </head>
 <body id="landing-page" onresize="hamburgerChange()">
-	<script>AOS.init();</script>
 	<div id="easy-bar">
 		<div class="easy-bar">
 			<a class="easy__item-1 hover__effect" href="https://www.instagram.com/coastlinelovers/">
@@ -39,14 +38,15 @@
 			</a>
 			<a class="easy__item-5">
 				<div class="easy__dropdown">
-					<img class="easy__dropbtn hover__effect" src="../assets/uk.png" href="#eng" onclick="showBurger('easy__dropdown-content'); changeLang('eng');">
+					<img id="main_flag" class="easy__dropbtn hover__effect" src="../assets/uk.png" href="#uk" onclick="showBurger('easy__dropdown-content')">
 					<i class="fas fa-sort-down" onclick="showBurger('easy__dropdown-content')"></i> 
 				  <div class="easy__dropdown-content" id="easy__dropdown-content">
-				  	<!-- changeLang('eng'); -->
-				    <img class="easy__flag-1 hover__effect" src="../assets/france.png" href="#fr" onclick="changeLang('fr')">
-				    <img class="easy__flag-2 hover__effect" src="../assets/germany.png" href="#de" onclick="changeLang('de')">
-				    <img class="easy__flag-3 hover__effect" src="../assets/portugal.png" href="#pt" onclick="changeLang('pt')">
-				    <img class="easy__flag-4 hover__effect" src="../assets/spain.png" href="#es" onclick="changeLang('es')">
+					  <!-- changeLang('eng'); -->
+					<img id="uk_flag" class="easy__flag-1 hover__effect" src="../assets/uk.png" onclick="changeLang('uk')" style="display:none;">
+				    <img id="fr_flag" class="easy__flag-1 hover__effect" src="../assets/fr.png" onclick="changeLang('fr')">
+				    <img id="de_flag" class="easy__flag-2 hover__effect" src="../assets/de.png" onclick="changeLang('de')">
+				    <img id="pt_flag" class="easy__flag-3 hover__effect" src="../assets/pt.png" onclick="changeLang('pt')">
+				    <img id="es_flag" class="easy__flag-4 hover__effect" src="../assets/es.png" onclick="changeLang('es')">
 				  </div>
 				</div>
 			</a>
@@ -139,10 +139,10 @@
 
 			<div class="tours-1" data-aos="fade-up">
 				<div class="tours__photo-1">
-					<img src="../assets/Kayak-tour.jpg">
+					<img onclick="linkWithTour('normal')" src="../assets/Kayak-tour.jpg">
 				</div>
 				<div class="tours__text-1">
-					<a href="/views/booking">
+					<a id="linkBooking2" onclick="linkWithTour('normal')">
 						<h3 class="hover__effect" id="ttxt5">PASSEIO BENAGIL</h3>
 					</a>
 				</div>
@@ -150,10 +150,10 @@
 
 			<div class="tours-2" data-aos="fade-up">
 				<div class="tours__photo-2">
-					<img src="../assets/gruta-tour.jpg">
+					<img onclick="linkWithTour('private')" src="../assets/gruta-tour.jpg">
 				</div>
 				<div class="tours__text-2">
-					<a href="/views/booking">
+					<a onclick="linkWithTour('private')" id="linkBooking3" >
 						<h3 class="hover__effect" id="ttxt6">PASSEIO PRIVADO</h3>
 					</a>
 				</div>
@@ -161,10 +161,10 @@
 
 			<div class="tours-3" data-aos="fade-up">
 				<div class="tours__photo-3">
-					<img src="../assets/express-tour.jpg">
+					<img onclick="linkWithTour('express')" src="../assets/express-tour.jpg">
 				</div>
 				<div class="tours__text-3">
-					<a href="/views/booking">
+					<a onclick="linkWithTour('express')" id="linkBooking4">
 						<h3 class="hover__effect" id="ttxt7">PASSEIO EXPRESSO</h3>
 					</a>
 				</div>
@@ -280,8 +280,6 @@
 			<div class="safety__icon" data-aos="fade-up">
 				<i class="fas fa-exclamation-triangle fa-inverse fa-4x"></i>
 			</div>
-
-<<<<<<< HEAD:public/views/index.ejs
 			<div class="safety__title" data-aos="fade-up">
 				<h2 id="st1" class="">AVISOS IMPORTANTES</h2>
 			</div>
@@ -330,26 +328,5 @@
 
 		</div>
 	</div>
-	<!-- 
-	<div id="contacts" class="container hide__md">
-		<div class="contacts__box row">
-
-			<div class="contacts__title">
-				<h2 id="ct1">FALE CONNOSCO</h2>
-			</div>
-
-			<a class="contacts__icon-1" href="tel:+351938856548">
-				<i class="fas fa-phone-alt fa-2x"></i>
-				<div class="icon__circle-1"></div>
-			</a>
-
-			<a class="contacts__icon-2" href="mailto:info@coastlinelovers.com">
-				<i class="far fa-envelope fa-2x"></i>
-				<div class="icon__circle-2"></div>
-			</a>
-
-		</div>
-	</div>
-	-->
 	<%- include('partials/footer'); -%>
 

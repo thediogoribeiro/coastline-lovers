@@ -60,6 +60,7 @@ const language = {
         testText1:"“Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão“",
         testText2:"Fernando Sousa, Porto",
         galleryText1:"Vê algumas das nossas experiências no nosso instagram:",
+        galleryFollow1:"Seguir o instagram",
         contactsTitle:"FALE CONNOSCO",
         footerInfo1:"MAIS INFORMAÇÔES",
         footerMenu:"MENU",
@@ -87,7 +88,7 @@ const language = {
         headTitle: "BENAGIL CAVES",
         headText1: "Discover the most famous caves on the Algarve coast.",
         headText2: "A truly incredible experience!",
-        headButton1:"RESERVE NOW",
+        headButton1:"BOOK NOW",
         aboutTitle: "ABOUT US",
         aboutText1: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac. . Eget egestas purus viverra accumsan in nisl nisi scelerisque. Facilisi nullam vehicula ipsum a arcu.",
         toursTitle: "TOURS",
@@ -131,11 +132,12 @@ const language = {
         testText1: "“ We have been to the Nossa Senhora da Rocha beach for over 10 years. A spectacular place, very welcoming and without confusion! Great for recharging in the summer “",
         testText2: "Fernando Sousa, Porto",
         galleryText1: "Check out some of our experiences on our instagram:",
+        galleryFollow1:"Follow instagram",
         contactsTitle: "TALK TO US",
         footerInfo1: "MORE INFORMATION",
         footerMenu: "MENU",
         footerAbout: "ABOUT US",
-        footerTours: "PASSEIOS",
+        footerTours: "TOURS",
         footerRents: "RENTALS",
         footerTest: "TESTIMONIES",
         footerGallery: "GALLERY",
@@ -160,8 +162,8 @@ const language = {
         menu7mobile:"CONTACTOS",
         headTitle:"GRUTAS DE BENAGIL",
         headText1:"Découvrez les grottes les plus célèbres de la côte de l'Algarve !",
-        headText2:"Uma experiência verdadeiramente incrível!",
-        headButton1:"RESERVE JÁ",
+        headText2:"Une incroyable expérience!",
+        headButton1:"RÉSERVEZ DÈS MAINTENANT",
         aboutTitle:"À PROPOS DE NOUS",
         aboutText1:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tristique senectus et netus et malesuada fames ac. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Lobortis feugiat vivamus at augue. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Facilisi nullam vehicula ipsum a arcu. Enim eu turpis egestas pretium. Scelerisque in dictum non consectetur a erat.",
         toursTitle:"EXCURSIONS",
@@ -205,6 +207,7 @@ const language = {
         testText1:"“Já vimos para a praia Nossa Senhora da Rocha há mais de 10 anos. Um local espetacular, bastante acolhedor e sem confusões! Ótimo para recarregar energias no verão“",
         testText2:"Fernando Sousa, Porto",
         galleryText1:"Découvrez nos expériences sur notre page Instagram:",
+        galleryFollow1:"Suivez instagram",
         contactsTitle:"FALE CONNOSCO",
         footerInfo1:"MAIS INFORMAÇÔES",
         footerMenu:"MENU",
@@ -220,7 +223,39 @@ const language = {
     }
 }
 
+var gLang;
+window.onload = function() {
+    if(window.location.href.includes("#pt") || window.location.href.includes("#es") || window.location.href.includes("#fr") || window.location.href.includes("#de") || window.location.href.includes("#uk")){
+        gLang=window.location.href.split('#')[1];
+        changeLang(gLang);
+        return;
+    }
+    gLang = navigator.language || navigator.userLanguage;
+    if (gLang.includes('pt')){
+        changeLang('pt');
+    }else if (gLang.includes('es')){
+        changeLang('es');
+    }else if (gLang.includes('fr')){
+        changeLang('fr');
+    }else if (gLang.includes('de')){
+        changeLang('de');
+    }else{
+        changeLang('uk');
+    }
+}
+
 function changeLang(lang){
+    gLang=lang;
+    document.getElementById('main_flag').src="../assets/"+lang+".png";
+    document.getElementById('pt_flag').style.display = "block";
+    document.getElementById('de_flag').style.display = "block";
+    document.getElementById('fr_flag').style.display = "block";
+    document.getElementById('es_flag').style.display = "block";
+    document.getElementById('uk_flag').style.display = "block";
+    document.getElementById(lang+'_flag').style.display = "none";
+    window.history.pushState("object or string", "Page Title", "/#"+lang);
+    document.getElementById('hb1').href ="/views/booking#"+lang;
+    document.getElementById('easy__dropdown-content').style.display = "none";
     if(lang==="pt"){
         document.getElementById('m1d').innerHTML = language.pt.menu1Desktop;
         document.getElementById('m2d').innerHTML = language.pt.menu2Desktop;
@@ -291,7 +326,7 @@ function changeLang(lang){
         document.getElementById('ftes1').innerHTML = language.pt.footerTest;
         document.getElementById('fg1').innerHTML = language.pt.footerGallery;
         document.getElementById('fc1').innerHTML = language.pt.footerContacts;
-    }else if(lang==="eng"){
+    }else if(lang==="uk"){
         document.getElementById('m1d').innerHTML = language.eng.menu1Desktop;
         document.getElementById('m2d').innerHTML = language.eng.menu2Desktop;
         document.getElementById('m3d').innerHTML = language.eng.menu3Desktop;
