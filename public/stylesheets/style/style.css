@@ -113,15 +113,15 @@ body {
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   #about {
-    padding: 4em 3.5em 0 3.5em; } }
+    padding: 0em 3.5em 0 3.5em; } }
 
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
   #about {
-    padding: 0em 5.5em 0em 5.5em; } }
+    padding: 4em 5.5em 0em 5.5em; } }
 
 @media screen and (min-width: 1280px) and (max-width: 1439px) {
   #about {
-    padding: 0em 8.5em 0em 8.5em; } }
+    padding: 4em 8.5em 0em 8.5em; } }
 
 @media screen and (min-width: 1440px) {
   #about {
@@ -1297,19 +1297,19 @@ p, input {
   grid-template-columns: 1fr; }
   @media screen and (min-width: 320px) and (max-width: 767px) {
     #about .about__box {
-      grid-template-rows: 1fr 3fr 3fr; } }
+      grid-template-rows: 0.7fr 3fr 2fr; } }
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     #about .about__box {
-      grid-template-rows: 1fr 2fr 2.5fr; } }
+      grid-template-rows: 1fr 2fr 2fr; } }
   @media screen and (min-width: 1024px) and (max-width: 1279px) {
     #about .about__box {
-      grid-template-rows: 1fr 1fr 2fr; } }
+      grid-template-rows: 1fr 2.5fr 2.5fr; } }
   @media screen and (min-width: 1280px) and (max-width: 1439px) {
     #about .about__box {
-      grid-template-rows: 1fr 1fr 2.5fr; } }
+      grid-template-rows: 1fr 2fr 2.5fr; } }
   @media screen and (min-width: 1440px) {
     #about .about__box {
-      grid-template-rows: 1fr 1.2fr 3fr; } }
+      grid-template-rows: 1fr 2fr 3fr; } }
 
 #about .about__title {
   grid-row-start: 1;
@@ -1335,10 +1335,10 @@ p, input {
       align-self: start; } }
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     #about .about__text {
-      align-self: start; } }
+      align-self: center; } }
   @media screen and (min-width: 1024px) and (max-width: 1279px) {
     #about .about__text {
-      align-self: end; } }
+      align-self: start; } }
   @media screen and (min-width: 1280px) {
     #about .about__text {
       align-self: start; } }
@@ -1355,7 +1355,7 @@ p, input {
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     #about .about__map {
       margin: 0 -3.4em 0 -3.4em;
-      align-self: end; } }
+      align-self: center; } }
   @media screen and (min-width: 1024px) and (max-width: 1279px) {
     #about .about__map {
       justify-self: center;
