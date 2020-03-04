@@ -17,11 +17,8 @@ function hamburgerChange(){
   };
 }
 
-// BOOKING pre selected
-function openBooking(txt) {
-  console.log(txt)
-  document.getElementsById(txt).checked = true;
-
+function linkWithTour(tour){
+  window.open("/views/booking#"+gLang+"#"+tour,'_self');
 }
 
 // Hamburger color change

@@ -1,25 +1,25 @@
 <div id="booking" class="booking"> <!-- form-style-1 -->
 
 	<div class="book__title">
-		<h5>AGENDAR VIAGEM</h5>
+		<h5 id="booktrip">AGENDAR VIAGEM</h5>
 	</div>
 
 	<div id="book__calendar" class="book__calendar">
-		<h5 class="bcal__title">Selecione a data: <a id="required6" class="required">*</a></h5>
+		<h5 id="select-date-txt" class="bcal__title">Selecione a data: <a id="required6" class="required">*</a></h5>
 		<input class="datepicker bcal__input" id="date_Field" type="text" name="birthdate" autocomplete="off" readonly=""/>
 	</div>
 
 	<div id="book__tour" class="book__tour">			
-		<h5 class="btour__title">Selecione a tour:</h5>
-		<input class="btour__input-1" id="rb-normal" type="radio" name="tour" value="1" onclick="radioClick('1');"checked><p class="btour__p-1"> Benagil Normal</p><a class="btour__a-1"> (2 horas)</a><br>
-		<input class="btour__input-2" id="rb-private" type="radio" name="tour" value="2" onclick="radioClick('2');"><p class="btour__p-2"> Benagil Private</p><a class="btour__a-2"> (todos os lugares)</a><br>
-		<input class="btour__input-3" id="rb-express" type="radio" name="tour" value="3" onclick="radioClick('3');"><p class="btour__p-3"> Benagil Express<a class="btour__a-3"> (1 hora)</a></p><br>  
+		<h5 id="select-tour-txt" class="btour__title">Selecione a tour: <a id="required" class="required">*</a></h5>
+		<input class="btour__input-1" id="rb-normal" type="radio" name="tour" value="1" onclick="radioClick('1');"checked><p class="btour__p-1"> Benagil Normal</p><a id="2h" class="btour__a-1"> (2 horas)</a><br>
+		<input class="btour__input-2" id="rb-private" type="radio" name="tour" value="2" onclick="radioClick('2');"><p class="btour__p-2"> Benagil Private</p><a id="all-seats" class="btour__a-2"> (todos os lugares)</a><br>
+		<input class="btour__input-3" id="rb-express" type="radio" name="tour" value="3" onclick="radioClick('3');"><p class="btour__p-3"> Benagil Express<a id="1h" class="btour__a-3"> (1 hora)</a></p><br>  
 	</div>
 
 	<div id="book__schedule" class="book__schedule">
 
 		<div id="normaltour">
-			<h5 class="bsch__title">Escolha a hora:<a id="required1" class="required"></a></h5>
+			<h5 id="select-time-txt" class="bsch__title">Escolha a hora:<a id="required1" class="required"></a></h5>
 			<input class="bsch__input-1" id="cb1" type="radio" name="hora" value="1" onclick="cbClick('1');" checked><p class="bsch__p-1">9h-11h</p><a class="bsch__a-1" id="cb1Text"></a>
 			<br>
 			<input class="bsch__input-2" id="cb2" type="radio" name="hora" value="2" onclick="cbClick('2');"><p class="bsch__p-2">11h-13h</p><a class="bsch__a-2" id="cb2Text"></a>
@@ -50,7 +50,7 @@
 
 		<div id="lugares" class="lugares">
 
-			<h5 class="btick__title">Número de Pessoas:
+			<h5 id="select-seats-txt" class="btick__title">Número de Pessoas:
 				<a id="required5" class="required">*</a>
 			</h5>
 
@@ -72,12 +72,12 @@
 
 			<div class="btick__kid" id="lugares_crianca">
 				<div class="btick__kidnormal" id="lc-normal">
-					<p class="btick__p-4">Crianças - 15,00 €</p>
-					<a class="btick__a-1">(dos 3 aos 10 anos)</a>
+					<p class="btick__p-4"><span id="children-txt1" >Crianças</span> - 15,00 €</p>
+					<a id="children-txt-age1" class="btick__a-1">(4-10)</a>
 				</div>
 				<div class="btick__kidexp" id="lc-express" style="display:none;">
-					<p class="btick__p-5">Criança - 12,5 €</p>
-					<a class="btick__a-2">(dos 3 aos 10 anos)</a>
+					<p class="btick__p-5"><span id="children-txt2" >Crianças</span> - 12,5 €</p>
+					<a id="children-txt-age2" class="btick__a-2">(4-10)</a>
 				</div>
 				<input class="btick__input-4 button-minus" id="ciancamenos" type="button" value="-" onclick="criancaMenos()">
 				<input class="btick__input-5 quantity-field" id="ciancanum" type="number" step="1" max="" value=0 name="category_1740" readonly="">
@@ -86,8 +86,8 @@
 
 			<div class="btick__baby" id="lugares_bebes">
 				<div class="btick__free" id="lb-normal">
-					<p class="btick__p-6">Crianças - (Grátis)</p>
-					<a class="btick__a-3">(menos 3 anos)</a><a id="bebeSeatsNum"></a>
+					<p id="baby-txt" class="btick__p-6">Crianças - (Grátis)</p>
+					<a id="baby-txt-age" class="btick__a-3">(&le; 3)</a><a id="bebeSeatsNum"></a>
 				</div>
 				<input class="btick__input-7 button-minus" id="bebemenos" type="button" value="-" onclick="bebeMenos()">
 				<input class="btick__input-8 quantity-field" id="bebenum" type="number" step="1" max="" value=0 name="category_1740" readonly="">
@@ -99,29 +99,29 @@
 	</div>	
 
 	<div class="book__info">
-		<h5>INFORMAÇÕES DE CONTATO</h5>
+		<h5 id="contactInfo">INFORMAÇÕES DE CONTATO</h5>
 	</div>
 
 	<div class="book__xlview__grid">
 		
 		<div id="book__name" class="book__name">
-			<h5 class="bname__title">Nome <a id="required2" class="required">*</a></h5>
+			<h5 id="select-name-txt" class="bname__title">Nome <a id="required2" class="required">*</a></h5>
 			<input class="bname__input-1 field-divided" id="field1" type="text" name="field1" autocomplete="off"/> 
 			<input class="bname__input-2 field-divided" id="field2" type="text" name="field2" autocomplete="off"/>
 		</div>
 
 		<div id="book__email" class="book__email">
-			<h5 class="bemail__title">Email <a id="required3" class="required">*</a></h5>
+			<h5 id="select-email-txt" class="bemail__title">Email <a id="required3" class="required">*</a></h5>
 			<input class="bemail__input-1 field-long" id="field3" type="email" name="field3" autocomplete="off"/>
 		</div>
 
 		<div id="book__phone" class="book__phone">
-			<h5 class="bphone__title">Telefone <a id="required4" class="required">*</a></h5>
+			<h5 id="select-tel-txt" class="bphone__title">Telefone <a id="required4" class="required">*</a></h5>
 			<input class="bphone__input-1 field-long" id="field4" type="tel" name="field4" autocomplete="off"/>
 		</div>
 
 		<div id="book__notes" class="book__notes">
-			<h5 class="bnotes__title">Observações <a>(Não obrigátório):</a></h5>
+			<h5 id="select-obs-txt" class="bnotes__title">Observações <a id="opcional-txt">(Não obrigátório):</a></h5>
 			<textarea class="bnotes__input-1 field-long field-textarea" id="field5" name="field5"></textarea id="field5">
 		</div>
 
@@ -130,12 +130,12 @@
 	
 
 	<div id="book__code" class="book__code">
-		<h5 class="bcode__title">Código promocional <a>(Não obrigátório):</a></h5>
+		<h5 id="select-promo-txt" class="bcode__title">Código promocional <a id="opcional-txt">(Não obrigátório):</a></h5>
 		<input class="bcode__input-1 field-long" id="promo-code" type="text" autocomplete="off"/>
 	</div>
 
 	<div id="book__button" class="book__button">
-		<button class="book-button" onclick="reserva()" id="reservebutton"><h5>COMPRAR</h5></button><br>
+		<button class="book-button" onclick="reserva()" id="reservebutton"><h5 id="reservebutton-txt">COMPRAR</h5></button><br>
 	</div>
 
 </div>
