@@ -5,11 +5,11 @@
 		@media screen and (min-width: $xs) and (max-width: $md - 1)
 			grid-template-rows: 1fr 3fr 3fr
 		@media screen and (min-width: $md) and (max-width: $lg - 1)
-			grid-template-rows: 1fr 2fr 3fr
+			grid-template-rows: 1fr 2fr 2.5fr
 		@media screen and (min-width: $lg) and (max-width: $xl - 1)
-			grid-template-rows: 1fr 1fr 3fr
+			grid-template-rows: 1fr 1fr 2fr
 		@media screen and (min-width: $xl) and (max-width: $xxl - 1)
-			grid-template-rows: 1fr 1fr 3fr
+			grid-template-rows: 1fr 1fr 2.5fr
 		@media screen and (min-width: $xxl)
 			grid-template-rows: 1fr 1.2fr 3fr
 
@@ -45,12 +45,19 @@
 		grid-row-end: 4
 		grid-column-start: 1
 		grid-column-end: 2
-		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+		@media screen and (min-width: $xs) and (max-width: $md - 1)
+			margin: 0 -1em 0 -1em
 			align-self: center
+		@media screen and (min-width: $md) and (max-width: $lg - 1)
+			margin: 0 -3.4em 0 -3.4em
+			align-self: end
 		@media screen and (min-width: $lg) and (max-width: $xl - 1)
 			justify-self: center
 			align-self: center
-		@media screen and (min-width: $xl)
+		@media screen and (min-width: $xl) and (max-width: $xxl - 1)
+			justify-self: center
+			align-self: center
+		@media screen and (min-width: $xxl)
 			justify-self: center
 			align-self: end
 
@@ -59,17 +66,15 @@
 				width: 100%
 				height: auto
 			@media screen and (min-width: $lg) and (max-width: $xl - 1)
-				width: 730px
+				width: 100% //730px
+				max-width: 900px
 				height: auto
 			@media screen and (min-width: $xl) and (max-width: $xxl - 1)
-				width: 750px
+				width: 900px
 				height: auto
 			@media screen and (min-width: $xxl)
-				width: 800px
+				width: 1000px
 				height: auto
-
-
-
 
 
 

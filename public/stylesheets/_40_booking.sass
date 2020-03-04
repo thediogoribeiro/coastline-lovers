@@ -33,11 +33,16 @@
 	.bcal__input
 		margin-top: 20px
 		padding: 7px 0
-		width: 60%
 		text-align: center
 		font-size: 18px
 		background-color: $light-gold
 		border-color: $dark-blue
+		@media screen and (min-width: $xs) and (max-width: $smp - 1)
+			width: 68%
+		@media screen and (min-width: $smp) and (max-width: $lg - 1)
+			width: 53%
+		@media screen and (min-width: $lg)
+			width: 28%
 
 .book__tour
 	@media screen and (min-width: $xs) and (max-width: $lg - 1)

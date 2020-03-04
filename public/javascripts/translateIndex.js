@@ -220,6 +220,11 @@ const language = {
     }
 }
 
+window.onload = function(){
+    mapChange('about__map');
+
+}
+
 function changeLang(lang){
     if(lang==="pt"){
         document.getElementById('m1d').innerHTML = language.pt.menu1Desktop;

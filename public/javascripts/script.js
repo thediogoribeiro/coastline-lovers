@@ -48,3 +48,19 @@ window.onscroll = function () {
   };
 }
 
+function mapChange(xpto) {
+  var imagem = document.getElementById(xpto);
+  var janela = document.documentElement.clientWidth;
+  console.log(janela, imagem)
+  if ( janela >= 768 && janela < 1280){
+    imagem.src = "../assets/mapa_tablet_tablet-pt.jpg";
+  } else if ( janela >= 1280){
+    imagem.src = "../assets/mapa_website_website-pt.jpg";
+  } else {
+    imagem.src = "../assets/mapa_phone_phone-pt.jpg";
+  }
+}
+
+
+
+
