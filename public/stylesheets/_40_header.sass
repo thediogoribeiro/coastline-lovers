@@ -7,11 +7,15 @@
 	background-size: cover
 
 	.head__box
-		//@media screen and (min-width: $xs) and (max-width: $lg - 1)
-		height: 93vh
 		display: grid
 		grid-template-columns: 1fr
 		grid-template-rows: 1fr 1fr
+		@media screen and (min-width: $xs) and (max-width: $sm - 1)
+			height: 98vh
+		@media screen and (min-width: $sm) and (max-width: $lg - 1)
+			height: 93vh
+		@media screen and (min-width: $lg)
+			height: 100vh
 
 	.head__title
 		grid-row-start: 1

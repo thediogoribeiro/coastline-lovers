@@ -2,10 +2,16 @@
 	.about__box
 		display: grid
 		grid-template-columns: 1fr
-		@media screen and (min-width: $xs) and (max-width: $lg - 1)
-			grid-template-rows: 1fr 3fr
-		@media screen and (min-width: $lg)
-			grid-template-rows: 1fr 1.5fr
+		@media screen and (min-width: $xs) and (max-width: $md - 1)
+			grid-template-rows: 1fr 3fr 3fr
+		@media screen and (min-width: $md) and (max-width: $lg - 1)
+			grid-template-rows: 1fr 2fr 3fr
+		@media screen and (min-width: $lg) and (max-width: $xl - 1)
+			grid-template-rows: 1fr 1fr 3fr
+		@media screen and (min-width: $xl) and (max-width: $xxl - 1)
+			grid-template-rows: 1fr 1fr 3fr
+		@media screen and (min-width: $xxl)
+			grid-template-rows: 1fr 1.2fr 3fr
 
 	.about__title
 		grid-row-start: 1
@@ -29,8 +35,41 @@
 			align-self: start
 		@media screen and (min-width: $md) and (max-width: $lg - 1)
 			align-self: start
-		@media screen and (min-width: $lg)
-			align-self: end	
-		
+		@media screen and (min-width: $lg) and (max-width: $xl - 1)
+			align-self: end
+		@media screen and (min-width: $xl)
+			align-self: start
+	
+	.about__map	
+		grid-row-start: 3
+		grid-row-end: 4
+		grid-column-start: 1
+		grid-column-end: 2
+		@media screen and (min-width: $xs) and (max-width: $lg - 1)
+			align-self: center
+		@media screen and (min-width: $lg) and (max-width: $xl - 1)
+			justify-self: center
+			align-self: center
+		@media screen and (min-width: $xl)
+			justify-self: center
+			align-self: end
+
+		img
+			@media screen and (min-width: $xs) and (max-width: $lg - 1)
+				width: 100%
+				height: auto
+			@media screen and (min-width: $lg) and (max-width: $xl - 1)
+				width: 730px
+				height: auto
+			@media screen and (min-width: $xl) and (max-width: $xxl - 1)
+				width: 750px
+				height: auto
+			@media screen and (min-width: $xxl)
+				width: 800px
+				height: auto
+
+
+
+
 
 

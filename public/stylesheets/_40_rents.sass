@@ -244,15 +244,6 @@
 			align-self: center
 			text-align: left
 
-	.elem-12, .elem-22, .elem-32, .elem-42, .elem-52, .elem-62
-		grid-row-start: 2
-		grid-row-end: 3
-		grid-column-start: 1
-		grid-column-end: 2
-		margin-left: 20px
-		align-self: center
-		text-align: left
-
 	.elem-13, .elem-23, .elem-33, .elem-43, .elem-53, .elem-63
 		grid-row-start: 3
 		grid-row-end: 4
@@ -269,17 +260,28 @@
 
 	.elem-12, .elem-22, .elem-32, .elem-42, .elem-52, .elem-62
 		@media screen and (min-width: $xs) and (max-width: $lg - 1)
-			margin-left: 0
-			padding: 10px 0 5px 0
 			position: relative
+			text-align: left
+			padding: 10px 0 5px 0
 			bottom: -81px
 			color: $dark-blue													//	<---------- ESPERAR PELAS FOTOS ORIGINAIS
 			background-color: rgba(255, 255, 255, 0.8)//	<----------
 			p, i
 				position: relative
-				left: 30px
-
-
+				@media screen and (min-width: $xs) and (max-width: $md - 1)
+					left: 20px
+				@media screen and (min-width: $md)
+					left: 60px
+			@media screen and (min-width: $md) and (max-width: $lg - 1)
+				top: 129px
+		@media screen and (min-width: $lg)
+			grid-row-start: 2
+			grid-row-end: 3
+			grid-column-start: 1
+			grid-column-end: 2
+			margin-left: 20px
+			align-self: center
+			text-align: left
 
 
 

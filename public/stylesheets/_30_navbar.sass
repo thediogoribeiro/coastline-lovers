@@ -127,7 +127,10 @@
 				grid-column-end: 2
 				align-self: start
 				display: inline
-				margin-right: 5px
+				@media screen and (min-width: $xs) and (max-width: $md - 1)
+					margin-right: 2px
+				@media screen and (min-width: $md)
+					margin-right: 5px
 
 			.fa-sort-down
 				grid-row-start: 1
@@ -135,6 +138,7 @@
 				grid-column-start: 2
 				grid-column-end: 3
 				align-self: start
+				justify-self: center
 				color: $white
 
 			.easy__dropdown-content
@@ -142,26 +146,37 @@
 				display: none
 				position: absolute
 				z-index: 50
+				text-align: center
+				background-color: $dark-blue
+				border: 1px solid $white
+				border-radius: 10px
+				padding: 5px 5px 5px 7px
 				@media screen and (min-width: $xs) and (max-width: $md - 1)
-					width: 160px
+					width: 175px
 					top: 35px
-					@media screen and (min-width: $xs) and (max-width: $sm - 1)
-						right: 8%
-					@media screen and (min-width: $sm) and (max-width: $smp - 1)
-						right: 8% 
-					@media screen and (min-width: $smp) and (max-width: $md - 1)
-						right: 8%
+					right: 8%
 				@media screen and (min-width: $md)
-					left: 69%
+					width: 200px
 					top: 35px
-					width: 150px
+					@media screen and (min-width: $md) and (max-width: $lg - 1)
+						right: 11.5%
+					@media screen and (min-width: $lg) and (max-width: $xl - 1)
+						right: 7.5%
+					@media screen and (min-width: $xl) and (max-width: $xxl - 1)
+						right: 8%
+					@media screen and (min-width: $xxl)
+						right: 6%
+
 				.easy__flag-1, .easy__flag-2, .easy__flag-3, .easy__flag-4
 					display: inline
-					padding-right: 15px
+					margin: 0px 10px
 
 			img
 		  	width: auto
-		  	height: 20px
+		  	@media screen and (min-width: $xs) and (max-width: $md - 1)
+		  		height: 20px
+		  	@media screen and (min-width: $md)
+		  		height: 25px
 
 		.easy__item-1:hover, .easy__item-2:hover, .easy__item-3:hover, .easy__item-4:hover
 			color: $light-blue
@@ -215,8 +230,15 @@
 				width: 75%
 			@media screen and (min-width: $md) and (max-width: $lg - 1)
 				width: 50%
-			@media screen and (min-width: $lg)
+			@media screen and (min-width: $lg) and (max-width: $xl - 1)
 				width: 100%
+				margin-top: -11px
+			@media screen and (min-width: $xl) and (max-width: $xxl - 1)
+				width: 100%
+				margin-top: -20px
+			@media screen and (min-width: $xxl)
+				width: 100%
+				margin-top: -25px
 
 	.nav__about
 		@media screen and (min-width: $lg)
